@@ -4,7 +4,7 @@
   "description": "Calendar for your cash",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "run": "npm install&&node index.js"
   },
   "author": "Taylor Boyd",
   "license": "ISC",
