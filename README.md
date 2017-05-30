@@ -1,2 +1,2 @@
-# Cashalendar
-Calendar for your cash
+# MagicHearth
+MTG deckbuilder that functions like the hearthstone deckbuilder
