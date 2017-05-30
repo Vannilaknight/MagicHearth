@@ -24,14 +24,12 @@ function getEnv(name) {
     return process.env[key];
 }
 
-setEnv('port', 3030);
-// setEnv('live_api', 'http://localhost:3031');
+setEnv('port', 80);
 
 var config = {
     self: {
         port: getEnv('port'),
         rootPath: rootPath
-        // live_api: getEnv('live_api')
     }
 };
 
