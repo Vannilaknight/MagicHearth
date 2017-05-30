@@ -1,0 +1,26 @@
+{
+  "name": "cashalendar",
+  "version": "1.0.0",
+  "description": "Calendar for your cash",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Taylor Boyd",
+  "license": "ISC",
+  "dependencies": {
+    "assert-plus": "^1.0.0",
+    "body-parser": "^1.15.2",
+    "cookie-parser": "^1.4.3",
+    "express": "^4.14.0",
+    "express-session": "^1.14.1",
+    "http": "0.0.0",
+    "jade": "^1.11.0",
+    "magicbus": "^2.3.4",
+    "morgan": "^1.7.0",
+    "node-sass": "^3.10.0",
+    "node-sass-middleware": "^0.9.8",
+    "request": "^2.75.0",
+    "socket.io": "^1.7.2"
+  }
+}

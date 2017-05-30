@@ -1,0 +1,40 @@
+.container-fluid
+    .col-sm-12.deck-builder
+        .col-sm-9.collection-box
+            .row
+                .col-sm-12.color-filter
+                    ul
+                        li
+                            input#b(type="checkbox")
+                            label.color-tab.color-b(for="b" onclick) B
+                        li
+                            input#w(type="checkbox")
+                            label.color-tab.color-w(for="w" onclick) W
+                        li
+                            input#u(type="checkbox")
+                            label.color-tab.color-u(for="u" onclick) U
+                        li
+                            input#r(type="checkbox")
+                            label.color-tab.color-r(for="r" onclick) R
+                        li
+                            input#g(type="checkbox")
+                            label.color-tab.color-g(for="g" onclick) G
+                        li
+                            input#and(type="checkbox")
+                            label.color-tab.color-and(for="and" onclick) &
+            .row
+                #back.area-click.back-area
+                .col-sm-12.cards
+                    .row
+                        .col-sm-3(ng-repeat="card in topRow")
+                            .mtgcard
+                                img.img-responsive(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
+                    .row
+                        .col-sm-3(ng-repeat="card in botRow")
+                            .mtgcard
+                                img.img-responsive(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
+                #forward.area-click.next-area
+            .row
+                .col-sm-12.filter
+        .col-sm-3.deck-tray
+            span test 2
