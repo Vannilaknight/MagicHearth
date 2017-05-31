@@ -4,7 +4,8 @@
   "description": "Calendar for your cash",
   "main": "index.js",
   "scripts": {
-    "run": "npm install&&node index.js"
+    "run": "npm install&&node index.js",
+    "dev": "export NODE_ENV=dev&&node index.js"
   },
   "author": "Taylor Boyd",
   "license": "ISC",

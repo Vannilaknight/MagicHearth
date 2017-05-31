@@ -24,7 +24,11 @@ function getEnv(name) {
     return process.env[key];
 }
 
-setEnv('port', 80);
+if(isEnv('dev')){
+    setEnv('port', 3030);
+} else {
+    setEnv('port', 80);
+}
 
 var config = {
     self: {

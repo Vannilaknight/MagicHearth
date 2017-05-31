@@ -2,6 +2,14 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     var currentPage = 1;
     var currentColors = [];
     var andColors = false;
+    var params = {
+        page: 1,
+        colors: "",
+        colorop: "",
+        cmcop: "",
+        searchText: "",
+        format: ""
+    };
     $scope.topRow = [];
     $scope.botRow = [];
 
@@ -13,6 +21,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         pageChange("right")
     });
 
+    $scope.searchText = function (text) {
+        params.searchText = text;
+        changePage();
+    };
+
     $("#b").change(function(event) {
         var checkbox = event.target;
         currentPage = 1;
@@ -22,6 +35,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             var index = currentColors.indexOf("B");
             currentColors.splice(index, 1);
         }
+        params.page = currentPage;
         colorFilter();
     });
 
@@ -34,6 +48,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             var index = currentColors.indexOf("W");
             currentColors.splice(index, 1);
         }
+        params.page = currentPage;
         colorFilter();
     });
 
@@ -46,6 +61,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             var index = currentColors.indexOf("U");
             currentColors.splice(index, 1);
         }
+        params.page = currentPage;
         colorFilter();
     });
 
@@ -58,6 +74,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             var index = currentColors.indexOf("R");
             currentColors.splice(index, 1);
         }
+        params.page = currentPage;
         colorFilter();
     });
 
@@ -70,6 +87,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             var index = currentColors.indexOf("G");
             currentColors.splice(index, 1);
         }
+        params.page = currentPage;
         colorFilter();
     });
 
@@ -77,21 +95,18 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         var checkbox = event.target;
         currentPage = 1;
         if (checkbox.checked) {
-            andColors = true;
+            params.colorop = "and";
         } else {
-            andColors = false;
+            params.colorop = "";
         }
+        params.page = currentPage;
         colorFilter();
     });
 
 
     function colorFilter() {
-        console.log(currentColors);
-        if(andColors){
-            changePage("&page=" + currentPage + "&colors=" + currentColors.join(",") + "&op=and");
-        } else {
-            changePage("&page=" + currentPage + "&colors=" + currentColors.join(","));
-        }
+            params.colors = currentColors.join(",");
+            changePage();
     }
 
     function pageChange(direction) {
@@ -103,20 +118,22 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             } else {
                 currentPage++;
             }
-            colorFilter();
+            params.page = currentPage;
+            changePage();
         } else {
-            colorFilter();
+            changePage();
         }
     }
 
-    function changePage(params = "") {
+    function changePage() {
         $http({
             method: 'GET',
-            url: '/api/cards?format=modern' + params
+            url: '/api/cards?format=standard' + objectToString(params)
         }).then(function successCallback(response) {
             $scope.topRow = [];
             $scope.botRow = [];
             var data = response.data;
+            console.log(data)
             if(data.length < 8){
                 $("#forward").css("display", "none");
             } else {
@@ -136,3 +153,14 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
     changePage();
 });
+
+function objectToString(obj){
+    var returnStr = "";
+    for(var prop in obj) {
+        var value = obj[prop];
+        if(value){
+            returnStr += "&" + prop + "=" + obj[prop];
+        }
+    }
+    return returnStr;
+}

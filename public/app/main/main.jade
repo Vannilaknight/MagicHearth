@@ -2,7 +2,7 @@
     .col-sm-12.deck-builder
         .col-sm-9.collection-box
             .row
-                .col-sm-12.color-filter
+                .col-sm-6.color-filter
                     ul
                         li
                             input#b(type="checkbox")
@@ -22,6 +22,8 @@
                         li
                             input#and(type="checkbox")
                             label.color-tab.color-and(for="and" onclick) &
+                .col-sm-6.text-filter
+                    input#search.form-control(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
             .row
                 #back.area-click.back-area
                 .col-sm-12.cards
