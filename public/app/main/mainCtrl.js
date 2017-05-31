@@ -1,10 +1,12 @@
 angular.module('app').controller('mainCtrl', function ($scope, $http) {
     var currentPage = 1;
     var currentColors = [];
+    var currentCMC = [];
     var andColors = false;
     var params = {
         page: 1,
         colors: "",
+        cmcs: "",
         colorop: "",
         cmcop: "",
         searchText: "",
@@ -35,58 +37,31 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         changePage();
     };
 
+    /*
+    COLOR FILTERS
+     */
     $("#b").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentColors.push("B");
-        } else {
-            var index = currentColors.indexOf("B");
-            currentColors.splice(index, 1);
-        }
+        colorChange("B");
         colorFilter();
     });
 
     $("#w").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentColors.push("W");
-        } else {
-            var index = currentColors.indexOf("W");
-            currentColors.splice(index, 1);
-        }
+        colorChange("W");
         colorFilter();
     });
 
     $("#u").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentColors.push("U");
-        } else {
-            var index = currentColors.indexOf("U");
-            currentColors.splice(index, 1);
-        }
+        colorChange("U");
         colorFilter();
     });
 
     $("#r").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentColors.push("R");
-        } else {
-            var index = currentColors.indexOf("R");
-            currentColors.splice(index, 1);
-        }
+        colorChange("R");
         colorFilter();
     });
 
     $("#g").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentColors.push("G");
-        } else {
-            var index = currentColors.indexOf("G");
-            currentColors.splice(index, 1);
-        }
+        colorChange("G");
         colorFilter();
     });
 
@@ -100,9 +75,82 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         colorFilter();
     });
 
+    function colorChange(color, event){
+        var checkbox = event.target;
+        if (checkbox.checked) {
+            currentColors.push(color);
+        } else {
+            var index = currentColors.indexOf(color);
+            currentColors.splice(index, 1);
+        }
+    }
+
+    /*
+    CMC FILTERS
+     */
+    $("#cmcZero").change(function (event) {
+        CMCChange("0", event);
+        cmcFilter();
+    });
+
+    $("#cmcOne").change(function (event) {
+        CMCChange("1", event);
+        cmcFilter();
+    });
+
+    $("#cmcTwo").change(function (event) {
+        CMCChange("2", event);
+        cmcFilter();
+    });
+
+    $("#cmcThree").change(function (event) {
+        CMCChange("3", event);
+        cmcFilter();
+    });
+
+    $("#cmcFour").change(function (event) {
+        CMCChange("4", event);
+        cmcFilter();
+    });
+
+    $("#cmcFive").change(function (event) {
+        CMCChange("5", event);
+        cmcFilter();
+    });
+
+    $("#cmcSix").change(function (event) {
+        CMCChange("6", event);
+        cmcFilter();
+    });
+
+    $("#cmcSeven").change(function (event) {
+        CMCChange("7", event);
+        cmcFilter();
+    });
+
+    $("#cmcEightPlus").change(function (event) {
+        CMCChange("8", event);
+        cmcFilter();
+    });
+
+    function CMCChange(number, event){
+        var checkbox = event.target;
+        if (checkbox.checked) {
+            currentCMC.push(number);
+        } else {
+            var index = currentColors.indexOf(number);
+            currentCMC.splice(index, 1);
+        }
+    }
 
     function colorFilter() {
         params.colors = currentColors.join(",");
+        pageOne();
+        changePage();
+    }
+
+    function cmcFilter() {
+        params.cmcs = currentCMC.join(",");
         pageOne();
         changePage();
     }

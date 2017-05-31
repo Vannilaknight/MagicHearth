@@ -6,10 +6,9 @@ function getCards(req, res) {
     var page = req.query.page;
     var format = req.query.format;
     var colors = req.query.colors;
-    var cmc = req.query.cmc;
+    var cmcs = req.query.cmcs;
     var searchText = req.query.searchText;
     var colorOperator = req.query.colorop;
-    var cmcOperator = req.query.cmcop;
     var cards = [];
 
     if (format) {
@@ -24,8 +23,8 @@ function getCards(req, res) {
         cards = filterColor(colors, colorOperator, cards)
     }
 
-    if (cmc) {
-
+    if (cmcs) {
+        cards = filterCMC(cmcs, cards);
     }
 
     if (page) {
@@ -98,8 +97,24 @@ function filterColor(colors, operator, cards) {
 }
 
 
-function filterCMC() {
-
+function filterCMC(cmcs, cards) {
+    var cmcs = cmcs.split(",");
+    cards = cards.filter(function (card) {
+        var result = false;
+        cmcs.forEach(function (cmc) {
+            if(cmc == card.cmc){
+                result = true;
+            } else {
+                if(cmc == 8){
+                    if(card.cmc >= 8){
+                        result = true;
+                    }
+                }
+            }
+        })
+        return result;
+    });
+    return cards;
 }
 
 function filterText(searchText, cards) {

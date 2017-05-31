@@ -4,7 +4,7 @@
 
 .collection-box {
 
-  .area-click{
+  .area-click {
     position: absolute;
     margin-top: 10px;
     height: 680px;
@@ -12,12 +12,12 @@
     z-index: 1000;
   }
 
-  .back-area{
+  .back-area {
     left: 0;
     cursor: w-resize;
   }
 
-  .next-area{
+  .next-area {
     right: 0;
     cursor: e-resize;
   }
@@ -88,8 +88,45 @@
 
   .filter {
     height: 85px;
-    .format-select {
-      color: #000;
+    .format-select-box {
+      .format-select {
+        color: #000;
+      }
+    }
+
+    .cmc-filter-box {
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          list-style: none;
+          display: inline-block;
+        }
+      }
+
+      input[type=checkbox] {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      .mana-tab {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        border: 1px solid #6e6e6e;
+        margin-top: 0;
+        margin-bottom: -8px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-top-left-radius: 10px;
+        border-top-right-radius: 10px;
+      }
+
+      input[type=checkbox]:checked ~ .mana-tab {
+        border: 1px solid #00d8ff;
+      }
     }
   }
 }

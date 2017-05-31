@@ -38,10 +38,38 @@
                 #forward.area-click.next-area
             .row
                 .col-sm-12.filter
-                    .col-sm-4
+                    .col-sm-4.format-select-box
                         select.format-select(ng-model="formatSelect", ng-change="formatChange(formatSelect)")
                             option(value="modern") Modern
                             option(value="standard") Standard
-
+                    .col-sm-8.cmc-filter-box
+                        ul.pull-right
+                            li
+                                input#cmcZero(type="checkbox")
+                                label.mana-tab(for="cmcZero" onclick) 0
+                            li
+                                input#cmcOne(type="checkbox")
+                                label.mana-tab(for="cmcOne" onclick) 1
+                            li
+                                input#cmcTwo(type="checkbox")
+                                label.mana-tab(for="cmcTwo" onclick) 2
+                            li
+                                input#cmcThree(type="checkbox")
+                                label.mana-tab(for="cmcThree" onclick) 3
+                            li
+                                input#cmcFour(type="checkbox")
+                                label.mana-tab(for="cmcFour" onclick) 4
+                            li
+                                input#cmcFive(type="checkbox")
+                                label.mana-tab(for="cmcFive" onclick) 5
+                            li
+                                input#cmcSix(type="checkbox")
+                                label.mana-tab(for="cmcSix" onclick) 6
+                            li
+                                input#cmcSeven(type="checkbox")
+                                label.mana-tab(for="cmcSeven" onclick) 7
+                            li
+                                input#cmcEightPlus(type="checkbox")
+                                label.mana-tab(for="cmcEightPlus" onclick) 8+
         .col-sm-3.deck-tray
             span test 2
