@@ -41,27 +41,27 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     COLOR FILTERS
      */
     $("#b").change(function (event) {
-        colorChange("B");
+        colorChange("B", event);
         colorFilter();
     });
 
     $("#w").change(function (event) {
-        colorChange("W");
+        colorChange("W", event);
         colorFilter();
     });
 
     $("#u").change(function (event) {
-        colorChange("U");
+        colorChange("U", event);
         colorFilter();
     });
 
     $("#r").change(function (event) {
-        colorChange("R");
+        colorChange("R", event);
         colorFilter();
     });
 
     $("#g").change(function (event) {
-        colorChange("G");
+        colorChange("G", event);
         colorFilter();
     });
 
