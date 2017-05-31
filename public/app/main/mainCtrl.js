@@ -8,8 +8,10 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         colorop: "",
         cmcop: "",
         searchText: "",
-        format: ""
+        format: "standard"
     };
+
+    $scope.formatSelect = "standard";
     $scope.topRow = [];
     $scope.botRow = [];
 
@@ -23,96 +25,92 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
     $scope.searchText = function (text) {
         params.searchText = text;
+        pageOne();
         changePage();
     };
 
-    $("#b").change(function(event) {
+    $scope.formatChange = function (format) {
+        params.format = format;
+        pageOne();
+        changePage();
+    };
+
+    $("#b").change(function (event) {
         var checkbox = event.target;
-        currentPage = 1;
         if (checkbox.checked) {
             currentColors.push("B");
         } else {
             var index = currentColors.indexOf("B");
             currentColors.splice(index, 1);
         }
-        params.page = currentPage;
         colorFilter();
     });
 
-    $("#w").change(function(event) {
+    $("#w").change(function (event) {
         var checkbox = event.target;
-        currentPage = 1;
         if (checkbox.checked) {
             currentColors.push("W");
         } else {
             var index = currentColors.indexOf("W");
             currentColors.splice(index, 1);
         }
-        params.page = currentPage;
         colorFilter();
     });
 
-    $("#u").change(function(event) {
+    $("#u").change(function (event) {
         var checkbox = event.target;
-        currentPage = 1;
         if (checkbox.checked) {
             currentColors.push("U");
         } else {
             var index = currentColors.indexOf("U");
             currentColors.splice(index, 1);
         }
-        params.page = currentPage;
         colorFilter();
     });
 
-    $("#r").change(function(event) {
+    $("#r").change(function (event) {
         var checkbox = event.target;
-        currentPage = 1;
         if (checkbox.checked) {
             currentColors.push("R");
         } else {
             var index = currentColors.indexOf("R");
             currentColors.splice(index, 1);
         }
-        params.page = currentPage;
         colorFilter();
     });
 
-    $("#g").change(function(event) {
+    $("#g").change(function (event) {
         var checkbox = event.target;
-        currentPage = 1;
         if (checkbox.checked) {
             currentColors.push("G");
         } else {
             var index = currentColors.indexOf("G");
             currentColors.splice(index, 1);
         }
-        params.page = currentPage;
         colorFilter();
     });
 
-    $("#and").change(function(event) {
+    $("#and").change(function (event) {
         var checkbox = event.target;
-        currentPage = 1;
         if (checkbox.checked) {
             params.colorop = "and";
         } else {
             params.colorop = "";
         }
-        params.page = currentPage;
         colorFilter();
     });
 
 
     function colorFilter() {
-            params.colors = currentColors.join(",");
-            changePage();
+        params.colors = currentColors.join(",");
+        pageOne();
+        changePage();
     }
 
     function pageChange(direction) {
         if (direction) {
             if (direction == "left") {
-                if (currentPage >= 1) {
+                if (currentPage > 1) {
                     currentPage--;
                 }
             } else {
@@ -128,19 +126,19 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     function changePage() {
         $http({
             method: 'GET',
-            url: '/api/cards?format=standard' + objectToString(params)
+            url: '/api/cards?' + objectToString(params)
         }).then(function successCallback(response) {
             $scope.topRow = [];
             $scope.botRow = [];
             var data = response.data;
             console.log(data)
-            if(data.length < 8){
+            if (data.length < 8) {
                 $("#forward").css("display", "none");
             } else {
                 $("#forward").css("display", "inherit");
             }
-            for(var x = 0; x < data.length; x++){
-                if(x < 4){
+            for (var x = 0; x < data.length; x++) {
+                if (x < 4) {
                     $scope.topRow.push(data[x]);
                 } else {
                     $scope.botRow.push(data[x]);
@@ -151,14 +149,19 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         });
     }
 
+    function pageOne() {
+        currentPage = 1;
+        params.page = currentPage;
+    }
+
     changePage();
 });
 
-function objectToString(obj){
+function objectToString(obj) {
     var returnStr = "";
-    for(var prop in obj) {
+    for (var prop in obj) {
         var value = obj[prop];
-        if(value){
+        if (value) {
             returnStr += "&" + prop + "=" + obj[prop];
         }
     }

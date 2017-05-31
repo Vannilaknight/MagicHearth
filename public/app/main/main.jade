@@ -38,5 +38,10 @@
                 #forward.area-click.next-area
             .row
                 .col-sm-12.filter
+                    .col-sm-4
+                        select.format-select(ng-model="formatSelect", ng-change="formatChange(formatSelect)")
+                            option(value="modern") Modern
+                            option(value="standard") Standard
+
         .col-sm-3.deck-tray
             span test 2
