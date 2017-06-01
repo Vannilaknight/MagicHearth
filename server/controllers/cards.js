@@ -5,6 +5,7 @@ var modernSet = require('./Modern.json'),
 function getCards(req, res) {
     var page = req.query.page;
     var format = req.query.format;
+    var type = req.query.type;
     var colors = req.query.colors;
     var cmcs = req.query.cmcs;
     var searchText = req.query.searchText;
@@ -12,7 +13,11 @@ function getCards(req, res) {
     var cards = [];
 
     if (format) {
-        cards = filterFormat(format, cards)
+        cards = filterFormat(format, cards);
+    }
+
+    if(type){
+        cards = filterType(type, cards);
     }
 
     if (searchText) {
@@ -47,6 +52,20 @@ function filterFormat(format, cards) {
     return cards;
 }
 
+function filterType(type, cards) {
+    cards = cards.filter(function (card) {
+        var result = false;
+        if(card.types) {
+            card.types.forEach(function (cardType) {
+                if(type.toLowerCase() == cardType.toLowerCase()){
+                    result = true;
+                }
+            })
+        }
+        return result;
+    });
+    return cards;
+}
 
 function filterColor(colors, operator, cards) {
     var andColors;
@@ -82,6 +101,20 @@ function filterColor(colors, operator, cards) {
                     });
                 }
             });
+        } else {
+                if (and) {
+                    andColors.forEach(function (andColor) {
+                        if (andColor == "C") {
+                            andResults.push(true);
+                        }
+                    })
+                } else {
+                    splitColors.forEach(function (filterColor) {
+                        if (filterColor == "C") {
+                            result = true;
+                        }
+                    });
+                }
         }
 
         if (and) {
@@ -95,7 +128,6 @@ function filterColor(colors, operator, cards) {
     });
     return filteredCards;
 }
-
 
 function filterCMC(cmcs, cards) {
     var cmcs = cmcs.split(",");
@@ -131,7 +163,7 @@ function filterText(searchText, cards) {
             if(card.subtypes){
                 subtypes.forEach(function (subtypeSearch) {
                     card.subtypes.forEach(function (subtypeResult) {
-                        if(subtypeSearch == subtypeResult){
+                        if(subtypeSearch.toLowerCase() == subtypeResult.toLowerCase()){
                             result = true;
                         }
                     });
@@ -146,7 +178,7 @@ function filterText(searchText, cards) {
             var result = false;
             if(card.text){
                 cardText.forEach(function (cardTextSearch) {
-                    if(card.text.includes(cardTextSearch)){
+                    if(card.text.toLowerCase().includes(cardTextSearch.toLowerCase())){
                         result = true;
                     }
                 })
@@ -159,13 +191,13 @@ function filterText(searchText, cards) {
         var contains = false;
         if (card.subtypes) {
             card.subtypes.forEach(function (subtype) {
-                if (subtype.includes(searchText)) {
+                if (subtype.toLowerCase().includes(searchText.toLowerCase())) {
                     contains = true;
                 }
             });
         }
         if (card.text) {
-            if (card.text.includes(searchText)) {
+            if (card.text.toLowerCase().includes(searchText.toLowerCase())) {
                 contains = true;
             }
         }

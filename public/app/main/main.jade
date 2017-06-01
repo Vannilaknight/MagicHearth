@@ -5,6 +5,9 @@
                 .col-sm-6.color-filter
                     ul
                         li
+                            input#c(type="checkbox")
+                            label.color-tab.color-c(for="c" onclick) C
+                        li
                             input#b(type="checkbox")
                             label.color-tab.color-b(for="b" onclick) B
                         li
@@ -23,7 +26,18 @@
                             input#and(type="checkbox")
                             label.color-tab.color-and(for="and" onclick) &
                 .col-sm-6.text-filter
-                    input#search.form-control(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
+                    .input-group.col-sm-12
+                        input.form-control.search(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
+                        span.input-group-addon.search-divider
+                        select.form-control.type-filter(ng-model="typeFilter", ng-change="typeChange(typeFilter)")
+                            option(value='none' selected) None
+                            option(value='land') Land
+                            option(value='creature') Creature
+                            option(value='artifact') Artifact
+                            option(value='enchantment') Enchantment
+                            option(value='planeswalker') Planeswalker
+                            option(value='instant') Instant
+                            option(value='sorcery') Sorcery
             .row
                 #back.area-click.back-area
                 .col-sm-12.cards

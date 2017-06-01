@@ -1,3 +1,7 @@
+body {
+  background: #262626;
+  color: #fff; }
+
 .deck-builder {
   margin-top: 50px; }
 
@@ -39,6 +43,8 @@
     margin-right: 5px;
     border-top-left-radius: 10px;
     border-top-right-radius: 10px; }
+  .collection-box .color-filter input[type=checkbox]:checked ~ .color-c {
+    border: 1px solid #887c54; }
   .collection-box .color-filter input[type=checkbox]:checked ~ .color-b {
     border: 1px solid #000; }
   .collection-box .color-filter input[type=checkbox]:checked ~ .color-w {
@@ -51,6 +57,12 @@
     border: 1px solid #0f0; }
   .collection-box .color-filter input[type=checkbox]:checked ~ .color-and {
     border: 1px solid #ff00eb; }
+
+.collection-box .text-filter .search-divider {
+  width: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  border: none; }
 
 .collection-box .cards .mtgcard {
   padding-top: 30px;

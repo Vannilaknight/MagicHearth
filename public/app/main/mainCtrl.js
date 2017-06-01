@@ -10,10 +10,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         colorop: "",
         cmcop: "",
         searchText: "",
+        type: "",
         format: "standard"
     };
 
     $scope.formatSelect = "standard";
+    $scope.typeFilter = "none";
     $scope.topRow = [];
     $scope.botRow = [];
 
@@ -37,9 +39,20 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         changePage();
     };
 
+    $scope.typeChange = function (type) {
+        params.type = type;
+        pageOne();
+        changePage();
+    };
+
     /*
     COLOR FILTERS
      */
+    $("#c").change(function (event) {
+        colorChange("C", event);
+        colorFilter();
+    });
+
     $("#b").change(function (event) {
         colorChange("B", event);
         colorFilter();
