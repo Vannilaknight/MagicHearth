@@ -10,6 +10,7 @@
   "author": "Taylor Boyd",
   "license": "ISC",
   "dependencies": {
+    "angular-drag-and-drop-lists": "^2.1.0",
     "assert-plus": "^1.0.0",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",

@@ -19,6 +19,22 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     $scope.typeFilter = "none";
     $scope.topRow = [];
     $scope.botRow = [];
+    $scope.decklist = [];
+
+    $scope.models = {
+        selected: null,
+        templates: [
+            {type: "card", name: "name", count: 0}
+        ],
+        dropzones: {
+            "deck": [],
+        }
+    };
+
+    $scope.$watch('models.dropzones', function (model) {
+        $scope.decklist = $scope.models.dropzones.deck;
+        $scope.displayDeck = reduceArrayP2($scope.decklist);
+    }, true);
 
     $("#back").click(function () {
         pageChange("left")
@@ -27,6 +43,17 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     $("#forward").click(function () {
         pageChange("right")
     });
+
+    $scope.removeCard = function (card) {
+        var deck = $scope.models.dropzones.deck;
+        for(var x = 0; x < deck.length; x++){
+            var deckCard = deck[x];
+            if(deckCard.name == card.name){
+                $scope.models.dropzones.deck.splice(x, 1);
+                break;
+            }
+        }
+    };
 
     $scope.searchText = function (text) {
         params.searchText = text;
@@ -69,7 +96,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         rarityFilter();
     });
 
-    function rarityChange(rarity, event){
+    function rarityChange(rarity, event) {
         var checkbox = event.target;
         if (checkbox.checked) {
             currentRarities.push(rarity);
@@ -80,7 +107,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     }
 
     /*
-    COLOR FILTERS
+     COLOR FILTERS
      */
     $("#c").change(function (event) {
         colorChange("C", event);
@@ -122,7 +149,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         colorFilter();
     });
 
-    function colorChange(color, event){
+    function colorChange(color, event) {
         var checkbox = event.target;
         if (checkbox.checked) {
             currentColors.push(color);
@@ -133,7 +160,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     }
 
     /*
-    CMC FILTERS
+     CMC FILTERS
      */
     $("#cmcZero").change(function (event) {
         CMCChange("0", event);
@@ -180,7 +207,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         cmcFilter();
     });
 
-    function CMCChange(number, event){
+    function CMCChange(number, event) {
         var checkbox = event.target;
         if (checkbox.checked) {
             currentCMC.push(number);
@@ -255,6 +282,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         params.page = currentPage;
     }
 
+
     changePage();
 });
 
@@ -267,4 +295,49 @@ function objectToString(obj) {
         }
     }
     return returnStr;
+}
+
+function reduceArrayP2(cards){
+    var counts = {};
+
+    cards.forEach(function(card) {
+        counts[card.name] = (counts[card.name] || 0) + 1;
+    });
+
+    var newArray = [];
+    for (var name in counts) {
+        var count = counts[name];
+        if (count) {
+            newArray.push({name: name, count: count});
+        }
+    }
+
+    return newArray;
+}
+
+function reduceArray(array) {
+    var newArray = [];
+    array.sort();
+
+    var current = {name: ""};
+    var cnt = 0;
+    array.forEach(function (card) {
+        if(!card.count) card.count = 1;
+
+        if (card.name != current.name) {
+            if (cnt > 0) {
+                current.count = cnt;
+                newArray.push(current);
+            }
+            current = card;
+            cnt = 1;
+        } else {
+            cnt++;
+        }
+    });
+    if (cnt > 0) {
+        current.count = cnt;
+        newArray.push(current);
+    }
+    return newArray;
 }

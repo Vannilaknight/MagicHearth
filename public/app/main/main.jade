@@ -1,3 +1,5 @@
+script(type='text/ng-template', id='cardTemp')
+    include templates/card
 .container-fluid
     .col-sm-12.deck-builder
         .col-sm-9.collection-box
@@ -43,11 +45,11 @@
                 .col-sm-12.cards
                     .row
                         .col-sm-3(ng-repeat="card in topRow")
-                            .mtgcard
+                            .mtgcard(dnd-draggable="card", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
                                 img.img-responsive(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
                     .row
                         .col-sm-3(ng-repeat="card in botRow")
-                            .mtgcard
+                            .mtgcard(dnd-draggable="card", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
                                 img.img-responsive(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
                 #forward.area-click.next-area
             .row
@@ -99,5 +101,9 @@
                             li
                                 input#cmcEightPlus(type="checkbox")
                                 label.mana-tab(for="cmcEightPlus" onclick) 8+
-        .col-sm-3.deck-tray
-            span test 2
+        .col-sm-3.deck-tray(ng-repeat="(zone, list) in models.dropzones")
+            ul.display-box
+                li.deck-card(ng-repeat='displayCard in displayDeck')
+                    button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)") remove
+                    |  {{displayCard.name}} - {{displayCard.count}}
+            ul.drag-box(dnd-list='list')

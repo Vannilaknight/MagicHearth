@@ -119,3 +119,19 @@ body {
     border-top-right-radius: 10px; }
   .collection-box .filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-tab {
     border: 1px solid #ffe000; }
+
+.deck-tray ul {
+  margin: 0;
+  padding: 0; }
+  .deck-tray ul li {
+    list-style: none; }
+
+.deck-tray .deck-card {
+  position: relative;
+  z-index: 1000; }
+
+.deck-tray .drag-box {
+  position: absolute;
+  top: 0;
+  height: 850px;
+  width: 100%; }

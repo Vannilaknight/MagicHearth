@@ -185,4 +185,24 @@ body {
 }
 
 .deck-tray {
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+
+  .deck-card {
+    position: relative;
+    z-index: 1000;
+  }
+
+  .drag-box {
+    position: absolute;
+    top: 0;
+    height: 850px;
+    width: 100%;
+  }
 }
