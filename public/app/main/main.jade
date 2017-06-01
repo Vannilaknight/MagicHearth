@@ -52,11 +52,25 @@
                 #forward.area-click.next-area
             .row
                 .col-sm-12.filter
-                    .col-sm-4.format-select-box
-                        select.format-select(ng-model="formatSelect", ng-change="formatChange(formatSelect)")
+                    .col-sm-2.format-select-box
+                        select.form-control.format-select(ng-model="formatSelect", ng-change="formatChange(formatSelect)")
                             option(value="modern") Modern
                             option(value="standard") Standard
-                    .col-sm-8.cmc-filter-box
+                    .col-sm-4.rarity-filter-box
+                        ul.pull-right
+                            li
+                                input#common(type="checkbox")
+                                label.rarity-tab(for="common" onclick) C
+                            li
+                                input#uncommon(type="checkbox")
+                                label.rarity-tab(for="uncommon" onclick) U
+                            li
+                                input#rare(type="checkbox")
+                                label.rarity-tab(for="rare" onclick) R
+                            li
+                                input#mythic(type="checkbox")
+                                label.rarity-tab(for="mythic" onclick) M
+                    .col-sm-6.cmc-filter-box
                         ul.pull-right
                             li
                                 input#cmcZero(type="checkbox")

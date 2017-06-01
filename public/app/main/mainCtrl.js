@@ -2,13 +2,14 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
+    var currentRarities = [];
     var andColors = false;
     var params = {
         page: 1,
         colors: "",
         cmcs: "",
         colorop: "",
-        cmcop: "",
+        rarities: "",
         searchText: "",
         type: "",
         format: "standard"
@@ -44,6 +45,39 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         pageOne();
         changePage();
     };
+
+    /*
+     RARITY FILTERS
+     */
+    $("#common").change(function (event) {
+        rarityChange("Common", event);
+        rarityFilter();
+    });
+
+    $("#uncommon").change(function (event) {
+        rarityChange("Uncommon", event);
+        rarityFilter();
+    });
+
+    $("#rare").change(function (event) {
+        rarityChange("Rare", event);
+        rarityFilter();
+    });
+
+    $("#mythic").change(function (event) {
+        rarityChange("Mythic Rare", event);
+        rarityFilter();
+    });
+
+    function rarityChange(rarity, event){
+        var checkbox = event.target;
+        if (checkbox.checked) {
+            currentRarities.push(rarity);
+        } else {
+            var index = currentRarities.indexOf(rarity);
+            currentRarities.splice(index, 1);
+        }
+    }
 
     /*
     COLOR FILTERS
@@ -164,6 +198,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
     function cmcFilter() {
         params.cmcs = currentCMC.join(",");
+        pageOne();
+        changePage();
+    }
+
+    function rarityFilter() {
+        params.rarities = currentRarities.join(",");
         pageOne();
         changePage();
     }

@@ -6,6 +6,7 @@ function getCards(req, res) {
     var page = req.query.page;
     var format = req.query.format;
     var type = req.query.type;
+    var rarities = req.query.rarities;
     var colors = req.query.colors;
     var cmcs = req.query.cmcs;
     var searchText = req.query.searchText;
@@ -26,6 +27,10 @@ function getCards(req, res) {
 
     if (colors) {
         cards = filterColor(colors, colorOperator, cards)
+    }
+
+    if(rarities) {
+        cards = filterRarity(rarities, cards)
     }
 
     if (cmcs) {
@@ -206,6 +211,20 @@ function filterText(searchText, cards) {
         }
 
         return contains;
+    });
+    return cards;
+}
+
+function filterRarity(rarities, cards){
+    rarities = rarities.split(",");
+    cards = cards.filter(function (card) {
+        var result = false;
+        rarities.forEach(function (rarity) {
+            if(rarity == card.rarity){
+                result = true;
+            }
+        });
+        return result;
     });
     return cards;
 }

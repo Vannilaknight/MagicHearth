@@ -96,3 +96,26 @@ body {
     border-top-right-radius: 10px; }
   .collection-box .filter .cmc-filter-box input[type=checkbox]:checked ~ .mana-tab {
     border: 1px solid #00d8ff; }
+  .collection-box .filter .rarity-filter-box ul {
+    margin: 0;
+    padding: 0; }
+    .collection-box .filter .rarity-filter-box ul li {
+      list-style: none;
+      display: inline-block; }
+  .collection-box .filter .rarity-filter-box input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px; }
+  .collection-box .filter .rarity-filter-box .rarity-tab {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border: 1px solid #6e6e6e;
+    margin-top: 0;
+    margin-bottom: -8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; }
+  .collection-box .filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-tab {
+    border: 1px solid #ffe000; }
