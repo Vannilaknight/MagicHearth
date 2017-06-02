@@ -47,11 +47,11 @@ script(type='text/ng-template', id='cardTemp')
                     .row
                         .col-sm-3(ng-repeat="card in topRow")
                             .mtgcard(dnd-draggable="card", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
-                                img.img-responsive(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
+                                img.img-responsive.cardImg(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
                     .row
                         .col-sm-3(ng-repeat="card in botRow")
                             .mtgcard(dnd-draggable="card", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
-                                img.img-responsive(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
+                                img.img-responsive.cardImg(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
                 #forward.area-click.next-area
             .row
                 .col-sm-12.filter
