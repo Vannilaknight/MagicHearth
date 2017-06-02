@@ -73,6 +73,22 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         changePage();
     };
 
+    $scope.exportDeck = function () {
+        var displayDeck = $scope.displayDeck;
+        var exportedString = "";
+        if(!displayDeck) {
+            for(var i = 0; i < displayDeck.length; i++) {
+                exportedString += displayDeck[i].name;
+                exportedString += (" " + displayDeck.count() + "\n");
+            }
+            console.log(exportedString);
+        }
+        else {
+            console.log("Empty Deck");
+        }
+
+    };
+
     /*
      RARITY FILTERS
      */
