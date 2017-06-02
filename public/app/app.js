@@ -3,6 +3,10 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
 
         $locationProvider.html5Mode(true);
         $routeProvider
+            .when('/challenge', {
+                templateUrl: '/partials/challenge/challenge',
+                controller: 'challengeCtrl'
+            })
             .when('/', {
                 templateUrl: '/partials/main/main',
                 controller: 'mainCtrl'
