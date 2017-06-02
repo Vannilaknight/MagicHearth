@@ -245,4 +245,16 @@ body {
       z-index: 1000;
     }
   }
+
+  .export-import {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 999;
+    padding: 25px;
+    .btn {
+      width: 50%;
+
+    }
+  }
 }

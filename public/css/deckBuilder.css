@@ -165,3 +165,12 @@ body {
     width: 100%;
     height: 100%;
     z-index: 1000; }
+
+.deck-tray .export-import {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+  z-index: 999;
+  padding: 25px; }
+  .deck-tray .export-import .btn {
+    width: 50%; }

@@ -108,3 +108,6 @@ script(type='text/ng-template', id='cardTemp')
                     button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)") remove
                     |  {{displayCard.name}} - {{displayCard.count}}
             ul.drag-box(dnd-list='list')
+                .export-import
+                    button.btn.btn-primary(ng-click="exportDeck()") Export
+                    button.btn.btn-primary Import

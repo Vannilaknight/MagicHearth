@@ -50,9 +50,9 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
     $scope.removeCard = function (card) {
         var deck = $scope.models.dropzones.deck;
-        for(var x = 0; x < deck.length; x++){
+        for (var x = 0; x < deck.length; x++) {
             var deckCard = deck[x];
-            if(deckCard.name == card.name){
+            if (deckCard.name == card.name) {
                 $scope.models.dropzones.deck.splice(x, 1);
                 break;
             }
@@ -301,10 +301,10 @@ function objectToString(obj) {
     return returnStr;
 }
 
-function reduceArrayP2(cards){
+function reduceArrayP2(cards) {
     var counts = {};
 
-    cards.forEach(function(card) {
+    cards.forEach(function (card) {
         counts[card.name] = (counts[card.name] || 0) + 1;
     });
 
@@ -326,7 +326,7 @@ function reduceArray(array) {
     var current = {name: ""};
     var cnt = 0;
     array.forEach(function (card) {
-        if(!card.count) card.count = 1;
+        if (!card.count) card.count = 1;
 
         if (card.name != current.name) {
             if (cnt > 0) {
