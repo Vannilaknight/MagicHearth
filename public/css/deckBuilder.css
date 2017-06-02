@@ -136,9 +136,15 @@ body {
   .deck-tray ul li {
     list-style: none; }
 
+.deck-tray .display-box {
+  padding: 20px; }
+
 .deck-tray .deck-card {
+  width: 100%;
+  color: #262626;
   position: relative;
-  z-index: 1000; }
+  z-index: 999;
+  background: #EEEECC; }
 
 .deck-tray .drag-box {
   box-shadow: 0 0 15px #262626;

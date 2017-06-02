@@ -212,9 +212,16 @@ body {
     }
   }
 
+  .display-box {
+    padding: 20px;
+  }
+
   .deck-card {
+    width:100%;
+    color: #262626;
     position: relative;
-    z-index: 1000;
+    z-index: 999;
+    background: #EEEECC;
   }
 
   .drag-box {

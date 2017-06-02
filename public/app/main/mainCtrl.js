@@ -21,6 +21,10 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     $scope.botRow = [];
     $scope.decklist = [];
 
+    $scope.nameFo = function () {
+
+    };
+
     $scope.models = {
         selected: null,
         templates: [
