@@ -20,10 +20,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     $scope.topRow = [];
     $scope.botRow = [];
     $scope.decklist = [];
-
-    $scope.nameFo = function () {
-
-    };
+    $scope.exportedDeck = "";
 
     $scope.models = {
         selected: null,
@@ -79,18 +76,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
     $scope.exportDeck = function () {
         var displayDeck = $scope.displayDeck;
-        var exportedString = "";
-        if(!displayDeck) {
+        if($scope.displayDeck.length >= 1){
             for(var i = 0; i < displayDeck.length; i++) {
-                exportedString += displayDeck[i].name;
-                exportedString += (" " + displayDeck.count() + "\n");
+                $scope.exportedDeck += displayDeck[i].name;
+                $scope.exportedDeck += (" " + displayDeck[i].count + "\n");
             }
-            console.log(exportedString);
+            console.log($scope.exportedDeck);
         }
         else {
             console.log("Empty Deck");
         }
-
     };
 
     /*
