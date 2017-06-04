@@ -1,7 +1,7 @@
 {
-  "name": "cashalendar",
+  "name": "swingface",
   "version": "1.0.0",
-  "description": "Calendar for your cash",
+  "description": "SwingFace is an MTG deckbuilder that functions similar to the Hearthstone deck builder",
   "main": "index.js",
   "scripts": {
     "run": "npm install&&node index.js",

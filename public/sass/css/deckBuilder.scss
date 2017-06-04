@@ -1,3 +1,18 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff");
+}
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf");
+}
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf");
+}
+
 body {
   background: #262626;
   color: #fff;
@@ -217,11 +232,44 @@ body {
   }
 
   .deck-card {
-    width:100%;
+    width:115%;
+    margin-bottom: 5px;
     color: #262626;
     position: relative;
     z-index: 999;
     background: #EEEECC;
+    border: 4px groove #CCBB99;
+    span {
+      margin-top: 5px;
+    }
+    .text {
+      font-family: "beleren";
+    }
+    .count {
+      float: right;
+      margin-right: 10px;
+      font-family: "Belwe";
+    }
+    .btn {
+      background: none;
+      border-radius: 0;
+      border: none;
+      border-right: 3px dotted #CCBB99;
+      color: #A63E26;
+      margin-right: 5px;
+      &:hover {
+        background: #ffffde;
+      }
+      &:active {
+        outline: none;
+      }
+      &:focus {
+        outline: none;
+      }
+      &:active > .deck-card {
+        background: #d3ff84;
+      }
+    }
   }
 
   .drag-box {

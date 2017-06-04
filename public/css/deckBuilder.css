@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
 body {
   background: #262626;
   color: #fff; }
@@ -140,11 +152,36 @@ body {
   padding: 20px; }
 
 .deck-tray .deck-card {
-  width: 100%;
+  width: 115%;
+  margin-bottom: 5px;
   color: #262626;
   position: relative;
   z-index: 999;
-  background: #EEEECC; }
+  background: #EEEECC;
+  border: 4px groove #CCBB99; }
+  .deck-tray .deck-card span {
+    margin-top: 5px; }
+  .deck-tray .deck-card .text {
+    font-family: "beleren"; }
+  .deck-tray .deck-card .count {
+    float: right;
+    margin-right: 10px;
+    font-family: "Belwe"; }
+  .deck-tray .deck-card .btn {
+    background: none;
+    border-radius: 0;
+    border: none;
+    border-right: 3px dotted #CCBB99;
+    color: #A63E26;
+    margin-right: 5px; }
+    .deck-tray .deck-card .btn:hover {
+      background: #ffffde; }
+    .deck-tray .deck-card .btn:active {
+      outline: none; }
+    .deck-tray .deck-card .btn:focus {
+      outline: none; }
+    .deck-tray .deck-card .btn:active > .deck-card {
+      background: #d3ff84; }
 
 .deck-tray .drag-box {
   box-shadow: 0 0 15px #262626;

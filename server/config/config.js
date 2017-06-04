@@ -8,7 +8,7 @@ function isEnv(e) {
 }
 
 function createKey(name) {
-    return 'LIVE_' + name.toUpperCase();
+    return 'SWINGFACE' + name.toUpperCase();
 }
 
 function setEnv(name, defaultValue, override) {
