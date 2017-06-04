@@ -137,7 +137,29 @@ body {
       }
       .cardImg {
         filter: drop-shadow(0px 0px 5px #262626);
+        position: relative;
+        z-index: 2;
       }
+    }
+    .cards-left {
+      position: absolute;
+      padding-top: 4px;
+      padding-right: 10px;
+      font-family: "beleren";
+      font-size: 24px;
+      color: #2e2e2e;
+      text-align: right;
+      right: 40px;
+      top: 10%;
+      width: 50px;
+      height: 50px;
+      background: #EEEECC;
+      border-top: 3px groove #CCBB99;
+      border-right: 3px groove #CCBB99;
+      border-bottom: 3px groove #CCBB99;
+      border-top-right-radius: 15px;
+      border-bottom-right-radius: 15px;
+      z-index: 0;
     }
   }
 
@@ -220,6 +242,8 @@ body {
 }
 
 .deck-tray {
+  padding:0;
+
 
   ul {
     margin: 0;
@@ -235,7 +259,7 @@ body {
   }
 
   .deck-card {
-    width:115%;
+    width:100%;
     margin-bottom: 5px;
     color: #262626;
     position: relative;
