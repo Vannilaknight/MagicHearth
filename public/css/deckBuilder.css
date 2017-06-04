@@ -1,3 +1,15 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
 body {
   background: #262626;
   color: #fff; }
@@ -79,6 +91,8 @@ body {
       padding: 15px;
       position: relative;
       user-select: none; }
+      .collection-box .cards .mtgcard:active + .drag-box {
+        background: #fff !important; }
       .collection-box .cards .mtgcard .cardImg {
         filter: drop-shadow(0px 0px 5px #262626); }
   .collection-box .filter {
@@ -140,11 +154,39 @@ body {
   padding: 20px; }
 
 .deck-tray .deck-card {
-  width: 100%;
+  width: 115%;
+  margin-bottom: 5px;
   color: #262626;
   position: relative;
   z-index: 999;
-  background: #EEEECC; }
+  background: #EEEECC;
+  border: 4px groove #CCBB99; }
+  .deck-tray .deck-card span {
+    margin-top: 5px; }
+  .deck-tray .deck-card .text {
+    font-family: "beleren"; }
+  .deck-tray .deck-card .count {
+    float: right;
+    margin-right: 10px;
+    font-family: "Belwe"; }
+  .deck-tray .deck-card .btn {
+    background: none;
+    border-radius: 0;
+    border: none;
+    border-right: 3px dotted #CCBB99;
+    color: #A63E26;
+    margin-right: 5px; }
+    .deck-tray .deck-card .btn:hover {
+      background: #ffffde; }
+    .deck-tray .deck-card .btn:active {
+      outline: none; }
+    .deck-tray .deck-card .btn:focus {
+      outline: none; }
+    .deck-tray .deck-card .btn:active > .deck-card {
+      background: #d3ff84; }
+
+.deck-tray .dndDragover {
+  background: #363636 !important; }
 
 .deck-tray .drag-box {
   box-shadow: 0 0 15px #262626;
@@ -152,11 +194,33 @@ body {
   position: absolute;
   top: 0;
   height: 850px;
-  width: 100%; }
+  width: 100%;
+  transition: background 1s; }
   .deck-tray .drag-box::after {
     content: "";
     pointer-events: none;
     background-image: url("./../../images/trayBorder.png");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1000; }
+
+.deck-tray .drag-box-ondrag {
+  box-shadow: 0 0 15px #262626;
+  background-color: #2e2e2e;
+  position: absolute;
+  top: 0;
+  height: 850px;
+  width: 100%;
+  transition: background .2s; }
+  .deck-tray .drag-box-ondrag::after {
+    content: "";
+    pointer-events: none;
+    background-image: url("./../../images/trayBorderOndrag.png");
     background-size: 100% 100%;
     background-repeat: no-repeat;
     position: absolute;
