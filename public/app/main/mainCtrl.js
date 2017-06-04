@@ -222,6 +222,14 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         cmcFilter();
     });
 
+    $scope.dragStart = function() {
+        $('#drag-box').removeClass( "drag-box" ).addClass( "drag-box-ondrag" );
+    };
+
+    $scope.dragEnd = function() {
+        $('#drag-box').removeClass( "drag-box-ondrag" ).addClass( "drag-box" );
+    };
+
     function CMCChange(number, event) {
         var checkbox = event.target;
         if (checkbox.checked) {

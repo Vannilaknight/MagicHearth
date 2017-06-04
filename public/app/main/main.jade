@@ -45,12 +45,12 @@ script(type='text/ng-template', id='cardTemp')
                 #back.area-click.back-area
                 .col-sm-12.cards
                     .row
-                        .col-sm-3(ng-repeat="card in topRow")
-                            .mtgcard(dnd-draggable="card", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
+                        .col-sm-3.card-obj(ng-repeat="card in topRow")
+                            .mtgcard(dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
                                 img.img-responsive.cardImg(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
                     .row
-                        .col-sm-3(ng-repeat="card in botRow")
-                            .mtgcard(dnd-draggable="card", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
+                        .col-sm-3.card-obj(ng-repeat="card in botRow")
+                            .mtgcard(dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
                                 img.img-responsive.cardImg(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
                 #forward.area-click.next-area
             .row
@@ -109,7 +109,7 @@ script(type='text/ng-template', id='cardTemp')
                         span.glyphicon.glyphicon-remove-sign
                     span.text {{displayCard.name}}
                     span.count {{displayCard.count}}
-            ul.drag-box(dnd-list='list')
+            ul#drag-box.drag-box(dnd-list='list')
                 .export-import
                     button.btn.btn-primary(ng-click="exportDeck()") Export
                     button.btn.btn-primary Import
