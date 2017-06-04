@@ -46,12 +46,14 @@ script(type='text/ng-template', id='cardTemp')
                 .col-sm-12.cards
                     .row
                         .col-sm-3.card-obj(ng-repeat="card in topRow")
-                            .mtgcard(dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
+                            .mtgcard(dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
                                 img.img-responsive.cardImg(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
+                                .cards-left x{{card.cardsLeft}}
                     .row
                         .col-sm-3.card-obj(ng-repeat="card in botRow")
-                            .mtgcard(dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
+                            .mtgcard(dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
                                 img.img-responsive.cardImg(src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card")
+                                .cards-left x{{card.cardsLeft}}
                 #forward.area-click.next-area
             .row
                 .col-sm-12.filter

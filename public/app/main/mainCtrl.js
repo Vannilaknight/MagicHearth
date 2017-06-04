@@ -35,6 +35,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     $scope.$watch('models.dropzones', function (model) {
         $scope.decklist = $scope.models.dropzones.deck;
         $scope.displayDeck = reduceArrayP2($scope.decklist);
+        calcCardsLeft();
     }, true);
 
     $("#back").click(function () {
@@ -76,8 +77,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
     $scope.exportDeck = function () {
         var displayDeck = $scope.displayDeck;
-        if($scope.displayDeck.length >= 1){
-            for(var i = 0; i < displayDeck.length; i++) {
+        if ($scope.displayDeck.length >= 1) {
+            for (var i = 0; i < displayDeck.length; i++) {
                 $scope.exportedDeck += displayDeck[i].name;
                 $scope.exportedDeck += (" " + displayDeck[i].count + "\n");
             }
@@ -86,6 +87,19 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         else {
             console.log("Empty Deck");
         }
+    };
+
+    $scope.getCardsLeft = function (card) {
+        var count = 0;
+        var displayDeck = $scope.displayDeck;
+        if (displayDeck.length > 1) {
+            displayDeck.forEach(function (displayCard) {
+                if (displayCard.name == card.name) {
+                    count = displayCard.count;
+                }
+            })
+        }
+        return 4 - count;
     };
 
     /*
@@ -222,12 +236,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
         cmcFilter();
     });
 
-    $scope.dragStart = function() {
-        $('#drag-box').removeClass( "drag-box" ).addClass( "drag-box-ondrag" );
+    $scope.dragStart = function () {
+        $('#drag-box').removeClass("drag-box").addClass("drag-box-ondrag");
     };
 
-    $scope.dragEnd = function() {
-        $('#drag-box').removeClass( "drag-box-ondrag" ).addClass( "drag-box" );
+    $scope.dragEnd = function () {
+        $('#drag-box').removeClass("drag-box-ondrag").addClass("drag-box");
     };
 
     function CMCChange(number, event) {
@@ -295,6 +309,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
                     $scope.botRow.push(data[x]);
                 }
             }
+            calcCardsLeft();
         }, function errorCallback(response) {
             console.error(response.data)
         });
@@ -307,6 +322,61 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
 
 
     changePage();
+
+    function calcCardsLeft() {
+        console.log("Calcing")
+        var displayDeck = $scope.displayDeck;
+        var topRow = $scope.topRow;
+        var botRow = $scope.botRow;
+
+        for (var x = 0; x < topRow.length; x++) {
+            var card = topRow[x];
+            if(!card.cardsLeft){
+                card.cardsLeft = 4;
+            }
+            if(displayDeck.length >= 1){
+                var notFound = true;
+                displayDeck.forEach(function (displayCard) {
+                    if(card.name == displayCard.name){
+                        console.log(card.name + " - " + displayCard.name)
+                        $scope.topRow[x].cardsLeft = 4 - displayCard.count;
+                        notFound = false;
+                    }
+                });
+                if(notFound) {
+                    if (card.cardsLeft == 3) {
+                        $scope.topRow[x].cardsLeft = 4;
+                    }
+                }
+            }  else {
+                $scope.topRow[x].cardsLeft = 4;
+            }
+        }
+
+        for (var x = 0; x < botRow.length; x++) {
+            var card = botRow[x];
+            if(!card.cardsLeft){
+                card.cardsLeft = 4;
+            }
+            if(displayDeck.length >= 1){
+                var notFound = true;
+                displayDeck.forEach(function (displayCard) {
+                    if(card.name == displayCard.name){
+                        console.log(card.name + " - " + displayCard.name)
+                        $scope.botRow[x].cardsLeft = 4 - displayCard.count;
+                        notFound = false;
+                    }
+                });
+                if(notFound) {
+                    if (card.cardsLeft == 3) {
+                        $scope.botRow[x].cardsLeft = 4;
+                    }
+                }
+            }  else {
+                $scope.botRow[x].cardsLeft = 4;
+            }
+        }
+    }
 });
 
 function objectToString(obj) {
