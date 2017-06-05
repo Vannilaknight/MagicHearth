@@ -11,159 +11,192 @@
   src: url("./../../fonts/relay.ttf"); }
 
 body {
-  background: #262626;
+  background-image: url("./../../images/tableBG.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   color: #fff; }
 
 .deck-builder {
   margin-top: 50px; }
 
-.collection-box {
-  background: #262626; }
-  .collection-box .area-click {
+.collection-box .area-click {
+  position: absolute;
+  margin-top: 10px;
+  height: 680px;
+  width: 35px;
+  z-index: 1000; }
+
+.collection-box .back-area {
+  left: 0;
+  cursor: w-resize; }
+
+.collection-box .next-area {
+  right: 0;
+  cursor: e-resize; }
+
+.collection-box .color-filter {
+  height: 85px;
+  margin-bottom: -10px; }
+  .collection-box .color-filter ul {
+    margin-top: 0;
+    padding: 0;
     position: absolute;
-    margin-top: 10px;
-    height: 680px;
-    width: 35px;
-    z-index: 1000; }
-  .collection-box .back-area {
-    left: 0;
-    cursor: w-resize; }
-  .collection-box .next-area {
-    right: 0;
-    cursor: e-resize; }
-  .collection-box .color-filter {
-    height: 85px; }
-    .collection-box .color-filter ul {
-      margin: 0;
-      padding: 0; }
-      .collection-box .color-filter ul li {
-        list-style: none;
-        display: inline-block; }
-    .collection-box .color-filter input[type=checkbox] {
+    bottom: 0;
+    height: 70px; }
+    .collection-box .color-filter ul li {
       position: absolute;
-      top: -9999px;
-      left: -9999px; }
-    .collection-box .color-filter .color-tab {
-      width: 50px;
-      height: 50px;
-      display: inline-block;
-      border: 1px solid #6e6e6e;
-      margin-top: 0;
-      margin-bottom: -8px;
-      margin-left: 5px;
-      margin-right: 5px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-c {
-      border: 1px solid #887c54; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-b {
-      border: 1px solid #000; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-w {
-      border: 1px solid #fff; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-u {
-      border: 1px solid #00f; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-r {
-      border: 1px solid #f00; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-g {
-      border: 1px solid #0f0; }
-    .collection-box .color-filter input[type=checkbox]:checked ~ .color-and {
-      border: 1px solid #ff00eb; }
-  .collection-box .text-filter .search-divider {
-    width: 0px;
-    padding-left: 0px;
-    padding-right: 0px;
-    border: none; }
-  .collection-box .cards {
-    padding-top: 20px;
-    padding-bottom: 20px; }
-    .collection-box .cards::before {
-      content: "";
-      position: absolute;
-      top: 0;
-      left: -20px;
-      width: 120%;
-      height: 100%;
-      background-image: url("./../../images/paper.png");
-      background-color: transparent;
-      background-size: contain;
-      filter: drop-shadow(0px 0px 5px #262626); }
-    .collection-box .cards .mtgcard {
-      padding: 15px;
+      bottom: 0;
+      list-style: none;
+      display: inline-block; }
+  .collection-box .color-filter input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px; }
+  .collection-box .color-filter .color-tab {
+    background-color: #262626;
+    background-size: cover;
+    background-repeat: no-repeat;
+    width: 50px;
+    height: 60px;
+    display: inline-block;
+    border: 2px groove #CCBB99;
+    border-bottom: none;
+    margin-top: 20px;
+    margin-bottom: -8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    transition: height .5s; }
+  .collection-box .color-filter .li-c {
+    left: 10px; }
+  .collection-box .color-filter .li-b {
+    left: 70px; }
+  .collection-box .color-filter .li-w {
+    left: 130px; }
+  .collection-box .color-filter .li-u {
+    left: 190px; }
+  .collection-box .color-filter .li-r {
+    left: 250px; }
+  .collection-box .color-filter .li-g {
+    left: 310px; }
+  .collection-box .color-filter .li-and {
+    left: 370px; }
+  .collection-box .color-filter .color-c {
+    background-image: url("./../../images/colorlessMana.png"); }
+  .collection-box .color-filter .color-b {
+    background-image: url("./../../images/blackMana.png"); }
+  .collection-box .color-filter .color-w {
+    background-image: url("./../../images/whiteMana.png"); }
+  .collection-box .color-filter .color-u {
+    background-image: url("./../../images/blueMana.png"); }
+  .collection-box .color-filter .color-r {
+    background-image: url("./../../images/redMana.png"); }
+  .collection-box .color-filter .color-g {
+    background-image: url("./../../images/greenMana.png"); }
+  .collection-box .color-filter .color-and {
+    background-image: url("./../../images/andMana.png"); }
+  .collection-box .color-filter input[type=checkbox]:checked ~ .color-tab {
+    height: 80px; }
+
+.collection-box .text-filter .search-divider {
+  width: 0px;
+  padding-left: 0px;
+  padding-right: 0px;
+  border: none; }
+
+.collection-box .cards {
+  padding-top: 20px;
+  padding-bottom: 20px; }
+  .collection-box .cards::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: -20px;
+    width: 120%;
+    height: 100%;
+    background-image: url("./../../images/paper.png");
+    background-color: transparent;
+    background-size: contain;
+    filter: drop-shadow(0px 0px 5px #262626); }
+  .collection-box .cards .mtgcard {
+    padding: 15px;
+    position: relative;
+    user-select: none; }
+    .collection-box .cards .mtgcard:active + .drag-box {
+      background: #fff !important; }
+    .collection-box .cards .mtgcard .cardImg {
+      filter: drop-shadow(0px 0px 5px #262626);
       position: relative;
-      user-select: none; }
-      .collection-box .cards .mtgcard:active + .drag-box {
-        background: #fff !important; }
-      .collection-box .cards .mtgcard .cardImg {
-        filter: drop-shadow(0px 0px 5px #262626);
-        position: relative;
-        z-index: 2; }
-    .collection-box .cards .cards-left {
-      position: absolute;
-      padding-top: 4px;
-      padding-right: 10px;
-      font-family: "beleren";
-      font-size: 24px;
-      color: #2e2e2e;
-      text-align: right;
-      right: 40px;
-      top: 10%;
-      width: 50px;
-      height: 50px;
-      background: #EEEECC;
-      border-top: 3px groove #CCBB99;
-      border-right: 3px groove #CCBB99;
-      border-bottom: 3px groove #CCBB99;
-      border-top-right-radius: 15px;
-      border-bottom-right-radius: 15px;
-      z-index: 0; }
-  .collection-box .filter {
-    height: 85px; }
-    .collection-box .filter .format-select-box .format-select {
-      color: #000; }
-    .collection-box .filter .cmc-filter-box ul {
-      margin: 0;
-      padding: 0; }
-      .collection-box .filter .cmc-filter-box ul li {
-        list-style: none;
-        display: inline-block; }
-    .collection-box .filter .cmc-filter-box input[type=checkbox] {
-      position: absolute;
-      top: -9999px;
-      left: -9999px; }
-    .collection-box .filter .cmc-filter-box .mana-tab {
-      width: 40px;
-      height: 40px;
-      display: inline-block;
-      border: 1px solid #6e6e6e;
-      margin-top: 0;
-      margin-left: 5px;
-      margin-right: 5px;
-      border-radius: 100%; }
-    .collection-box .filter .cmc-filter-box input[type=checkbox]:checked ~ .mana-tab {
-      border: 1px solid #00d8ff; }
-    .collection-box .filter .rarity-filter-box ul {
-      margin: 0;
-      padding: 0; }
-      .collection-box .filter .rarity-filter-box ul li {
-        list-style: none;
-        display: inline-block; }
-    .collection-box .filter .rarity-filter-box input[type=checkbox] {
-      position: absolute;
-      top: -9999px;
-      left: -9999px; }
-    .collection-box .filter .rarity-filter-box .rarity-tab {
-      width: 50px;
-      height: 50px;
-      display: inline-block;
-      border: 1px solid #6e6e6e;
-      margin-top: 0;
-      margin-bottom: -8px;
-      margin-left: 5px;
-      margin-right: 5px;
-      border-top-left-radius: 10px;
-      border-top-right-radius: 10px; }
-    .collection-box .filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-tab {
-      border: 1px solid #ffe000; }
+      z-index: 2; }
+  .collection-box .cards .cards-left {
+    position: absolute;
+    padding-top: 4px;
+    padding-right: 10px;
+    font-family: "beleren";
+    font-size: 24px;
+    color: #2e2e2e;
+    text-align: right;
+    right: 40px;
+    top: 10%;
+    width: 50px;
+    height: 50px;
+    background: #EEEECC;
+    border-top: 3px groove #CCBB99;
+    border-right: 3px groove #CCBB99;
+    border-bottom: 3px groove #CCBB99;
+    border-top-right-radius: 15px;
+    border-bottom-right-radius: 15px;
+    z-index: 0; }
+
+.collection-box .filter {
+  height: 85px; }
+  .collection-box .filter .format-select-box .format-select {
+    color: #000; }
+  .collection-box .filter .cmc-filter-box ul {
+    margin: 0;
+    padding: 0; }
+    .collection-box .filter .cmc-filter-box ul li {
+      list-style: none;
+      display: inline-block; }
+  .collection-box .filter .cmc-filter-box input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px; }
+  .collection-box .filter .cmc-filter-box .mana-tab {
+    width: 40px;
+    height: 40px;
+    display: inline-block;
+    border: 1px solid #6e6e6e;
+    margin-top: 0;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-radius: 100%; }
+  .collection-box .filter .cmc-filter-box input[type=checkbox]:checked ~ .mana-tab {
+    border: 1px solid #00d8ff; }
+  .collection-box .filter .rarity-filter-box ul {
+    margin: 0;
+    padding: 0; }
+    .collection-box .filter .rarity-filter-box ul li {
+      list-style: none;
+      display: inline-block; }
+  .collection-box .filter .rarity-filter-box input[type=checkbox] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px; }
+  .collection-box .filter .rarity-filter-box .rarity-tab {
+    width: 50px;
+    height: 50px;
+    display: inline-block;
+    border: 1px solid #6e6e6e;
+    margin-top: 0;
+    margin-bottom: -8px;
+    margin-left: 5px;
+    margin-right: 5px;
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px; }
+  .collection-box .filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-tab {
+    border: 1px solid #ffe000; }
 
 .deck-tray {
   padding: 0; }

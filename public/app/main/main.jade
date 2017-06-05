@@ -7,27 +7,27 @@ script(type='text/ng-template', id='cardTemp')
             .row
                 .col-sm-6.color-filter
                     ul
-                        li
+                        li.li-c
                             input#c(type="checkbox")
-                            label.color-tab.color-c(for="c" onclick) C
-                        li
+                            label.color-tab.color-c(for="c" onclick)
+                        li.li-b
                             input#b(type="checkbox")
-                            label.color-tab.color-b(for="b" onclick) B
-                        li
+                            label.color-tab.color-b(for="b" onclick)
+                        li.li-w
                             input#w(type="checkbox")
-                            label.color-tab.color-w(for="w" onclick) W
-                        li
+                            label.color-tab.color-w(for="w" onclick)
+                        li.li-u
                             input#u(type="checkbox")
-                            label.color-tab.color-u(for="u" onclick) U
-                        li
+                            label.color-tab.color-u(for="u" onclick)
+                        li.li-r
                             input#r(type="checkbox")
-                            label.color-tab.color-r(for="r" onclick) R
-                        li
+                            label.color-tab.color-r(for="r" onclick)
+                        li.li-g
                             input#g(type="checkbox")
-                            label.color-tab.color-g(for="g" onclick) G
-                        li
+                            label.color-tab.color-g(for="g" onclick)
+                        li.li-and
                             input#and(type="checkbox")
-                            label.color-tab.color-and(for="and" onclick) &
+                            label.color-tab.color-and(for="and" onclick)
                 .col-sm-6.text-filter
                     .input-group.col-sm-12
                         input.form-control.search(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
