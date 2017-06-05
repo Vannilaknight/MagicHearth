@@ -16,7 +16,6 @@
 body {
   background-image: url("./../../images/tableBG.jpg");
   background-size: 100% 100%;
-  background-repeat: no-repeat;
   color: #fff;
 }
 
@@ -85,6 +84,18 @@ body {
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
       transition: height .5s;
+      &::before {
+        content: '';
+        position: absolute;
+        top: 80px;
+        left: 5px;
+        background-color: #262626;
+        border: 2px groove #CCBB99;
+        border-top: none;
+        height: 120%;
+        width: 50px;
+        z-index: 0;
+      }
     }
 
     .li-c {
