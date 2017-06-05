@@ -14,7 +14,9 @@
 }
 
 body {
-  background: #262626;
+  background-image: url("./../../images/tableBG.jpg");
+  background-size: 100% 100%;
+  background-repeat: no-repeat;
   color: #fff;
 }
 
@@ -23,7 +25,6 @@ body {
 }
 
 .collection-box {
-  background: #262626;
 
   .area-click {
     position: absolute;
@@ -45,12 +46,18 @@ body {
 
   .color-filter {
     height: 85px;
+    margin-bottom: -10px;
 
     ul {
-      margin: 0;
+      margin-top: 0;
       padding: 0;
+      position: absolute;
+      bottom: 0;
+      height: 70px;
 
       li {
+        position: absolute;
+        bottom: 0;
         list-style: none;
         display: inline-block;
       }
@@ -63,44 +70,82 @@ body {
     }
 
     .color-tab {
+      background-color: #262626;
+      background-size: cover;
+      background-repeat: no-repeat;
       width: 50px;
-      height: 50px;
+      height: 60px;
       display: inline-block;
-      border: 1px solid #6e6e6e;
-      margin-top: 0;
+      border: 2px groove #CCBB99;
+      border-bottom: none;
+      margin-top: 20px;
       margin-bottom: -8px;
       margin-left: 5px;
       margin-right: 5px;
       border-top-left-radius: 10px;
       border-top-right-radius: 10px;
+      transition: height .5s;
     }
 
-    input[type=checkbox]:checked ~ .color-c {
-      border: 1px solid #887c54;
+    .li-c {
+      left: 10px;
     }
 
-    input[type=checkbox]:checked ~ .color-b {
-      border: 1px solid #000;
+    .li-b {
+      left: 70px;
     }
 
-    input[type=checkbox]:checked ~ .color-w {
-      border: 1px solid #fff;
+    .li-w {
+      left: 130px;
     }
 
-    input[type=checkbox]:checked ~ .color-u {
-      border: 1px solid #00f;
+    .li-u {
+      left: 190px;
     }
 
-    input[type=checkbox]:checked ~ .color-r {
-      border: 1px solid #f00;
+    .li-r {
+      left: 250px;
     }
 
-    input[type=checkbox]:checked ~ .color-g {
-      border: 1px solid #0f0;
+    .li-g {
+      left: 310px;
     }
 
-    input[type=checkbox]:checked ~ .color-and {
-      border: 1px solid #ff00eb;
+    .li-and {
+      left: 370px;
+    }
+    
+    .color-c {
+      background-image: url("./../../images/colorlessMana.png");
+    }
+
+    .color-b {
+      background-image: url("./../../images/blackMana.png");
+    }
+
+    .color-w {
+      background-image: url("./../../images/whiteMana.png");
+    }
+
+    .color-u {
+      background-image: url("./../../images/blueMana.png");
+    }
+
+    .color-r {
+      background-image: url("./../../images/redMana.png");
+    }
+
+    .color-g {
+      background-image: url("./../../images/greenMana.png");
+    }
+
+    .color-and {
+      background-image: url("./../../images/andMana.png");
+    }
+
+
+    input[type=checkbox]:checked ~ .color-tab {
+      height: 80px;
     }
   }
 
