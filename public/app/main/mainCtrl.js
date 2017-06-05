@@ -1,4 +1,7 @@
-angular.module('app').controller('mainCtrl', function ($scope, $http) {
+angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal) {
+
+
+
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
@@ -76,6 +79,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
     };
 
     $scope.exportDeck = function () {
+        $scope.exportedDeck = [];
         var displayDeck = $scope.displayDeck;
         if ($scope.displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
