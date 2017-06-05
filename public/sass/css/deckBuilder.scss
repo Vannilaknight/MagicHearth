@@ -35,12 +35,12 @@ body {
 
   .back-area {
     left: 0;
-    cursor: w-resize;
+    cursor: url("./../../images/left.cur"), auto;
   }
 
   .next-area {
     right: 0;
-    cursor: e-resize;
+    cursor: url("./../../images/right.cur"), auto;
   }
 
   .color-filter {
