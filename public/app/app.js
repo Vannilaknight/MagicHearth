@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLists'])
+angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLists', 'ui.bootstrap'])
     .config(function ($routeProvider, $locationProvider) {
 
         $locationProvider.html5Mode(true);
