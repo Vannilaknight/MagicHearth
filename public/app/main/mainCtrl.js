@@ -88,6 +88,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http) {
             console.log("Empty Deck");
         }
     };
+    $scope.importDeck = function (importedString) {
+        if(!(importedString.equals(""))) {
+            $scope.displayDeck = [];
+            var splitImportedDeck = importedString.split('\n');
+            for(var i = 0; i < splitImportedDeck.length; i++){
+
+            }
+        }
+
+    }
 
     $scope.getCardsLeft = function (card) {
         var count = 0;
