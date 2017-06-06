@@ -208,7 +208,7 @@ function filterText(searchText, cards) {
                 contains = true;
             }
         }
-        if (card.name.includes(searchText)) {
+        if (card.name.toLowerCase().includes(searchText.toLowerCase())) {
             contains = true;
         }
 
