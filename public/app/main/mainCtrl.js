@@ -96,22 +96,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
     $scope.importDeck = function (importedString) {
         $http ({
             method: 'GET',
-            url: '/api/card?' + objectToString(params)
-        }).then(function responseCallback() {
-            var _stringOfCardNames = [];
-
-            if (importedString) {
-                $scope.displayDeck = [];
-                var splitImportedDeck = importedString.split('\n');
-                for (var i = 0; i < splitImportedDeck.length; i++) {
-                    var cardData = splitImportedDeck[i].split(' ');
-                    var numOfCard = cardData[0].replace('x', '');
-                    _stringOfCardNames.add(cardData[1]);
-
-
-                }
-            }
-            var cardParams = {cardNames: _stringOfCardNames};
+            url: '/api/buildImport?importedString' + importedString
+        }).then(function responseCallback(response) {
+            $scope.decklist = response.data;
+        }, function errorCallback(response) {
+            console.error(response.data);
         });
 
     };

@@ -43,14 +43,27 @@ function getCards(req, res) {
 
     res.send(cards)
 }
-function searchForCard(req, res) {
-    var searchText = req.params.searchText;
-    var searchFormat = res.params.format;
+function buildImportedDeck(importedString) {
+    if(importedString){
+        var newCards = [];
+        var splitImportedString = importedString.split('\n');
+        for(var i = 0; i < splitImportedString; i++) {
+            var stringData = splitImportedString.split(' ');
+            var cardName = stringData[1];
+            var numOfCard = parseInt(stringData[0].replace('x', ''));
+
+            var cardData = searchForCard(cardName)
+            for (var j = numOfCard; j > 0; i--) {
+                newCards.add(cardData);
+            }
+        }
+    }
+    return newCards;
+}
+function searchForCard(searchText) {
+    var cardName = searchText;
     var cards = [];
 
-    if(searchFormat) {
-        cards = filterFormat(searchFormat, cards);
-    }
     if(searchText) {
         cards = filterText(searchText, cards);
     }
@@ -281,7 +294,8 @@ function filterPage(page, cards) {
 
 module.exports = {
     getCards,
-    searchForCard
+    searchForCard,
+    buildImportedDeck
 };
 
 // Not in use
