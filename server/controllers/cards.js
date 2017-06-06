@@ -43,7 +43,7 @@ function getCards(req, res) {
 
     res.send(cards)
 }
-function searchCards(req, res) {
+function searchForCard(req, res) {
     var searchText = req.params.searchText;
     var searchFormat = res.params.format;
     var cards = [];
@@ -281,7 +281,7 @@ function filterPage(page, cards) {
 
 module.exports = {
     getCards,
-    searchCards
+    searchForCard
 };
 
 // Not in use

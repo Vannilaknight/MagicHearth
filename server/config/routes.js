@@ -8,7 +8,7 @@ module.exports = function (app, config) {
   });
 
   app.get('/api/cards', cards.getCards);
-  app.get('/api/card', cards.searchCards);
+  app.get('/api/card', cards.searchForCard);
 
   app.all('/api/*', function (req, res) {
     res.send(404);

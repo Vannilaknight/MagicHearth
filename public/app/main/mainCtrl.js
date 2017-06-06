@@ -93,11 +93,17 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         }
     };
     $scope.importDeck = function (importedString) {
-        if(!(importedString.equals(""))) {
+
+        if(importedString) {
             $scope.displayDeck = [];
             var splitImportedDeck = importedString.split('\n');
             for(var i = 0; i < splitImportedDeck.length; i++){
+                var card = splitImportedDeck[i].split(' ');
+                var cardName = card[0];
+                var numOfCard = card[1];
 
+                //searchForCard(cardName, numOfCard);
+                //add Card to decklist, overriding original decklist.
             }
         }
 
