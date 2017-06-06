@@ -93,27 +93,29 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             console.log("Empty Deck");
         }
     };
-   /* $scope.importDeck = function (importedString) {
+    $scope.importDeck = function (importedString) {
         $http ({
             method: 'GET',
             url: '/api/card?' + objectToString(params)
         }).then(function responseCallback() {
-            if(importedString) {
+            var _stringOfCardNames = [];
+
+            if (importedString) {
                 $scope.displayDeck = [];
                 var splitImportedDeck = importedString.split('\n');
-                for(var i = 0; i < splitImportedDeck.length; i++){
-                    var card = splitImportedDeck[i].split(' ');
-                    var cardName = card[0];
-                    var numOfCard = card[1];
+                for (var i = 0; i < splitImportedDeck.length; i++) {
+                    var cardData = splitImportedDeck[i].split(' ');
+                    var numOfCard = cardData[0].replace('x', '');
+                    _stringOfCardNames.add(cardData[1]);
 
-                    //searchForCard(cardName, numOfCard);
-                    //add Card to decklist, overriding original decklist.
+
                 }
             }
+            var cardParams = {cardNames: _stringOfCardNames};
+        });
 
+    };
 
-    }
-*/
     $scope.getCardsLeft = function (card) {
         var count = 0;
         var displayDeck = $scope.displayDeck;
