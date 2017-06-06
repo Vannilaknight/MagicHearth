@@ -7,8 +7,11 @@ machine:
     America/Denver
   node:
     version: 7.4.0
+test:
+  override:
+    - echo "test"
 deployment:
-  production:
-    tag: /v.*/
+  master:
+    branch: master
     commands:
       - cat bin/rebuild.sh | ssh -i $KEY ubuntu@ec2-34-211-47-154.us-west-2.compute.amazonaws.com
