@@ -43,7 +43,20 @@ function getCards(req, res) {
 
     res.send(cards)
 }
+function searchCards(req, res) {
+    var searchText = req.params.searchText;
+    var searchFormat = res.params.format;
+    var cards = [];
 
+    if(searchFormat) {
+        cards = filterFormat(searchFormat, cards);
+    }
+    if(searchText) {
+        cards = filterText(searchText, cards);
+    }
+
+    res.send(cards[0]);
+}
 function filterFormat(format, cards) {
     if (format == "standard") {
         standardSet.forEach(function (set, ind, arr) {
@@ -267,7 +280,8 @@ function filterPage(page, cards) {
 }
 
 module.exports = {
-    getCards
+    getCards,
+    searchCards
 };
 
 // Not in use
