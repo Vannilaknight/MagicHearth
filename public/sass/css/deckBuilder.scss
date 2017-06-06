@@ -35,12 +35,12 @@ body {
 
   .back-area {
     left: 0;
-    cursor: url("./../../images/left.cur"), auto;
+    cursor: url("./../../images/cursorL.cur"), auto;
   }
 
   .next-area {
     right: 0;
-    cursor: url("./../../images/right.cur"), auto;
+    cursor: url("./../../images/cursorR.cur"), auto;
   }
 
   .color-filter {
@@ -171,7 +171,7 @@ body {
 
   .cards {
     padding-top: 20px;
-    padding-bottom: 20px;
+    padding-bottom: 30px;
     &::before {
       content: "";
       position: absolute;
@@ -179,7 +179,7 @@ body {
       left: -20px;
       width: 120%;
       height: 100%;
-      background-image: url("./../../images/paper.png");
+      background-image: url("./../../images/backG.png");
       background-color: transparent;
       background-size: contain;
       filter: drop-shadow(0px 0px 5px #262626);
