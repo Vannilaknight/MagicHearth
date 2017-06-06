@@ -1,0 +1,10 @@
+machine:
+  timezone:
+    America/Denver
+  node:
+    version: 7.4.0
+deployment:
+  production:
+    tag: /v.*/
+    commands:
+      - cat bin/rebuild.sh | ssh -i $KEY ubuntu@ec2-34-211-47-154.us-west-2.compute.amazonaws.com
