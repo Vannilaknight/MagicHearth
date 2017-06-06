@@ -83,8 +83,9 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         var displayDeck = $scope.displayDeck;
         if ($scope.displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
-                $scope.exportedDeck += displayDeck[i].name;
-                $scope.exportedDeck += (" " + displayDeck[i].count + "\n");
+                $scope.exportedDeck += (displayDeck[i].count + "x");
+                $scope.exportedDeck += (" " + displayDeck[i].name + "\n");
+
             }
             console.log($scope.exportedDeck);
         }
@@ -92,23 +93,27 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             console.log("Empty Deck");
         }
     };
-    $scope.importDeck = function (importedString) {
+   /* $scope.importDeck = function (importedString) {
+        $http ({
+            method: 'GET',
+            url: '/api/card?' + objectToString(params)
+        }).then(function responseCallback() {
+            if(importedString) {
+                $scope.displayDeck = [];
+                var splitImportedDeck = importedString.split('\n');
+                for(var i = 0; i < splitImportedDeck.length; i++){
+                    var card = splitImportedDeck[i].split(' ');
+                    var cardName = card[0];
+                    var numOfCard = card[1];
 
-        if(importedString) {
-            $scope.displayDeck = [];
-            var splitImportedDeck = importedString.split('\n');
-            for(var i = 0; i < splitImportedDeck.length; i++){
-                var card = splitImportedDeck[i].split(' ');
-                var cardName = card[0];
-                var numOfCard = card[1];
-
-                //searchForCard(cardName, numOfCard);
-                //add Card to decklist, overriding original decklist.
+                    //searchForCard(cardName, numOfCard);
+                    //add Card to decklist, overriding original decklist.
+                }
             }
-        }
+
 
     }
-
+*/
     $scope.getCardsLeft = function (card) {
         var count = 0;
         var displayDeck = $scope.displayDeck;
