@@ -1,6 +1,6 @@
 var fs = require("fs"),
     AllSets = require("./../controllers/AllSets.json");
-var filename = "Standard.json";
+var filename = "Modern.json";
 var setToAdd = "AKH";
 var modernJSON = [];
 
