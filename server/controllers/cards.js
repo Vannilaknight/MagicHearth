@@ -43,7 +43,8 @@ function getCards(req, res) {
 
     res.send(cards)
 }
-function buildImportedDeck(importedString) {
+function buildImportedDeck(req, res) {
+    var importedString = req.query.importedString;
     if(importedString){
         var newCards = [];
         var splitImportedString = importedString.split('\n');
@@ -58,7 +59,7 @@ function buildImportedDeck(importedString) {
             }
         }
     }
-    return newCards;
+    res.send(newCards);
 }
 function searchForCard(searchText) {
     var cardName = searchText;
