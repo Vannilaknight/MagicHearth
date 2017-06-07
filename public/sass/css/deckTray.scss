@@ -1,0 +1,123 @@
+@import 'vars';
+
+.deck-tray {
+  padding:0;
+
+
+  ul {
+    margin: 0;
+    padding: 0;
+
+    li {
+      list-style: none;
+    }
+  }
+
+  .display-box {
+    padding: 20px;
+  }
+
+  .deck-card {
+    width:100%;
+    margin-bottom: 5px;
+    color: #262626;
+    position: relative;
+    z-index: 999;
+    background: #EEEECC;
+    border: 4px groove #CCBB99;
+    span {
+      margin-top: 5px;
+    }
+    .text {
+      font-family: "beleren";
+    }
+    .count {
+      float: right;
+      margin-right: 10px;
+      font-family: "Belwe";
+    }
+    .btn {
+      background: none;
+      border-radius: 0;
+      border: none;
+      border-right: 3px dotted #CCBB99;
+      color: #A63E26;
+      margin-right: 5px;
+      &:hover {
+        background: #ffffde;
+      }
+      &:active {
+        outline: none;
+      }
+      &:focus {
+        outline: none;
+      }
+      &:active > .deck-card {
+        background: #d3ff84;
+      }
+    }
+  }
+
+  .dndDragover {
+    background: #363636 !important;
+  }
+
+  .drag-box {
+    box-shadow: -1px 0 15px rgba(38, 38, 38, 0.5);
+    background-color: #262626;
+    position: absolute;
+    top: 0;
+    height: 850px;
+    width: 100%;
+    transition: background 1s;
+    border-radius: 10px;
+    &::before {
+      content: "";
+      pointer-events: none;
+      background-image: url("./../../images/trayBorder.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      position: absolute;
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+    }
+  }
+
+  .drag-box-ondrag {
+    box-shadow: 0 0 15px #262626;
+    background-color: #2e2e2e;
+    position: absolute;
+    top: 0;
+    height: 850px;
+    width: 100%;
+    transition: background .2s;
+    &::before {
+      content: "";
+      pointer-events: none;
+      background-image: url("./../../images/trayBorderOndrag.png");
+      background-size: 100% 100%;
+      background-repeat: no-repeat;
+      position: absolute;
+      top:0;
+      left:0;
+      width: 100%;
+      height: 100%;
+      z-index: 1000;
+    }
+  }
+
+  .export-import {
+    position: absolute;
+    width: 100%;
+    bottom: 0;
+    z-index: 999;
+    padding: 25px;
+    .btn {
+      width: 50%;
+
+    }
+  }
+}
