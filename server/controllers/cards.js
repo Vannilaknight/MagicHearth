@@ -2,6 +2,7 @@ var modernSet = require('./Modern.json'),
     standardSet = require('./Standard.json'),
     sets = require('./AllSets.json');
 
+
 function getCards(req, res) {
     var page = req.query.page;
     var format = req.query.format;
@@ -45,17 +46,21 @@ function getCards(req, res) {
 }
 function buildImportedDeck(req, res) {
     var importedString = req.query.importedString;
-    if(importedString){
-        var newCards = [];
-        var splitImportedString = importedString.split('\n');
-        for(var i = 0; i < splitImportedString; i++) {
-            var stringData = splitImportedString.split(' ');
-            var cardName = stringData[1];
-            var numOfCard = parseInt(stringData[0].replace('x', ''));
+    var newCards = [];
 
-            var cardData = searchForCard(cardName)
-            for (var j = numOfCard; j > 0; i--) {
-                newCards.add(cardData);
+    if(importedString){
+        var regex = /(\dx)/;
+        var splitImportedString = importedString.split(regex);
+        splitImportedString.splice(0,1);
+        for(var i = 0; i < splitImportedString.length; i = i+2) {
+
+            var cardName = splitImportedString[(i+1)].slice(1);
+            var numOfCard = parseInt(splitImportedString[i].replace('x', ''));
+            console.log(cardName);
+            var cardData = searchForCard(cardName);
+
+            for (var j = numOfCard; j > 0; j--) {
+                 newCards.push(cardData);
             }
         }
     }
@@ -63,14 +68,15 @@ function buildImportedDeck(req, res) {
 }
 function searchForCard(searchText) {
     var cardName = searchText;
-    var cards = [];
 
-    if(searchText) {
-        cards = filterText(searchText, cards);
+    var cards = filterFormat("modern", []);
+
+    if(cardName) {
+        cards = filterText(cardName, cards);
     }
-
-    res.send(cards[0]);
+    return cards[0];
 }
+
 function filterFormat(format, cards) {
     if (format == "standard") {
         standardSet.forEach(function (set, ind, arr) {
@@ -190,7 +196,7 @@ function filterText(searchText, cards) {
     searchText = searchText.replace(/\*.*?\*/g, "");
     searchText = searchText.replace(/".*?"/g, "");
 
-    console.log(searchText);
+    //console.log(searchText);
     if(subtypes){
         cards = cards.filter(function (card) {
             var result = false;
