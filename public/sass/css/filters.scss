@@ -178,8 +178,75 @@
   .filter {
     height: 85px;
     .format-select-box {
+      padding: 10px;
+      background: #262626;
+      border: 2px groove #ccbb99;
+      border-top: none;
+      border-bottom-right-radius: 5px;
+      border-bottom-left-radius: 5px;
       .format-select {
+        background: #262626;
+        border: 2px groove #ccbb99;
+        font-family: "Beleren";
+        color: #eeeecc;
+      }
+    }
+
+    .rarity-filter-box {
+
+      ul {
+        margin: 0;
+        padding: 0;
+
+        li {
+          height: 60px;
+          list-style: none;
+          display: inline-block;
+        }
+      }
+
+      input[type=checkbox] {
+        position: absolute;
+        top: -9999px;
+        left: -9999px;
+      }
+
+      .rarity-tab {
+        width: 50px;
+        height: 50px;
+        display: inline-block;
+        border: 2px groove #CCBB99;
+        font-family: "Beleren";
+        font-size: 20px;
+        color: #eeeecc;
+        text-align: center;
+        line-height: 50px;
+        border-top: none;
+        background: #262626;
+        margin-top: 0;
+        margin-bottom: -8px;
+        margin-left: 5px;
+        margin-right: 5px;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        transition: height .5s;
+      }
+
+      input[type=checkbox]:checked ~ .rarity-c{
+        height: 60px;
         color: #000;
+      }
+      input[type=checkbox]:checked ~ .rarity-u {
+        height: 60px;
+        color: #bdbdbd;
+      }
+      input[type=checkbox]:checked ~ .rarity-r {
+        height: 60px;
+        color: #ffc642;
+      }
+      input[type=checkbox]:checked ~ .rarity-m {
+        height: 60px;
+        color: #ff7555;
       }
     }
 
@@ -224,41 +291,6 @@
       input[type=checkbox]:checked ~ .mana-tab {
         border: 2px inset #00d8ff;
         background: #afaaa4;
-      }
-    }
-
-    .rarity-filter-box {
-      ul {
-        margin: 0;
-        padding: 0;
-
-        li {
-          list-style: none;
-          display: inline-block;
-        }
-      }
-
-      input[type=checkbox] {
-        position: absolute;
-        top: -9999px;
-        left: -9999px;
-      }
-
-      .rarity-tab {
-        width: 50px;
-        height: 50px;
-        display: inline-block;
-        border: 1px solid #6e6e6e;
-        margin-top: 0;
-        margin-bottom: -8px;
-        margin-left: 5px;
-        margin-right: 5px;
-        border-top-left-radius: 10px;
-        border-top-right-radius: 10px;
-      }
-
-      input[type=checkbox]:checked ~ .rarity-tab {
-        border: 1px solid #ffe000;
       }
     }
   }
