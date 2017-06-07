@@ -2,7 +2,7 @@
     .col-sm-12.deck-builder
         .col-sm-9.collection-box
             .row
-                .col-sm-6.color-filter
+                .col-sm-4.color-filter
                     ul
                         li.li-c
                             input#c(type="checkbox")
@@ -25,19 +25,21 @@
                         li.li-and
                             input#and(type="checkbox")
                             label.color-tab.color-and(for="and" onclick)
-                .col-sm-6.text-filter
+                .col-sm-offset-1.col-sm-6.text-filter
                     .input-group.col-sm-12
-                        input.form-control.search(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
-                        span.input-group-addon.search-divider
-                        select.form-control.type-filter(ng-model="typeFilter", ng-change="typeChange(typeFilter)")
-                            option(value='none' selected) None
-                            option(value='land') Land
-                            option(value='creature') Creature
-                            option(value='artifact') Artifact
-                            option(value='enchantment') Enchantment
-                            option(value='planeswalker') Planeswalker
-                            option(value='instant') Instant
-                            option(value='sorcery') Sorcery
+                        .col-sm-8.search-box
+                            input.form-control.search.input-lg(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
+                        //span.input-group-addon.search-divider
+                        .col-sm-4.type-box
+                            select.form-control.type-filter.input-lg(ng-model="typeFilter", ng-change="typeChange(typeFilter)")
+                                option(value='none' selected) None
+                                option(value='land') Land
+                                option(value='creature') Creature
+                                option(value='artifact') Artifact
+                                option(value='enchantment') Enchantment
+                                option(value='planeswalker') Planeswalker
+                                option(value='instant') Instant
+                                option(value='sorcery') Sorcery
             .row
                 #back.area-click.back-area
                 .col-sm-12.cards

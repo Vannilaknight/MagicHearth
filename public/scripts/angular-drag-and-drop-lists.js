@@ -501,7 +501,7 @@
         if (attr.dndEffectAllowed) {
           effects = filterEffects(effects, attr.dndEffectAllowed);
         }
-        // MacOS automatically filters dataTransfer.effectAllowed depending on the modifier keys,
+        // MacOS automatically filters.scss dataTransfer.effectAllowed depending on the modifier keys,
         // therefore the following modifier keys will only affect other operating systems.
         if (!effects.length) {
           return 'none';
