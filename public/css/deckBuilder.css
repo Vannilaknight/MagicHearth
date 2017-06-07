@@ -125,7 +125,7 @@ body {
     left: -20px;
     width: 120%;
     height: 100%;
-    background-image: url("./../../images/paper.png");
+    background-image: url("./../../images/backGlight.png");
     background-color: transparent;
     background-size: contain;
     filter: drop-shadow(0px 0px 5px #262626); }
