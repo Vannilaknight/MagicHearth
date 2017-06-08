@@ -1,3 +1,5 @@
+@import 'vars';
+
 div {
   //border: 1px solid rgba(255, 105, 120, 0.17);
 }
@@ -17,4 +19,21 @@ div {
 
 .toggles {
   margin: 25px;
+}
+
+.btn {
+  border: 2px groove #ccbb99;
+  font-family: "Beleren";
+  color: #eeeecc;
+  &:hover {
+    border: 2px groove #ccbb99;
+    color: #eeeecc;
+  }
+}
+
+.btn-primary {
+  background: #262626;
+  &:hover {
+    background: #2f2f2f;
+  }
 }
