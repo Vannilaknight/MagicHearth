@@ -83,14 +83,26 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         var displayDeck = $scope.displayDeck;
         if ($scope.displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
-                $scope.exportedDeck += displayDeck[i].name;
-                $scope.exportedDeck += (" " + displayDeck[i].count + "\n");
+                $scope.exportedDeck += (displayDeck[i].count + "x");
+                $scope.exportedDeck += (" " + displayDeck[i].name + "\n");
+
             }
             console.log($scope.exportedDeck);
         }
         else {
             console.log("Empty Deck");
         }
+    };
+    $scope.importDeck = function (importedString) {
+        $http ({
+            method: 'GET',
+            url: '/api/buildImport?importedString' + importedString
+        }).then(function responseCallback(response) {
+            $scope.decklist = response.data;
+        }, function errorCallback(response) {
+            console.error(response.data);
+        });
+
     };
 
     $scope.getCardsLeft = function (card) {
