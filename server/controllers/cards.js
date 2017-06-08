@@ -2,6 +2,7 @@ var modernSet = require('./Modern.json'),
     standardSet = require('./Standard.json'),
     sets = require('./AllSets.json');
 
+
 function getCards(req, res) {
     var page = req.query.page;
     var format = req.query.format;
@@ -42,6 +43,37 @@ function getCards(req, res) {
     }
 
     res.send(cards)
+}
+function buildImportedDeck(req, res) {
+    var importedString = req.query.importedString;
+    var newCards = [];
+
+    if(importedString){
+        var regex = /(\dx)/;
+        var splitImportedString = importedString.split(regex);
+        splitImportedString.splice(0,1);
+        for(var i = 0; i < splitImportedString.length; i = i+2) {
+
+            var cardName = splitImportedString[(i+1)].trim();
+            var numOfCard = parseInt(splitImportedString[i].replace('x', ''));
+            var cardData = searchForCard(cardName);
+
+            for (var j = numOfCard; j > 0; j--) {
+                 newCards.push(cardData);
+            }
+        }
+    }
+    res.send(newCards);
+}
+function searchForCard(searchText) {
+    var cardName = searchText;
+
+    var cards = filterFormat("modern", []);
+
+    if(cardName) {
+        cards = filterText(cardName, cards);
+    }
+    return cards[0];
 }
 
 function filterFormat(format, cards) {
@@ -163,7 +195,7 @@ function filterText(searchText, cards) {
     searchText = searchText.replace(/\*.*?\*/g, "");
     searchText = searchText.replace(/".*?"/g, "");
 
-    console.log(searchText);
+    //console.log(searchText);
     if(subtypes){
         cards = cards.filter(function (card) {
             var result = false;
@@ -267,7 +299,9 @@ function filterPage(page, cards) {
 }
 
 module.exports = {
-    getCards
+    getCards,
+    searchForCard,
+    buildImportedDeck
 };
 
 // Not in use
