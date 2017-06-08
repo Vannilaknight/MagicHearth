@@ -1,7 +1,6 @@
 angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal) {
 
 
-
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
@@ -94,7 +93,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         }
     };
     $scope.importDeck = function (importedString) {
-        $http ({
+        $http({
             method: 'GET',
             url: '/api/buildImport?importedString' + importedString
         }).then(function responseCallback(response) {
@@ -319,10 +318,23 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
                 $("#forward").css("display", "inherit");
             }
             for (var x = 0; x < data.length; x++) {
+                data[x].empty = false;
                 if (x < 4) {
                     $scope.topRow.push(data[x]);
                 } else {
                     $scope.botRow.push(data[x]);
+                }
+            }
+            if ($scope.topRow.length < 4) {
+                for (var q = 0; q < 4 - $scope.topRow.length; q++) {
+                    $scope.topRow.push({
+                        empty: true
+                    })
+                }
+                for (var w = 0; w < 4; w++) {
+                    $scope.botRow.push({
+                        empty: true
+                    })
                 }
             }
             calcCardsLeft();
@@ -347,48 +359,48 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
 
         for (var x = 0; x < topRow.length; x++) {
             var card = topRow[x];
-            if(!card.cardsLeft){
+            if (!card.cardsLeft) {
                 card.cardsLeft = 4;
             }
-            if(displayDeck.length >= 1){
+            if (displayDeck.length >= 1) {
                 var notFound = true;
                 displayDeck.forEach(function (displayCard) {
-                    if(card.name == displayCard.name){
+                    if (card.name == displayCard.name) {
                         console.log(card.name + " - " + displayCard.name)
                         $scope.topRow[x].cardsLeft = 4 - displayCard.count;
                         notFound = false;
                     }
                 });
-                if(notFound) {
+                if (notFound) {
                     if (card.cardsLeft == 3) {
                         $scope.topRow[x].cardsLeft = 4;
                     }
                 }
-            }  else {
+            } else {
                 $scope.topRow[x].cardsLeft = 4;
             }
         }
 
         for (var x = 0; x < botRow.length; x++) {
             var card = botRow[x];
-            if(!card.cardsLeft){
+            if (!card.cardsLeft) {
                 card.cardsLeft = 4;
             }
-            if(displayDeck.length >= 1){
+            if (displayDeck.length >= 1) {
                 var notFound = true;
                 displayDeck.forEach(function (displayCard) {
-                    if(card.name == displayCard.name){
+                    if (card.name == displayCard.name) {
                         console.log(card.name + " - " + displayCard.name)
                         $scope.botRow[x].cardsLeft = 4 - displayCard.count;
                         notFound = false;
                     }
                 });
-                if(notFound) {
+                if (notFound) {
                     if (card.cardsLeft == 3) {
                         $scope.botRow[x].cardsLeft = 4;
                     }
                 }
-            }  else {
+            } else {
                 $scope.botRow[x].cardsLeft = 4;
             }
         }

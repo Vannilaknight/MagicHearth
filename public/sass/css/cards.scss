@@ -71,3 +71,73 @@
     }
   }
 }
+
+@media screen and (min-width: 1920px) {
+  .collection-box {
+    min-height: 778px;
+  }
+
+  .cards {
+    min-height: 613px;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .collection-box {
+    min-height: 684px;
+  }
+
+  .cards {
+    min-height: 519px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .collection-box {
+    min-height: 653px;
+  }
+
+  .cards {
+    min-height: 488px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .collection-box {
+    min-height: 590px;
+  }
+
+  .cards {
+    min-height: 425px;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .collection-box {
+    min-height: 560px;
+  }
+
+  .cards {
+    min-height: 395px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .collection-box {
+    min-height: 527px;
+  }
+
+  .cards {
+    min-height: 361px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .collection-box {
+    min-height: 426px;
+  }
+
+  .cards {
+    min-height: 261px;
+  }
+}
