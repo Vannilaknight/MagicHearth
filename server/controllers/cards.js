@@ -71,8 +71,13 @@ function searchForCard(searchText) {
     var cards = filterFormat("modern", []);
 
     if(cardName) {
-        cards = filterText(cardName, cards);
+        if(cardName == "Plains" || cardName == "Swamp" || cardName == "Forest" || cardName == "Mountain" || cardName == "Island"){
+            cards = filterLand(cardName, cards);
+        } else {
+            cards = filterText(cardName, cards);
+        }
     }
+
     return cards[0];
 }
 
@@ -182,8 +187,22 @@ function filterCMC(cmcs, cards) {
                     }
                 }
             }
-        })
+        });
         return result;
+    });
+    return cards;
+}
+
+function filterLand(searchText, cards) {
+    cards = cards.filter(function (card) {
+        var contains = false;
+        if (card.rarity == "Basic Land") {
+            if(card.name == searchText){
+                contains = true;
+            }
+        }
+
+        return contains;
     });
     return cards;
 }
