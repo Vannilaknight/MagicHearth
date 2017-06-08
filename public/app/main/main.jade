@@ -49,22 +49,32 @@
                                 .col-sm-9
                                     img.img-responsive.cardImg(src="./../../images/invisCard.png")
                                 .col-sm-3
-                            .mtgcard(ng-if="!card.empty", dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
+                            .mtgcard(ng-if="!card.empty && card.rarity != 'Basic Land'", dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
                                 .col-sm-9
                                     img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
                                 .col-sm-3
                                     .cards-left x{{card.cardsLeft}}
+                            .mtgcard(ng-if="card.rarity == 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
+                                .col-sm-9
+                                    img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
+                                .col-sm-3
+                                    .cards-left ∞
                     .row
                         .col-sm-3.card-obj(ng-repeat="card in botRow")
                             .mtgcard(ng-if="card.empty")
                                 .col-sm-9
                                     img.img-responsive.cardImg(src="./../../images/invisCard.png")
                                 .col-sm-3
-                            .mtgcard(ng-if="!card.empty",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
+                            .mtgcard(ng-if="!card.empty && card.rarity != 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
                                 .col-sm-9
                                     img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
                                 .col-sm-3
                                     .cards-left x{{card.cardsLeft}}
+                            .mtgcard(ng-if="card.rarity == 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
+                                .col-sm-9
+                                    img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
+                                .col-sm-3
+                                    .cards-left ∞
                 #forward.area-click.next-area
             .row
                 .col-sm-12.filter
@@ -116,16 +126,17 @@
                                 input#cmcEightPlus(type="checkbox")
                                 label.mana-tab(for="cmcEightPlus" onclick) 8+
         .col-sm-3.deck-tray(ng-repeat="(zone, list) in models.dropzones")
-            ul.display-box
-                li.deck-card(ng-repeat='displayCard in displayDeck')
-                    button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)")
-                        span.glyphicon.glyphicon-remove-sign
-                    span.text {{displayCard.name}}
-                    span.count {{displayCard.count}}
+            ul#display-box.display-box
+                div
+                    li.deck-card(ng-repeat='displayCard in displayDeck')
+                        button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)")
+                            span.glyphicon.glyphicon-remove-sign
+                        span.text {{displayCard.name}}
+                        span.count {{displayCard.count}}
             ul#drag-box.drag-box(dnd-list='list')
                 .export-import
                     button.btn.btn-primary(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
-                    button.btn.btn-primary(ng-click="open()") Import
+                    button.btn.btn-primary(data-toggle="modal", data-target="#importModal") Import
 #exportModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exportModal', aria-hidden='true')
     .modal-dialog
         .modal-content
@@ -134,3 +145,16 @@
                 h4.modal-titleExported Copy deck for export
             .modal-body
                 pre {{exportedDeck}}
+#importModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exportModal', aria-hidden='true')
+
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                h4.modal-titleExported Paste deck for export
+            .modal-body
+                .form-group
+                    textarea#import.form-control(rows='5', placeholder="{{importExample}}", ng-model="importString")
+                    .input-group
+                        .input-group-btn
+                            button.btn.btn-primary.pull-right(ng-click="importDeck(importString)") Import Deck

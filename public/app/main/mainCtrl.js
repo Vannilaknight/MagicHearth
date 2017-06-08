@@ -1,5 +1,5 @@
 angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal) {
-
+    $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
     var currentPage = 1;
     var currentColors = [];
@@ -35,6 +35,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
     };
 
     $scope.$watch('models.dropzones', function (model) {
+        console.log($scope.models.dropzones.deck)
         $scope.decklist = $scope.models.dropzones.deck;
         $scope.displayDeck = reduceArrayP2($scope.decklist);
         calcCardsLeft();
@@ -92,12 +93,13 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             console.log("Empty Deck");
         }
     };
+
     $scope.importDeck = function (importedString) {
         $http({
             method: 'GET',
-            url: '/api/buildImport?importedString' + importedString
+            url: '/api/buildImport?importedString=' + importedString
         }).then(function responseCallback(response) {
-            $scope.decklist = response.data;
+            $scope.models.dropzones.deck = response.data;
         }, function errorCallback(response) {
             console.error(response.data);
         });
@@ -462,3 +464,50 @@ function reduceArray(array) {
     }
     return newArray;
 }
+
+var myCounter = 0,
+    myOtherCounter = 0;
+var scroll = 0;
+
+//Firefox
+// $(document).bind(...) this works as well
+$('body').bind('DOMMouseScroll', function (e) {
+    if (e.originalEvent.detail > 0) {
+        scrollDown();
+    } else {
+        scrollUp();
+    }
+
+    //prevent page fom scrolling
+    return false;
+});
+
+//IE, Opera, Safari
+$('body').bind('mousewheel', function (e) {
+    if (e.originalEvent.wheelDelta < 0) {
+        scrollDown();
+    } else {
+        scrollUp();
+    }
+    //prevent page fom scrolling
+    return false;
+});
+
+function scrollDown() {
+    //scroll down
+    console.log('Down ' + scroll);
+    console.log($('#display-box').height())
+    if (scroll < $('#display-box').find('div').height() - $('#display-box').height() + 20) {
+        scroll = $('#display-box').scrollTop() + 8;
+        $('#display-box').scrollTop(scroll);
+    }
+};
+
+function scrollUp() {
+    //scroll up
+    console.log('Up ' + scroll);
+    if (scroll > 0) {
+        scroll = $('#display-box').scrollTop() - 8;
+        $('#display-box').scrollTop(scroll);
+    }
+};

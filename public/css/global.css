@@ -10,6 +10,9 @@
   font-family: 'Relay';
   src: url("./../../fonts/relay.ttf"); }
 
+body {
+  overflow: hidden; }
+
 .container-fluid {
   padding: 0; }
 
