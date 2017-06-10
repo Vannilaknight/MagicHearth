@@ -1,2 +1,3 @@
-# MagicHearth
-MTG deckbuilder that functions like the hearthstone deckbuilder
+# SwingFace
+MTG deckbuilder that looks better than most
+
