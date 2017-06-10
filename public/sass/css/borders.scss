@@ -1,0 +1,160 @@
+//5 color
+.-U-W-B-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F), color-stop(0.25, #fff), color-stop(0.50, #000), color-stop(0.75, #F00), color-stop(1, #0F0)) !important;
+}
+
+//4 color
+.-U-W-B-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F), color-stop(.33, #fff), color-stop(.66, #000), color-stop(1, #F00)) !important;
+}
+
+.-U-W-B-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F), color-stop(.33, #fff), color-stop(.66, #000), color-stop(1, #0F0)) !important;
+}
+
+.-U-W-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F), color-stop(.33, #fff), color-stop(.66, #F00), color-stop(1, #0F0)) !important;
+}
+
+.-U-B-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F), color-stop(.33, #000), color-stop(.66, #F00), color-stop(1, #0F0)) !important;
+}
+
+.-W-B-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(0.33, #000), color-stop(0.66, #F00), color-stop(1, #0F0)) !important;
+}
+
+//3 color
+.-U-W-B-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F),  color-stop(0.50, #fff), color-stop(1, #000)) !important;
+}
+
+.-U-W-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F),  color-stop(0.50, #fff), color-stop(1, #0F0)) !important;
+}
+
+.-U-R-B-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F),  color-stop(0.50, #f00), color-stop(1, #0f0)) !important;
+}
+
+.-U-B-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F),  color-stop(0.50, #000), color-stop(1, #f00)) !important;
+}
+
+.-U-B-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F),  color-stop(0.50, #000), color-stop(1, #0f0)) !important;
+}
+
+.-U-W-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00F),  color-stop(0.50, #fff), color-stop(1, #f00)) !important;
+}
+
+.-B-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #000),  color-stop(0.50, #f00), color-stop(1, #0f0)) !important;
+}
+
+.-W-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff),  color-stop(0.50, #f00), color-stop(1, #0f0)) !important;
+}
+
+.-W-B-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff),  color-stop(0.50, #000), color-stop(1, #f00)) !important;
+}
+
+.-W-B-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff),  color-stop(0.50, #000), color-stop(1, #0f0)) !important;
+}
+
+//2 color
+.-U-W-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00f), color-stop(1, #fff)) !important;
+}
+
+.-U-B-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00f), color-stop(1, #000)) !important;
+}
+
+.-U-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00f), color-stop(1, #f00)) !important;
+}
+
+.-U-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00f), color-stop(1, #0f0)) !important;
+}
+
+.-W-B-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(1, #000)) !important;
+}
+
+.-W-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(1, #f00)) !important;
+}
+
+.-W-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(1, #0f0)) !important;
+}
+
+.-B-R-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #000), color-stop(1, #f00)) !important;
+}
+
+.-B-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #000), color-stop(1, #0f0)) !important;
+}
+
+.-R-G-border  {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #f00), color-stop(1, #0f0)) !important;
+}
+
+//1 color
+
+.-U-border {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #00f)) !important;
+}
+
+.-W-border {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff)) !important;
+}
+
+.-B-border {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #000)) !important;
+}
+
+.-R-border {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #f00)) !important;
+}
+
+.-G-border {
+  padding: 2px;
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #0f0)) !important;
+}
