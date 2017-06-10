@@ -1,0 +1,50 @@
+@import 'vars';
+
+.landing-body {
+  height: 100vh;
+  background: #ccbb99;
+  color: #fff;
+}
+
+.title {
+  font-family: "Beleren";
+  font-size: 72px;
+  color: #eeeecc;
+}
+
+.desc {
+  p {
+    background: #262626;
+    border-radius: 10px;
+    padding: 20px;
+    font-size: 18px;
+    font-family: "Relay";
+  }
+}
+
+.lists {
+  font-family: Relay;
+  padding: 10px;
+  h3 {
+    background: #262626;
+    padding: 5px;
+    border-radius: 10px;
+    border-bottom-left-radius: 0;
+    border-bottom-right-radius: 0;
+  }
+  .known-list {
+    list-style-type: none;
+    margin-top: -10px;
+    background: #262626;
+    border-radius: 10px;
+    border-top-left-radius: 0;
+    border-top-right-radius: 0;
+    padding: 15px;
+    padding-left: 10px;
+    > li {
+      &:before {
+        content: "-";
+      }
+    }
+  }
+}
