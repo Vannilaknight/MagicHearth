@@ -128,11 +128,13 @@
         .col-sm-3.deck-tray(ng-repeat="(zone, list) in models.dropzones")
             ul#display-box.display-box
                 div
-                    li.deck-card(ng-repeat='displayCard in displayDeck')
-                        button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)")
-                            span.glyphicon.glyphicon-remove-sign
-                        span.text {{displayCard.name}}
-                        span.count {{displayCard.count}}
+                    li.deck-card(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.colorIdentity)")
+                        .card-content
+                            button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)")
+                                span.glyphicon.glyphicon-remove-sign
+                            span.text {{displayCard.name}}
+                            span {{displayCard.manaCost}}
+                            span.count {{displayCard.count}}
             ul#drag-box.drag-box(dnd-list='list')
                 .export-import
                     button.btn.btn-primary(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export

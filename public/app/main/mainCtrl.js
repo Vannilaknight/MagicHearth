@@ -35,11 +35,54 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
     };
 
     $scope.$watch('models.dropzones', function (model) {
-        console.log($scope.models.dropzones.deck)
         $scope.decklist = $scope.models.dropzones.deck;
         $scope.displayDeck = reduceArrayP2($scope.decklist);
         calcCardsLeft();
     }, true);
+
+    $scope.getBorder = function (colorIdentity) {
+        var colors = {
+            "U": false,
+            "W": false,
+            "B": false,
+            "R": false,
+            "G": false,
+        };
+        colorIdentity.forEach(function (color) {
+            if(color == "U"){
+                colors[color] = true;
+            }
+            if(color == "W"){
+                colors[color] = true;
+            }
+            if(color == "B"){
+                colors[color] = true;
+            }
+            if(color == "R"){
+                colors[color] = true;
+            }
+            if(color == "G"){
+                colors[color] = true;
+            }
+        });
+        var classString = "";
+        if(colors["U"]){
+            classString += "-U";
+        }
+        if(colors["W"]){
+            classString += "-W";
+        }
+        if(colors["B"]){
+            classString += "-B";
+        }
+        if(colors["R"]){
+            classString += "-R";
+        }
+        if(colors["G"]){
+            classString += "-G";
+        }
+        return classString + "-border";
+    };
 
     $("#back").click(function () {
         pageChange("left")
@@ -85,12 +128,10 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             for (var i = 0; i < displayDeck.length; i++) {
                 $scope.exportedDeck += (displayDeck[i].count + "x");
                 $scope.exportedDeck += (" " + displayDeck[i].name + "\n");
-
             }
-            console.log($scope.exportedDeck);
         }
         else {
-            console.log("Empty Deck");
+            $scope.exportedDeck = "No cards in deck."
         }
     };
 
@@ -266,7 +307,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         if (checkbox.checked) {
             currentCMC.push(number);
         } else {
-            var index = currentColors.indexOf(number);
+            var index = currentCMC.indexOf(number);
             currentCMC.splice(index, 1);
         }
     }
@@ -313,7 +354,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             $scope.topRow = [];
             $scope.botRow = [];
             var data = response.data;
-            console.log(data)
             if (data.length < 8) {
                 $("#forward").css("display", "none");
             } else {
@@ -354,7 +394,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
     changePage();
 
     function calcCardsLeft() {
-        console.log("Calcing")
         var displayDeck = $scope.displayDeck;
         var topRow = $scope.topRow;
         var botRow = $scope.botRow;
@@ -368,7 +407,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
                 var notFound = true;
                 displayDeck.forEach(function (displayCard) {
                     if (card.name == displayCard.name) {
-                        console.log(card.name + " - " + displayCard.name)
                         $scope.topRow[x].cardsLeft = 4 - displayCard.count;
                         notFound = false;
                     }
@@ -392,7 +430,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
                 var notFound = true;
                 displayDeck.forEach(function (displayCard) {
                     if (card.name == displayCard.name) {
-                        console.log(card.name + " - " + displayCard.name)
                         $scope.botRow[x].cardsLeft = 4 - displayCard.count;
                         notFound = false;
                     }
@@ -424,44 +461,22 @@ function reduceArrayP2(cards) {
     var counts = {};
 
     cards.forEach(function (card) {
-        counts[card.name] = (counts[card.name] || 0) + 1;
+        if (!counts.hasOwnProperty(card.name)) {
+            counts[card.name] = card;
+            counts[card.name].count = 1;
+        } else {
+            counts[card.name].count += 1;
+        }
     });
 
     var newArray = [];
     for (var name in counts) {
-        var count = counts[name];
-        if (count) {
-            newArray.push({name: name, count: count});
+        var card = counts[name];
+        if (card) {
+            newArray.push(card);
         }
     }
 
-    return newArray;
-}
-
-function reduceArray(array) {
-    var newArray = [];
-    array.sort();
-
-    var current = {name: ""};
-    var cnt = 0;
-    array.forEach(function (card) {
-        if (!card.count) card.count = 1;
-
-        if (card.name != current.name) {
-            if (cnt > 0) {
-                current.count = cnt;
-                newArray.push(current);
-            }
-            current = card;
-            cnt = 1;
-        } else {
-            cnt++;
-        }
-    });
-    if (cnt > 0) {
-        current.count = cnt;
-        newArray.push(current);
-    }
     return newArray;
 }
 
@@ -494,9 +509,6 @@ $('body').bind('mousewheel', function (e) {
 });
 
 function scrollDown() {
-    //scroll down
-    console.log('Down ' + scroll);
-    console.log($('#display-box').height())
     if (scroll < $('#display-box').find('div').height() - $('#display-box').height() + 20) {
         scroll = $('#display-box').scrollTop() + 8;
         $('#display-box').scrollTop(scroll);
@@ -504,8 +516,6 @@ function scrollDown() {
 };
 
 function scrollUp() {
-    //scroll up
-    console.log('Up ' + scroll);
     if (scroll > 0) {
         scroll = $('#display-box').scrollTop() - 8;
         $('#display-box').scrollTop(scroll);
