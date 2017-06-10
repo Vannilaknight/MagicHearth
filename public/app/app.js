@@ -7,9 +7,13 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 templateUrl: '/partials/challenge/challenge',
                 controller: 'challengeCtrl'
             })
-            .when('/', {
+            .when('/builder', {
                 templateUrl: '/partials/main/main',
                 controller: 'mainCtrl'
+            })
+            .when('/', {
+                templateUrl: '/partials/landing/landing',
+                controller: 'landingCtrl'
             })
     })
     .run(function ($rootScope, $location) {

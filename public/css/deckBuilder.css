@@ -10,10 +10,11 @@
   font-family: 'Relay';
   src: url("./../../fonts/relay.ttf"); }
 
-body {
+.deck-builder-body {
   background-image: url("./../../images/tableBG.jpg");
   background-size: 100% 100%;
-  color: #fff; }
+  color: #fff;
+  height: 100vh; }
 
 .deck-builder {
   margin-top: 50px; }
