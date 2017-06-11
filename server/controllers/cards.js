@@ -6,6 +6,7 @@ var modernSet = require('./Modern.json'),
 function getCards(req, res) {
     var page = req.query.page;
     var format = req.query.format;
+    var set = req.query.set;
     var type = req.query.type;
     var rarities = req.query.rarities;
     var colors = req.query.colors;
@@ -14,7 +15,9 @@ function getCards(req, res) {
     var colorOperator = req.query.colorop;
     var cards = [];
 
-    if (format) {
+    if(set) {
+        cards = filterSet(set, cards);
+    } else if (format) {
         cards = filterFormat(format, cards);
     }
 
@@ -38,9 +41,11 @@ function getCards(req, res) {
         cards = filterCMC(cmcs, cards);
     }
 
+
     if (page) {
         cards = filterPage(page, cards);
     }
+
 
     res.send(cards)
 }
@@ -88,6 +93,7 @@ function filterFormat(format, cards) {
     if (format == "standard") {
         standardSet.forEach(function (set, ind, arr) {
             cards = cards.concat(set.cards);
+
         });
     } else if (format == "modern") {
         modernSet.forEach(function (set, ind, arr) {
@@ -174,6 +180,10 @@ function filterColor(colors, operator, cards) {
         return result;
     });
     return filteredCards;
+}
+
+function filterSet(set, cards) {
+    return sets[set].cards;
 }
 
 function filterCMC(cmcs, cards) {
