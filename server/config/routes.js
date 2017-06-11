@@ -8,7 +8,6 @@ module.exports = function (app, config) {
   });
 
   app.get('/api/cards', cards.getCards);
-  app.get('/api/card', cards.searchForCard);
   app.get('/api/buildImport', cards.buildImportedDeck);
 
   app.all('/api/*', function (req, res) {
