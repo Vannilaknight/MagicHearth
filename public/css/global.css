@@ -10,6 +10,56 @@
   font-family: 'Relay';
   src: url("./../../fonts/relay.ttf"); }
 
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.eot");
+  src: url("./../../fonts/ManaSymbols.eot?#iefix") format("embedded-opentype"), url("./../../fonts/ManaSymbols.woff") format("woff"), url("./../../fonts/ManaSymbols.ttf") format("truetype"), url("./../../fonts/ManaSymbols.svg#ManaSymbols") format("svg");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  font-family: "Mana" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "Mana" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-blacksvg:before {
+  content: "\61";
+  color: #3F4038; }
+
+.icon-bluesvg:before {
+  content: "\62";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  content: "\63";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  content: "\64";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  content: "\65";
+  color: #fff; }
+
 body {
   overflow: hidden; }
 

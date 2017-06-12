@@ -13,6 +13,44 @@
   src: url("./../../fonts/relay.ttf");
 }
 
+@charset "UTF-8";
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.eot");
+  src: url("./../../fonts/ManaSymbols.eot?#iefix") format("embedded-opentype"), url("./../../fonts/ManaSymbols.woff") format("woff"), url("./../../fonts/ManaSymbols.ttf") format("truetype"), url("./../../fonts/ManaSymbols.svg#ManaSymbols") format("svg");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+[data-icon]:before {
+  font-family: "Mana" !important;
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-family: "Mana" !important;
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
 $dark-primary: #32435e;
 $light-primary: #92CDCF;
 
@@ -20,3 +58,34 @@ $white: #EEEFF7;
 $gray: #31353D;
 $black: #1C1D21;
 
+$card-blue: #548DBF;
+$card-white: #fff;
+$card-black: #3F4038;
+$card-red: #D94E4E;
+$card-green: #5FA65D;
+
+
+.icon-blacksvg:before {
+  content: "\61";
+  color: $card-black;
+}
+
+.icon-bluesvg:before {
+  content: "\62";
+  color: $card-blue;
+}
+
+.icon-greensvg:before {
+  content: "\63";
+  color: $card-green;
+}
+
+.icon-redsvg:before {
+  content: "\64";
+  color: $card-red
+}
+
+.icon-whitesvg:before {
+  content: "\65";
+  color: $card-white;
+}

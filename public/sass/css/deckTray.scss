@@ -1,7 +1,7 @@
 @import 'vars';
 
 .deck-tray {
-  padding:0;
+  padding: 0;
   height: 90vh;
 
   ul {
@@ -20,7 +20,8 @@
   }
 
   .deck-card {
-    width:100%;
+    width: 100%;
+    height: 50px;
     margin-bottom: 5px;
     color: #262626;
     position: relative;
@@ -28,36 +29,72 @@
     .card-content {
       color: #262626;
       background: #EEEECC;
+      border: 1px solid #000;
+      padding: 0;
+      margin: 0;
+      height: 44px;
+      .add-remove-control {
+        display: inline-block;
+        height: 44px;
+        .btn {
+          background: none;
+          border-radius: 0;
+          border: none;
+          border-right: 3px dotted #CCBB99;
+          color: #A63E26;
+          margin-top: -16px;
+          margin-right: 5px;
+          height: 40px;
+          &:hover {
+            background: #ffffde;
+          }
+          &:active {
+            outline: none;
+          }
+          &:focus {
+            outline: none;
+          }
+          &:active > .deck-card {
+            background: #d3ff84;
+          }
+        }
+      }
+      .card-data {
+        display: inline-block;
+        margin: 0;
+        padding: 0;
+        padding-top: 4px;
+
+        span {
+          margin: 0;
+          padding: 0;
+          font-size: 12px;
+          display: block;
+        }
+
+        .text {
+          font-family: "beleren";
+        }
+
+        .mana-cost {
+          font-family: "Belwe";
+          font-size: 8px;
+          .icon{
+            display: inline-block;
+          }
+        }
+      }
+      .card-count {
+        display: inline-block;
+        float: right;
+        margin-top: 10px;
+        .count {
+          margin-right: 10px;
+          font-family: "Belwe";
+        }
+      }
       span {
         margin-top: 5px;
-      }
-      .text {
-        font-family: "beleren";
-      }
-      .count {
-        float: right;
-        margin-right: 10px;
-        font-family: "Belwe";
-      }
-      .btn {
-        background: none;
-        border-radius: 0;
-        border: none;
-        border-right: 3px dotted #CCBB99;
-        color: #A63E26;
-        margin-right: 5px;
-        &:hover {
-          background: #ffffde;
-        }
-        &:active {
-          outline: none;
-        }
-        &:focus {
-          outline: none;
-        }
-        &:active > .deck-card {
-          background: #d3ff84;
-        }
       }
     }
 
@@ -83,8 +120,8 @@
       background-size: 100% 100%;
       background-repeat: no-repeat;
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       z-index: 1000;
@@ -105,8 +142,8 @@
       background-size: 100% 100%;
       background-repeat: no-repeat;
       position: absolute;
-      top:0;
-      left:0;
+      top: 0;
+      left: 0;
       width: 100%;
       height: 100%;
       z-index: 2000;

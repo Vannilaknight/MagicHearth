@@ -1,5 +1,12 @@
 angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal) {
+    String.prototype.replaceAll = function (search, replacement) {
+        var target = this;
+        return target.replace(new RegExp(search, 'g'), replacement);
+    };
+
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
+
+    $http.get("?test=(*/1+*)");
 
     var currentPage = 1;
     var currentColors = [];
@@ -40,7 +47,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         calcCardsLeft();
     }, true);
 
-    $scope.getBorder = function (colorIdentity) {
+    $scope.getBorder = function (manaCost) {
+        var manaCost = manaCost.replaceAll("{", "").replaceAll("}", "");
         var colors = {
             "U": false,
             "W": false,
@@ -48,40 +56,66 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             "R": false,
             "G": false,
         };
-        colorIdentity.forEach(function (color) {
-            if(color == "U"){
-                colors[color] = true;
-            }
-            if(color == "W"){
-                colors[color] = true;
-            }
-            if(color == "B"){
-                colors[color] = true;
-            }
-            if(color == "R"){
-                colors[color] = true;
-            }
-            if(color == "G"){
-                colors[color] = true;
-            }
-        });
+
+        if (manaCost.includes("U")) {
+            colors["U"] = true;
+        }
+        if (manaCost.includes("W")) {
+            colors["W"] = true;
+        }
+        if (manaCost.includes("B")) {
+            colors["B"] = true;
+        }
+        if (manaCost.includes("R")) {
+            colors["R"] = true;
+        }
+        if (manaCost.includes("G")) {
+            colors["G"] = true;
+        }
+
         var classString = "";
-        if(colors["U"]){
+        if (colors["U"]) {
             classString += "-U";
         }
-        if(colors["W"]){
+        if (colors["W"]) {
             classString += "-W";
         }
-        if(colors["B"]){
+        if (colors["B"]) {
             classString += "-B";
         }
-        if(colors["R"]){
+        if (colors["R"]) {
             classString += "-R";
         }
-        if(colors["G"]){
+        if (colors["G"]) {
             classString += "-G";
         }
         return classString + "-border";
+    };
+
+    $scope.getManaCost = function (card) {
+        var manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").replace(/[0-9]/g, '').split("");
+        var counts = [];
+        manaCost.forEach(function (mana) {
+            counts.push(mana);
+        });
+        console.log(counts)
+        return counts;
+    };
+
+    $scope.getIcon = function (mana) {
+        var ret = "";
+        if (mana == "U") {
+            ret = "icon-bluesvg";
+        } else if (mana == "W") {
+            ret = "icon-whitesvg";
+        } else if (mana == "B") {
+            ret = "icon-blacksvg";
+        } else if (mana == "R") {
+            ret = "icon-redsvg";
+        } else if (mana == "G") {
+            ret = "icon-greensvg";
+        }
+        return ret;
     };
 
     $("#back").click(function () {
