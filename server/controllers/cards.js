@@ -67,10 +67,10 @@ function buildImportedDeck(req, res) {
 
             var cardName = splitImportedString[(i+1)].trim();
             var numOfCard = parseInt(splitImportedString[i].replace('x', ''));
-            var cardData = cardData.searchForCard(cardName);
+            var cardInfo = cardData.searchForCard(cardName);
 
             for (var j = numOfCard; j > 0; j--) {
-                 newCards.push(cardData);
+                 newCards.push(cardInfo);
             }
         }
     }
