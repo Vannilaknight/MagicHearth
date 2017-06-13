@@ -17,7 +17,6 @@
   font-style: normal; }
 
 [data-icon]:before {
-  font-family: "Mana" !important;
   content: attr(data-icon);
   font-style: normal !important;
   font-weight: normal !important;
@@ -29,7 +28,6 @@
   -moz-osx-font-smoothing: grayscale; }
 
 [class^="icon-"]:before, [class*=" icon-"]:before {
-  font-family: "Mana" !important;
   font-style: normal !important;
   font-weight: normal !important;
   font-variant: normal !important;
@@ -40,29 +38,34 @@
   -moz-osx-font-smoothing: grayscale; }
 
 .icon-cmc-0:before {
+  font-family: "Mana";
   content: "\61";
   color: #afafaf; }
 
 .icon-blacksvg:before {
+  font-family: "Mana";
   content: "\62";
-  color: #3F4038; }
+  color: #626359; }
 
 .icon-bluesvg:before {
+  font-family: "Mana" !important;
   content: "\63";
   color: #548DBF; }
 
 .icon-greensvg:before {
+  font-family: "Mana" !important;
   content: "\64";
   color: #5FA65D; }
 
 .icon-redsvg:before {
+  font-family: "Mana" !important;
   content: "\65";
   color: #D94E4E; }
 
 .icon-whitesvg:before {
+  font-family: "Mana" !important;
   content: "\66";
-  color: #fff;
-  text-shadow: 0 0 1px #000; }
+  color: #fff; }
 
 body {
   overflow: hidden; }

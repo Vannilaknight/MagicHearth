@@ -27,19 +27,18 @@
       z-index: 1000;
     }
     .display-box {
-      border: 1px solid red;
       height: 90%;
       overflow-y: scroll;
       .deck-card {
         width: 90%;
         height: 40px;
-        margin: 10px;
+        margin: 10px auto;
         color: #262626;
         position: relative;
         z-index: 999;
         .card-content {
-          color: #262626;
-          background: #EEEECC;
+          color: #eeeecc;
+          background: #262626;
           border: 1px solid #000;
           position: relative;
           padding: 0;
@@ -48,7 +47,7 @@
           .add-remove-control {
             display: inline-block;
             position: relative;
-            top: -6px;
+            top: -11px;
             padding: 0;
             margin: 0;
             width: 20%;
@@ -60,7 +59,6 @@
               border-radius: 0;
               border: none;
               border-right: 3px dotted #CCBB99;
-              color: #A63E26;
 
               &:active {
                 outline: none;
@@ -71,18 +69,25 @@
               &:active > .deck-card {
                 background: #fbffbc;
               }
+              &.add {
+                color: $card-green;
+              }
+              &.remove {
+                color: $card-red;
+              }
               &.add:hover {
-                  background: #e2ffc1;
-                  cursor: pointer;
-                }
-
+                background: rgba(0, 255, 0, 0.1);
+                cursor: pointer;
+                color: $card-green;
+              }
               &.remove:hover {
-                  background: #ffcdc0;
-                  cursor: pointer;
-                }
+                background: rgba(255, 0, 0, 0.1);
+                cursor: pointer;
+                color: $card-red;
+              }
               &.disabled-add-btn:hover {
-                  background: none;
-                  cursor: default;
+                background: none;
+                cursor: default;
                 color: $card-colorless;
               }
               &.disabled-add-btn {
@@ -95,7 +100,8 @@
             margin: 0;
             padding: 0;
             padding-top: 4px;
-            width: 70%;
+            padding-left: 10px;
+            width: 65%;
             span {
               margin: 0;
               padding: 0;
@@ -108,8 +114,9 @@
             }
 
             .mana-cost {
+              margin-top: 5px;
               font-size: 6px;
-              .icon{
+              .icon {
                 display: inline-block;
 
               }
@@ -159,6 +166,18 @@
         height: 100%;
         z-index: 1000;
       }
+      .export-import {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        z-index: 999;
+        margin: 2% 5%;
+        .btn {
+          display: inline-block;
+          width: 45%;
+          margin-bottom: 10px;
+        }
+      }
     }
 
     .drag-box-ondrag {
@@ -184,26 +203,7 @@
 
     }
 
-    .export-import {
-      position: absolute;
-      width: 100%;
-      bottom: 0;
-      z-index: 999;
-      margin: 0 auto;
-      .btn {
-        width: 45%;
-        margin-bottom: 10px;
 
-      }
-      .export-btn {
-        float: left;
-        margin-left: 10px;
-      }
-      .import-btn {
-        float: right;
-        margin-right: 10px;
-      }
-    }
   }
 
 }
