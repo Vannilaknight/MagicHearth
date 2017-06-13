@@ -1,15 +1,13 @@
-.col-sm-offset-1.col-sm-6.text-filter
-    .input-group.col-sm-12
-        .col-sm-8.search-box
-            input.form-control.search.input-lg(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
-        //span.input-group-addon.search-divider
-        .col-sm-4.type-box
-            select.form-control.type-filter.input-lg(ng-model="typeFilter", ng-change="typeChange(typeFilter)")
-                option(value='none' selected) None
-                option(value='land') Land
-                option(value='creature') Creature
-                option(value='artifact') Artifact
-                option(value='enchantment') Enchantment
-                option(value='planeswalker') Planeswalker
-                option(value='instant') Instant
-                option(value='sorcery') Sorcery
+.text-filter
+    .search-box
+        input.search(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
+    .type-box
+        select.type-filter(ng-model="typeFilter", ng-change="typeChange(typeFilter)")
+            option(value='none' selected) None
+            option(value='land') Land
+            option(value='creature') Creature
+            option(value='artifact') Artifact
+            option(value='enchantment') Enchantment
+            option(value='planeswalker') Planeswalker
+            option(value='instant') Instant
+            option(value='sorcery') Sorcery

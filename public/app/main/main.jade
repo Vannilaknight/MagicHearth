@@ -1,32 +1,34 @@
-.container-fluid.deck-builder-body
-    .col-sm-12.deck-builder
-        .col-sm-9.collection-box
-            .row
+.deck-builder-body
+    .deck-builder
+        .collection-box
+            .top-filter
                 include templates/ColorFilter
                 include templates/TextFilter
-            include templates/CardView
-            .row
-                .col-sm-12.filter
-                    include templates/FormatSetFilter
-                    include templates/RarityFilter
-                    include templates/CMCFilter
-        .col-sm-3.deck-tray(ng-repeat="(zone, list) in models.dropzones")
-            ul#display-box.display-box
-                div
-                    li.deck-card.display-card-border(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.manaCost)")
-                        .card-content
-                            .add-remove-control
-                                button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)")
-                                    span.glyphicon.glyphicon-remove-sign
-                            .card-data
-                                span.text {{displayCard.name}}
-                                .mana-cost
-                                    span.icon(ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
-                            .card-count
-                                span.count {{displayCard.count}}
-            ul#drag-box.drag-box(dnd-list='list')
-                .export-import
-                    button.btn.btn-primary(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
-                    button.btn.btn-primary(data-toggle="modal", data-target="#importModal") Import
+            .card-view
+                include templates/CardView
+            .bot-filter
+                include templates/FormatSetFilter
+                include templates/RarityFilter
+                include templates/CMCFilter
+        .deck-tray(ng-repeat="(zone, list) in models.dropzones")
+            .deck-boxes
+                ul#display-box.display-box
+                    div
+                        li.deck-card.display-card-border(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.manaCost)")
+                            .card-content
+                                .add-remove-control
+                                    button.remove(ng-click="removeCard(displayCard)") -
+                                    button.add(ng-click="addCard(displayCard)") +
+                                .card-data
+                                    span.text {{displayCard.name}}
+                                    .mana-cost
+                                        span.icon.icon-cmc-0(ng-if="getManaCost(displayCard).length < 1")
+                                        span.icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
+                                .card-count
+                                    span.count {{displayCard.count}}
+                ul#drag-box.drag-box(dnd-list='list')
+                    .export-import
+                        button.btn.btn-primary(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
+                        button.btn.btn-primary(data-toggle="modal", data-target="#importModal") Import
 include Modals/Export
 include Modals/Import

@@ -1,14 +1,8 @@
 .mtgcard(ng-if="card.empty")
-    .col-sm-9
-        img.img-responsive.cardImg(src="./../../images/invisCard.png")
-    .col-sm-3
+    img.cardImg(src="./../../images/invisCard.png")
 .mtgcard(ng-if="!card.empty && card.rarity != 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
-    .col-sm-9
-        img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
-    .col-sm-3
-        .cards-left x{{card.cardsLeft}}
+    img.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
+    //.cards-left x{{card.cardsLeft}}
 .mtgcard(ng-if="card.rarity == 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
-    .col-sm-9
-        img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
-    .col-sm-3
-        .cards-left ∞
+    img.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
+    //.cards-left ∞

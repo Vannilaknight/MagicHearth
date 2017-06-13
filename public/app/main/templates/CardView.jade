@@ -1,10 +1,9 @@
-.row
-    #back.area-click.back-area
-    .col-sm-12.cards
-        .row
-            .col-sm-3.card-obj(ng-repeat="card in topRow")
-                include Card
-        .row
-            .col-sm-3.card-obj(ng-repeat="card in botRow")
-                include Card
-    #forward.area-click.next-area
+#back.area-click.back-area
+.cards
+    .top-row
+        .card-obj(ng-repeat="card in topRow")
+            include Card
+    .bot-row
+        .card-obj(ng-repeat="card in botRow")
+            include Card
+#forward.area-click.next-area

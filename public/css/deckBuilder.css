@@ -40,37 +40,87 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-blacksvg:before {
+.icon-cmc-0:before {
   content: "\61";
+  color: #afafaf; }
+
+.icon-blacksvg:before {
+  content: "\62";
   color: #3F4038; }
 
 .icon-bluesvg:before {
-  content: "\62";
+  content: "\63";
   color: #548DBF; }
 
 .icon-greensvg:before {
-  content: "\63";
+  content: "\64";
   color: #5FA65D; }
 
 .icon-redsvg:before {
-  content: "\64";
+  content: "\65";
   color: #D94E4E; }
 
 .icon-whitesvg:before {
-  content: "\65";
-  color: #fff; }
+  content: "\66";
+  color: #fff;
+  text-shadow: 0 0 1px #000; }
+
+body, html {
+  width: 100vh;
+  height: 100vh; }
 
 .deck-builder-body {
+  position: relative;
   background-image: url("./../../images/tableBG.jpg");
   background-size: 100% 100%;
   color: #fff;
-  height: 100vh; }
-
-.deck-builder {
-  margin-top: 50px; }
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  margin-left: -8px;
+  margin-top: -8px; }
+  .deck-builder-body .deck-builder {
+    border: 1px solid red;
+    position: absolute;
+    margin-top: 50px;
+    width: 100%;
+    height: 90%; }
+    .deck-builder-body .deck-builder .collection-box {
+      position: relative;
+      width: 69%;
+      display: inline-block; }
 
 .modal-header {
   background: #262626; }
 
 .modal-body {
   background: #262626; }
+
+@media screen and (min-width: 1920px) {
+  .deck-builder {
+    height: 900px; } }
+
+@media screen and (min-width: 1680px) {
+  .deck-builder {
+    height: 900px; } }
+
+@media screen and (min-width: 1600px) {
+  .deck-builder {
+    height: 800px; } }
+
+@media screen and (min-width: 1440px) {
+  .deck-builder {
+    height: 800px; } }
+
+@media screen and (min-width: 1366px) {
+  .deck-builder {
+    height: 700px; } }
+
+@media screen and (min-width: 1280px) {
+  .deck-builder {
+    height: 700px; } }
+
+@media screen and (min-width: 1024px) {
+  .deck-builder {
+    height: 700px; } }

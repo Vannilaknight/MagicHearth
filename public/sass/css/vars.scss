@@ -63,29 +63,35 @@ $card-white: #fff;
 $card-black: #3F4038;
 $card-red: #D94E4E;
 $card-green: #5FA65D;
+$card-colorless: #afafaf;
 
+.icon-cmc-0:before {
+  content: "\61";
+  color: $card-colorless;
+}
 
 .icon-blacksvg:before {
-  content: "\61";
+  content: "\62";
   color: $card-black;
 }
 
 .icon-bluesvg:before {
-  content: "\62";
+  content: "\63";
   color: $card-blue;
 }
 
 .icon-greensvg:before {
-  content: "\63";
+  content: "\64";
   color: $card-green;
 }
 
 .icon-redsvg:before {
-  content: "\64";
+  content: "\65";
   color: $card-red
 }
 
 .icon-whitesvg:before {
-  content: "\65";
+  content: "\66";
   color: $card-white;
+  text-shadow: 0 0 1px #000;
 }

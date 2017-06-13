@@ -40,25 +40,30 @@
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale; }
 
-.icon-blacksvg:before {
+.icon-cmc-0:before {
   content: "\61";
+  color: #afafaf; }
+
+.icon-blacksvg:before {
+  content: "\62";
   color: #3F4038; }
 
 .icon-bluesvg:before {
-  content: "\62";
+  content: "\63";
   color: #548DBF; }
 
 .icon-greensvg:before {
-  content: "\63";
+  content: "\64";
   color: #5FA65D; }
 
 .icon-redsvg:before {
-  content: "\64";
+  content: "\65";
   color: #D94E4E; }
 
 .icon-whitesvg:before {
-  content: "\65";
-  color: #fff; }
+  content: "\66";
+  color: #fff;
+  text-shadow: 0 0 1px #000; }
 
 body {
   overflow: hidden; }
