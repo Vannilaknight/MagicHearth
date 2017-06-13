@@ -45,50 +45,54 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         $scope.decklist = $scope.models.dropzones.deck;
         $scope.displayDeck = reduceArrayP2($scope.decklist);
         calcCardsLeft();
+        calcTotalCards();
     }, true);
 
     $scope.getBorder = function (manaCost) {
-        var manaCost = manaCost.replaceAll("{", "").replaceAll("}", "");
-        var colors = {
-            "U": false,
-            "W": false,
-            "B": false,
-            "R": false,
-            "G": false,
-        };
+        if (manaCost) {
+            var manaCost = manaCost.replaceAll("{", "").replaceAll("}", "");
+            var colors = {
+                "U": false,
+                "W": false,
+                "B": false,
+                "R": false,
+                "G": false,
+            };
 
-        if (manaCost.includes("U")) {
-            colors["U"] = true;
-        }
-        if (manaCost.includes("W")) {
-            colors["W"] = true;
-        }
-        if (manaCost.includes("B")) {
-            colors["B"] = true;
-        }
-        if (manaCost.includes("R")) {
-            colors["R"] = true;
-        }
-        if (manaCost.includes("G")) {
-            colors["G"] = true;
+            if (manaCost.includes("U")) {
+                colors["U"] = true;
+            }
+            if (manaCost.includes("W")) {
+                colors["W"] = true;
+            }
+            if (manaCost.includes("B")) {
+                colors["B"] = true;
+            }
+            if (manaCost.includes("R")) {
+                colors["R"] = true;
+            }
+            if (manaCost.includes("G")) {
+                colors["G"] = true;
+            }
+
+            var classString = "";
+            if (colors["U"]) {
+                classString += "-U";
+            }
+            if (colors["W"]) {
+                classString += "-W";
+            }
+            if (colors["B"]) {
+                classString += "-B";
+            }
+            if (colors["R"]) {
+                classString += "-R";
+            }
+            if (colors["G"]) {
+                classString += "-G";
+            }
         }
 
-        var classString = "";
-        if (colors["U"]) {
-            classString += "-U";
-        }
-        if (colors["W"]) {
-            classString += "-W";
-        }
-        if (colors["B"]) {
-            classString += "-B";
-        }
-        if (colors["R"]) {
-            classString += "-R";
-        }
-        if (colors["G"]) {
-            classString += "-G";
-        }
         return classString + "-border";
     };
 
@@ -135,6 +139,10 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
                 break;
             }
         }
+    };
+
+    $scope.addCard = function (card) {
+        $scope.models.dropzones.deck.push(card);
     };
 
     $scope.searchText = function (text) {
@@ -477,6 +485,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
                 $scope.botRow[x].cardsLeft = 4;
             }
         }
+    }
+
+    function calcTotalCards() {
+        var deck = $scope.displayDeck;
+        var total = 0;
+        deck.forEach(function (card) {
+            total += card.count;
+        });
+
+        $scope.totalDisplayCards = total;
     }
 });
 

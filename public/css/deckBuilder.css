@@ -81,7 +81,6 @@ body, html {
   margin-left: -8px;
   margin-top: -8px; }
   .deck-builder-body .deck-builder {
-    border: 1px solid red;
     position: absolute;
     margin-top: 50px;
     width: 100%;

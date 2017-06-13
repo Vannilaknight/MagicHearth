@@ -3,10 +3,10 @@
         .modal-content
             .modal-header
                 button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                h4.modal-titleExported Paste deck for export
+                h4.modal-title Paste deck for export
             .modal-body
                 .form-group
-                    textarea#import.form-control(rows='5', placeholder="{{importExample}}", ng-model="importString")
+                    textarea#import.import-area(rows='5', placeholder="{{importExample}}", ng-model="importString")
                     .input-group
                         .input-group-btn
-                            button.btn.btn-primary.pull-right(ng-click="importDeck(importString)") Import Deck
+                            button.btn.btn-primary.import-deck-btn(data-dismiss='modal', ng-click="importDeck(importString)") Import Deck

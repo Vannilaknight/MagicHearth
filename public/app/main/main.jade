@@ -12,23 +12,27 @@
                 include templates/CMCFilter
         .deck-tray(ng-repeat="(zone, list) in models.dropzones")
             .deck-boxes
+                .total-cards Total Cards: {{totalDisplayCards}}
                 ul#display-box.display-box
                     div
                         li.deck-card.display-card-border(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.manaCost)")
                             .card-content
                                 .add-remove-control
                                     button.remove(ng-click="removeCard(displayCard)") -
-                                    button.add(ng-click="addCard(displayCard)") +
+                                    button.add(ng-click="addCard(displayCard)", ng-disabled="displayCard.count >= 4", ng-class="{'disabled-add-btn': displayCard.count >= 4}") +
                                 .card-data
                                     span.text {{displayCard.name}}
                                     .mana-cost
-                                        span.icon.icon-cmc-0(ng-if="getManaCost(displayCard).length < 1")
-                                        span.icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
+                                        div(ng-if="displayCard.types[0] == 'Land'")
+                                            span.icon Land
+                                        div(ng-if="displayCard.types[0] != 'Land'")
+                                            span.icon.icon-cmc-0(ng-if="getManaCost(displayCard).length < 1")
+                                            span.icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
                                 .card-count
                                     span.count {{displayCard.count}}
                 ul#drag-box.drag-box(dnd-list='list')
                     .export-import
-                        button.btn.btn-primary(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
-                        button.btn.btn-primary(data-toggle="modal", data-target="#importModal") Import
+                        button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
+                        button.btn.btn-primary.import-btn(data-toggle="modal", data-target="#importModal") Import
 include Modals/Export
 include Modals/Import
