@@ -6,13 +6,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
 
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
-    $http.get("?test=(*/1+*)");
-
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
     var currentRarities = [];
     var andColors = false;
+    var onlyColors = false;
     var params = {
         page: 1,
         colors: "",
@@ -271,9 +270,35 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
     $("#and").change(function (event) {
         var checkbox = event.target;
         if (checkbox.checked) {
-            params.colorop = "and";
+            if(params.colorop == "only"){
+                params.colorop = "and,only";
+            } else {
+                params.colorop = "only";
+            }
         } else {
-            params.colorop = "";
+            if(params.colorop == "and,only"){
+                params.colorop = "and";
+            } else {
+                params.colorop = "";
+            }
+        }
+        colorFilter();
+    });
+
+    $("#only").change(function (event) {
+        var checkbox = event.target;
+        if (checkbox.checked) {
+            if(params.colorop == "and"){
+                params.colorop = "and,only";
+            } else {
+                params.colorop = "only";
+            }
+        } else {
+            if(params.colorop == "and,only"){
+                params.colorop = "and";
+            } else {
+                params.colorop = "";
+            }
         }
         colorFilter();
     });
