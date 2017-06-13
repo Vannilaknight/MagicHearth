@@ -2,49 +2,79 @@
 
 .landing-body {
   height: 100vh;
+  width: 100vw;
+  margin-left: -8px;
+  margin-top: -8px;
   background: #ccbb99;
   color: #fff;
-}
 
-.title {
-  font-family: "Beleren";
-  font-size: 72px;
-  color: #eeeecc;
-}
-
-.desc {
-  p {
-    background: #262626;
-    border-radius: 10px;
-    padding: 20px;
-    font-size: 18px;
-    font-family: "Relay";
-  }
-}
-
-.lists {
-  font-family: Relay;
-  padding: 10px;
-  h3 {
-    background: #262626;
-    padding: 5px;
-    border-radius: 10px;
-    border-bottom-left-radius: 0;
-    border-bottom-right-radius: 0;
-  }
-  .known-list {
-    list-style-type: none;
-    margin-top: -10px;
-    background: #262626;
-    border-radius: 10px;
-    border-top-left-radius: 0;
-    border-top-right-radius: 0;
-    padding: 15px;
-    padding-left: 10px;
-    > li {
-      &:before {
-        content: "-";
-      }
+  .logo {
+    width: 50%;
+    margin-left: 25%;
+    img {
+      width: 100%;
     }
   }
+
+  .container {
+    width: 50%;
+    margin-left: 25%;
+    .desc {
+      p {
+        background: #262626;
+        border-radius: 10px;
+        padding: 20px;
+        font-size: 14px;
+        font-family: "Relay";
+      }
+    }
+
+    .lists {
+      font-family: Relay;
+      .list {
+        position: relative;
+        float: left;
+        margin-left: 1%;
+        top: 0;
+        width: 49%;
+        display: inline-block;
+        h3 {
+          background: #262626;
+          padding: 5px;
+          border-radius: 10px;
+          border-bottom-left-radius: 0;
+          border-bottom-right-radius: 0;
+        }
+        .known-list {
+          list-style-type: none;
+          margin-top: -20px;
+          background: #262626;
+          border-radius: 10px;
+          border-top-left-radius: 0;
+          border-top-right-radius: 0;
+          padding: 15px;
+          padding-left: 10px;
+          > li {
+            &:before {
+              content: "-";
+            }
+          }
+        }
+      }
+
+    }
+    a {
+      margin-left: 40%;
+      background: #262626;
+      border: 2px groove #ccbb99;
+      text-decoration: none;
+      padding: 10px 20px;
+      text-align: center;
+      color: #eeeecc;
+      border-radius: 5px;
+      font-family: Relay;
+    }
+  }
+
 }
+

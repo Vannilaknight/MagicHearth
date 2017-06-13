@@ -10,6 +10,63 @@
   font-family: 'Relay';
   src: url("./../../fonts/relay.ttf"); }
 
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-cmc-0:before {
+  font-family: "Mana";
+  content: "\61";
+  color: #afafaf; }
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: #626359; }
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: #fff; }
+
 body {
   overflow: hidden; }
 

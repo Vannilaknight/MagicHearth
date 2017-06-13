@@ -13,6 +13,41 @@
   src: url("./../../fonts/relay.ttf");
 }
 
+@charset "UTF-8";
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+
+
 $dark-primary: #32435e;
 $light-primary: #92CDCF;
 
@@ -20,3 +55,45 @@ $white: #EEEFF7;
 $gray: #31353D;
 $black: #1C1D21;
 
+$card-blue: #548DBF;
+$card-white: #fff;
+$card-black: #626359;
+$card-red: #D94E4E;
+$card-green: #5FA65D;
+$card-colorless: #afafaf;
+
+.icon-cmc-0:before {
+  font-family: "Mana";
+  content: "\61";
+  color: $card-colorless;
+}
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: $card-black;
+}
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: $card-blue;
+}
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: $card-green;
+}
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: $card-red
+}
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: $card-white;
+}
