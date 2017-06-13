@@ -1,128 +1,209 @@
 @import 'vars';
 
 .deck-tray {
-  padding:0;
-  height: 90vh;
+  position: absolute;
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  padding: 0;
+  margin-left: 10px;
+  z-index: 1000;
+  .deck-boxes {
+    height: 100%;
+    ul {
+      margin: 0;
+      padding: 0;
 
-  ul {
-    margin: 0;
-    padding: 0;
-
-    li {
-      list-style: none;
-    }
-  }
-
-  .display-box {
-    padding: 20px;
-    height: 90%;
-    overflow-y: scroll;
-  }
-
-  .deck-card {
-    width:100%;
-    margin-bottom: 5px;
-    color: #262626;
-    position: relative;
-    z-index: 999;
-    .card-content {
-      color: #262626;
-      background: #EEEECC;
-      span {
-        margin-top: 5px;
-      }
-      .text {
-        font-family: "beleren";
-      }
-      .count {
-        float: right;
-        margin-right: 10px;
-        font-family: "Belwe";
-      }
-      .btn {
-        background: none;
-        border-radius: 0;
-        border: none;
-        border-right: 3px dotted #CCBB99;
-        color: #A63E26;
-        margin-right: 5px;
-        &:hover {
-          background: #ffffde;
-        }
-        &:active {
-          outline: none;
-        }
-        &:focus {
-          outline: none;
-        }
-        &:active > .deck-card {
-          background: #d3ff84;
-        }
+      li {
+        list-style: none;
       }
     }
-
-  }
-
-  .dndDragover {
-    background: #363636 !important;
-  }
-
-  .drag-box {
-    box-shadow: -1px 0 15px rgba(38, 38, 38, 0.5);
-    background-color: #262626;
-    position: absolute;
-    top: 0;
-    height: 90vh;
-    width: 100%;
-    transition: background 1s;
-    border-radius: 10px;
-    &::before {
-      content: "";
-      pointer-events: none;
-      background-image: url("./../../images/trayBorder.png");
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
-      position: absolute;
-      top:0;
-      left:0;
-      width: 100%;
-      height: 100%;
+    .total-cards {
+      font-family: Relay;
+      position: relative;
+      margin-top: 10px;
+      margin-left: 10px;
+      color: #eeeecc;
       z-index: 1000;
     }
-  }
+    .display-box {
+      border: 1px solid red;
+      height: 90%;
+      overflow-y: scroll;
+      .deck-card {
+        width: 90%;
+        height: 40px;
+        margin: 10px;
+        color: #262626;
+        position: relative;
+        z-index: 999;
+        .card-content {
+          color: #262626;
+          background: #EEEECC;
+          border: 1px solid #000;
+          position: relative;
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          .add-remove-control {
+            display: inline-block;
+            position: relative;
+            top: -6px;
+            padding: 0;
+            margin: 0;
+            width: 20%;
+            height: 100%;
+            button {
+              width: 49%;
+              height: 100%;
+              background: none;
+              border-radius: 0;
+              border: none;
+              border-right: 3px dotted #CCBB99;
+              color: #A63E26;
 
-  .drag-box-ondrag {
-    box-shadow: 0 0 15px #262626;
-    background-color: #2e2e2e;
-    position: absolute;
-    top: 0;
-    height: 90vh;
-    width: 100%;
-    transition: background .2s;
-    &::before {
-      content: "";
-      background-image: url("./../../images/trayBorderOndrag.png");
-      background-size: 100% 100%;
-      background-repeat: no-repeat;
+              &:active {
+                outline: none;
+              }
+              &:focus {
+                outline: none;
+              }
+              &:active > .deck-card {
+                background: #fbffbc;
+              }
+              &.add:hover {
+                  background: #e2ffc1;
+                  cursor: pointer;
+                }
+
+              &.remove:hover {
+                  background: #ffcdc0;
+                  cursor: pointer;
+                }
+              &.disabled-add-btn:hover {
+                  background: none;
+                  cursor: default;
+                color: $card-colorless;
+              }
+              &.disabled-add-btn {
+                color: $card-colorless;
+              }
+            }
+          }
+          .card-data {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-top: 4px;
+            width: 70%;
+            span {
+              margin: 0;
+              padding: 0;
+              font-size: 12px;
+              display: block;
+            }
+
+            .text {
+              font-family: "beleren";
+            }
+
+            .mana-cost {
+              font-size: 6px;
+              .icon{
+                display: inline-block;
+
+              }
+            }
+          }
+          .card-count {
+            width: 5%;
+            display: inline-block;
+            float: right;
+            margin-top: 8px;
+            margin-right: 5px;
+            .count {
+
+              font-family: "Belwe";
+            }
+          }
+          span {
+            margin-top: 5px;
+          }
+        }
+      }
+    }
+
+    .dndDragover {
+      background: #363636 !important;
+    }
+
+    .drag-box {
+      box-shadow: -1px 0 15px rgba(38, 38, 38, 0.5);
+      background-color: #262626;
       position: absolute;
-      top:0;
-      left:0;
-      width: 100%;
+      top: 0;
       height: 100%;
-      z-index: 2000;
+      width: 100%;
+      transition: background 1s;
+      border-radius: 10px;
+      &::before {
+        content: "";
+        pointer-events: none;
+        background-image: url("./../../images/trayBorder.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000;
+      }
     }
 
-  }
-
-  .export-import {
-    position: absolute;
-    width: 100%;
-    bottom: 0;
-    z-index: 999;
-    padding: 25px;
-    .btn {
-      width: 50%;
+    .drag-box-ondrag {
+      box-shadow: 0 0 15px #262626;
+      background-color: #2e2e2e;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      transition: background .2s;
+      &::before {
+        content: "";
+        background-image: url("./../../images/trayBorderOndrag.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2000;
+      }
 
     }
+
+    .export-import {
+      position: absolute;
+      width: 100%;
+      bottom: 0;
+      z-index: 999;
+      margin: 0 auto;
+      .btn {
+        width: 45%;
+        margin-bottom: 10px;
+
+      }
+      .export-btn {
+        float: left;
+        margin-left: 10px;
+      }
+      .import-btn {
+        float: right;
+        margin-right: 10px;
+      }
+    }
   }
+
 }

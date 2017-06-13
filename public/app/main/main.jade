@@ -1,162 +1,38 @@
-.container-fluid.deck-builder-body
-    .col-sm-12.deck-builder
-        .col-sm-9.collection-box
-            .row
-                .col-sm-4.color-filter
-                    ul
-                        li.li-c
-                            input#c(type="checkbox")
-                            label.color-tab.color-c(for="c" onclick)
-                        li.li-b
-                            input#b(type="checkbox")
-                            label.color-tab.color-b(for="b" onclick)
-                        li.li-w
-                            input#w(type="checkbox")
-                            label.color-tab.color-w(for="w" onclick)
-                        li.li-u
-                            input#u(type="checkbox")
-                            label.color-tab.color-u(for="u" onclick)
-                        li.li-r
-                            input#r(type="checkbox")
-                            label.color-tab.color-r(for="r" onclick)
-                        li.li-g
-                            input#g(type="checkbox")
-                            label.color-tab.color-g(for="g" onclick)
-                        li.li-and
-                            input#and(type="checkbox")
-                            label.color-tab.color-and(for="and" onclick)
-                .col-sm-offset-1.col-sm-6.text-filter
-                    .input-group.col-sm-12
-                        .col-sm-8.search-box
-                            input.form-control.search.input-lg(type="text", placeholder="search...", ng-model="text", ng-change="searchText(text)")
-                        //span.input-group-addon.search-divider
-                        .col-sm-4.type-box
-                            select.form-control.type-filter.input-lg(ng-model="typeFilter", ng-change="typeChange(typeFilter)")
-                                option(value='none' selected) None
-                                option(value='land') Land
-                                option(value='creature') Creature
-                                option(value='artifact') Artifact
-                                option(value='enchantment') Enchantment
-                                option(value='planeswalker') Planeswalker
-                                option(value='instant') Instant
-                                option(value='sorcery') Sorcery
-            .row
-                #back.area-click.back-area
-                .col-sm-12.cards
-                    .row
-                        .col-sm-3.card-obj(ng-repeat="card in topRow")
-                            .mtgcard(ng-if="card.empty")
-                                .col-sm-9
-                                    img.img-responsive.cardImg(src="./../../images/invisCard.png")
-                                .col-sm-3
-                            .mtgcard(ng-if="!card.empty && card.rarity != 'Basic Land'", dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
-                                .col-sm-9
-                                    img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
-                                .col-sm-3
-                                    .cards-left x{{card.cardsLeft}}
-                            .mtgcard(ng-if="card.rarity == 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
-                                .col-sm-9
-                                    img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
-                                .col-sm-3
-                                    .cards-left ∞
-                    .row
-                        .col-sm-3.card-obj(ng-repeat="card in botRow")
-                            .mtgcard(ng-if="card.empty")
-                                .col-sm-9
-                                    img.img-responsive.cardImg(src="./../../images/invisCard.png")
-                                .col-sm-3
-                            .mtgcard(ng-if="!card.empty && card.rarity != 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1")
-                                .col-sm-9
-                                    img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
-                                .col-sm-3
-                                    .cards-left x{{card.cardsLeft}}
-                            .mtgcard(ng-if="card.rarity == 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1")
-                                .col-sm-9
-                                    img.img-responsive.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
-                                .col-sm-3
-                                    .cards-left ∞
-                #forward.area-click.next-area
-            .row
-                .col-sm-12.filter
-                    .col-sm-2.format-select-box
-                        select.form-control.format-select.input-lg(ng-model="formatSelect", ng-change="formatChange(formatSelect)")
-                            option(value="modern") Modern
-                            option(value="standard") Standard
-                    .col-sm-4.rarity-filter-box
-                        ul.pull-right
-                            li
-                                input#common(type="checkbox")
-                                label.rarity-tab.rarity-c(for="common" onclick) C
-                            li
-                                input#uncommon(type="checkbox")
-                                label.rarity-tab.rarity-u(for="uncommon" onclick) U
-                            li
-                                input#rare(type="checkbox")
-                                label.rarity-tab.rarity-r(for="rare" onclick) R
-                            li
-                                input#mythic(type="checkbox")
-                                label.rarity-tab.rarity-m(for="mythic" onclick) M
-                    .col-sm-6.cmc-filter-box
-                        ul.pull-right
-                            li
-                                input#cmcZero(type="checkbox")
-                                label.mana-tab(for="cmcZero" onclick) 0
-                            li
-                                input#cmcOne(type="checkbox")
-                                label.mana-tab(for="cmcOne" onclick) 1
-                            li
-                                input#cmcTwo(type="checkbox")
-                                label.mana-tab(for="cmcTwo" onclick) 2
-                            li
-                                input#cmcThree(type="checkbox")
-                                label.mana-tab(for="cmcThree" onclick) 3
-                            li
-                                input#cmcFour(type="checkbox")
-                                label.mana-tab(for="cmcFour" onclick) 4
-                            li
-                                input#cmcFive(type="checkbox")
-                                label.mana-tab(for="cmcFive" onclick) 5
-                            li
-                                input#cmcSix(type="checkbox")
-                                label.mana-tab(for="cmcSix" onclick) 6
-                            li
-                                input#cmcSeven(type="checkbox")
-                                label.mana-tab(for="cmcSeven" onclick) 7
-                            li
-                                input#cmcEightPlus(type="checkbox")
-                                label.mana-tab(for="cmcEightPlus" onclick) 8+
-        .col-sm-3.deck-tray(ng-repeat="(zone, list) in models.dropzones")
-            ul#display-box.display-box
-                div
-                    li.deck-card(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.colorIdentity)")
-                        .card-content
-                            button.btn.btn-danger.btn-sm(ng-click="removeCard(displayCard)")
-                                span.glyphicon.glyphicon-remove-sign
-                            span.text {{displayCard.name}}
-                            span {{displayCard.manaCost}}
-                            span.count {{displayCard.count}}
-            ul#drag-box.drag-box(dnd-list='list')
-                .export-import
-                    button.btn.btn-primary(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
-                    button.btn.btn-primary(data-toggle="modal", data-target="#importModal") Import
-#exportModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exportModal', aria-hidden='true')
-    .modal-dialog
-        .modal-content
-            .modal-header
-                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                h4.modal-titleExported Copy deck for export
-            .modal-body
-                pre {{exportedDeck}}
-#importModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='exportModal', aria-hidden='true')
-
-    .modal-dialog
-        .modal-content
-            .modal-header
-                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
-                h4.modal-titleExported Paste deck for export
-            .modal-body
-                .form-group
-                    textarea#import.form-control(rows='5', placeholder="{{importExample}}", ng-model="importString")
-                    .input-group
-                        .input-group-btn
-                            button.btn.btn-primary.pull-right(ng-click="importDeck(importString)") Import Deck
+.deck-builder-body
+    .deck-builder
+        .collection-box
+            .top-filter
+                include templates/ColorFilter
+                include templates/TextFilter
+            .card-view
+                include templates/CardView
+            .bot-filter
+                include templates/FormatSetFilter
+                include templates/RarityFilter
+                include templates/CMCFilter
+        .deck-tray(ng-repeat="(zone, list) in models.dropzones")
+            .deck-boxes
+                .total-cards Total Cards: {{totalDisplayCards}}
+                ul#display-box.display-box
+                    div
+                        li.deck-card.display-card-border(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.manaCost)")
+                            .card-content
+                                .add-remove-control
+                                    button.remove(ng-click="removeCard(displayCard)") -
+                                    button.add(ng-click="addCard(displayCard)", ng-disabled="displayCard.count >= 4", ng-class="{'disabled-add-btn': displayCard.count >= 4}") +
+                                .card-data
+                                    span.text {{displayCard.name}}
+                                    .mana-cost
+                                        div(ng-if="displayCard.types[0] == 'Land'")
+                                            span.icon Land
+                                        div(ng-if="displayCard.types[0] != 'Land'")
+                                            span.icon.icon-cmc-0(ng-if="getManaCost(displayCard).length < 1")
+                                            span.icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
+                                .card-count
+                                    span.count {{displayCard.count}}
+                ul#drag-box.drag-box(dnd-list='list')
+                    .export-import
+                        button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
+                        button.btn.btn-primary.import-btn(data-toggle="modal", data-target="#importModal") Import
+include Modals/Export
+include Modals/Import
