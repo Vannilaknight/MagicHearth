@@ -2,9 +2,18 @@ module.exports = function filterColor(colors, operator, cards) {
     var andColors;
     var splitColors;
     var and = false;
-    if (operator == "and") {
-        andColors = colors.split(",");
-        and = true;
+    var only = false;
+
+    if(operator) {
+        var op = operator.split(',');
+        if(op[1] == "only") {
+            only = true;
+        }
+
+        if (op[0] == "and") {
+            andColors = colors.split(",");
+            and = true;
+        }
     } else {
         splitColors = colors.split(",");
     }
@@ -13,11 +22,11 @@ module.exports = function filterColor(colors, operator, cards) {
 
     var filteredCards = cards;
 
-    filteredCards = filteredCards.filter(function (el) {
+    filteredCards = filteredCards.filter(function (card) {
         andResults = [];
         var result = false;
-        if (el.colorIdentity) {
-            el.colorIdentity.forEach(function (cardColor) {
+        if (card.colorIdentity) {
+            card.colorIdentity.forEach(function (cardColor) {
                 if (and) {
                     andColors.forEach(function (andColor) {
                         if (cardColor == andColor) {
@@ -47,14 +56,23 @@ module.exports = function filterColor(colors, operator, cards) {
                 });
             }
         }
-
         if (and) {
-            if (andResults.length == andColors.length) {
-                result = true;
-            } else {
-                result = false;
+            result = andResults.length == andColors.length;
+        }
+    console.log(only);
+        if(only){
+            if(card.colorIdentity) {
+                card.colorIdentity.forEach(function (cardColor) {
+                    if(colors.match(cardColor) && result) {
+                        result = true;
+                    }
+                    else {
+                        result = false;
+                    }
+                });
             }
         }
+
         return result;
     });
     return filteredCards;
