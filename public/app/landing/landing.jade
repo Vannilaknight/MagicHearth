@@ -1,18 +1,16 @@
-.container-fluid.landing-body
-    .col-sm-offset-3.col-sm-6.text-center
-        img.img-responsive(src="./../../images/SwingFaceBrandColor.png")
-    .col-sm-offset-3.col-sm-6
+.landing-body
+    .logo
+        img(src="./../../images/SwingFaceBrandColor.png")
+    .container
         .desc
-            p Welcome to the SwingFace MTG Deckbuilder. This app aims to make building a deck fun and easily accessible. We are currently in our Alpha stages but are working hard to get this app up to par as soon as possible.
-            p While you use the app there are some things to note. We have a list of known bugs and enhancements that our devs are working on as you read this so always be sure to check back every once in a while.
-            p Here is a list of the know bugs and enhancements that we plan on squashing and implementing.
-    .col-sm-offset-3.col-sm-6
+            p This app aims to make building a deck fun and easily accessible. It is currently in Alpha with changes being implemented weekly.
+            p While you use the app there are some things to note. We have a list of known bugs and enhancements described below.
         .lists
-            .col-sm-6
+            .list
                 h3 Bugs
                 ul.known-list
                     li Certain cards are missing from their sets. If found please note it down.
-            .col-sm-6
+            .list
                 h3 Enhancements
                 ul.known-list
                     li Total Card Count
@@ -26,4 +24,4 @@
                     li Card Pricing
                     li Land Suggestion
                     li Dual Land Suggestion
-    a.col-sm-offset-3.col-sm-6.btn.btn-success(href="/builder") Get Started
+        a.get-started-btn(href="/builder") Get Started
