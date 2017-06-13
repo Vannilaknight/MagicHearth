@@ -5,15 +5,19 @@ module.exports = function filterColor(colors, operator, cards) {
     var only = false;
 
     if(operator) {
-        var op = operator.split(',');
-        if(op[1] == "only") {
-            only = true;
-        }
+        var operators = operator.split(',');
+        console.log(operators);
+        operators.forEach(function (op) {
+            if(op == "only") {
+                splitColors = colors.split(",");
+                only = true;
+            }
 
-        if (op[0] == "and") {
-            andColors = colors.split(",");
-            and = true;
-        }
+            if (op == "and") {
+                andColors = colors.split(",");
+                and = true;
+            }
+        })
     } else {
         splitColors = colors.split(",");
     }
@@ -25,6 +29,7 @@ module.exports = function filterColor(colors, operator, cards) {
     filteredCards = filteredCards.filter(function (card) {
         andResults = [];
         var result = false;
+
         if (card.colorIdentity) {
             card.colorIdentity.forEach(function (cardColor) {
                 if (and) {
@@ -59,7 +64,6 @@ module.exports = function filterColor(colors, operator, cards) {
         if (and) {
             result = andResults.length == andColors.length;
         }
-    console.log(only);
         if(only){
             if(card.colorIdentity) {
                 card.colorIdentity.forEach(function (cardColor) {
