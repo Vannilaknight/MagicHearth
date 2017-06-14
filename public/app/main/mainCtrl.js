@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal) {
+angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilderService) {
     String.prototype.replaceAll = function (search, replacement) {
         var target = this;
         return target.replace(new RegExp(search, 'g'), replacement);
@@ -6,6 +6,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
 
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
+    var maxPage;
+    var filteredCards;
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
@@ -13,17 +15,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
     var andColors = false;
     var onlyColors = false;
     var params = {
-        page: 1,
         colors: "",
         cmcs: "",
         colorop: "",
         rarities: "",
         searchText: "",
         type: "",
-        format: "standard"
+        format: "modern"
     };
 
-    $scope.formatSelect = "standard";
+    $scope.formatSelect = "modern";
     $scope.typeFilter = "none";
     $scope.topRow = [];
     $scope.botRow = [];
@@ -101,7 +102,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
         manaCost.forEach(function (mana) {
             counts.push(mana);
         });
-        console.log(counts)
         return counts;
     };
 
@@ -146,20 +146,17 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
 
     $scope.searchText = function (text) {
         params.searchText = text;
-        pageOne();
-        changePage();
+        resetPage();
     };
 
     $scope.formatChange = function (format) {
         params.format = format;
-        pageOne();
-        changePage();
+        resetPage();
     };
 
     $scope.typeChange = function (type) {
         params.type = type;
-        pageOne();
-        changePage();
+        resetPage();
     };
 
     $scope.exportDeck = function () {
@@ -273,11 +270,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             if(params.colorop == "only"){
                 params.colorop = "and,only";
             } else {
-                params.colorop = "only";
+                params.colorop = "and";
             }
         } else {
             if(params.colorop == "and,only"){
-                params.colorop = "and";
+                params.colorop = "only";
             } else {
                 params.colorop = "";
             }
@@ -381,20 +378,22 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
 
     function colorFilter() {
         params.colors = currentColors.join(",");
-        pageOne();
-        changePage();
+        resetPage();
     }
 
     function cmcFilter() {
         params.cmcs = currentCMC.join(",");
-        pageOne();
-        changePage();
+        resetPage();
     }
 
     function rarityFilter() {
         params.rarities = currentRarities.join(",");
-        pageOne();
-        changePage();
+        resetPage();
+    }
+
+    function resetPage(){
+        currentPage = 1;
+        filterCards();
     }
 
     function pageChange(direction) {
@@ -406,121 +405,104 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $uibModal)
             } else {
                 currentPage++;
             }
-            params.page = currentPage;
-            changePage();
+            paginate(currentPage, filteredCards)
         } else {
-            changePage();
+            paginate(currentPage, filteredCards)
         }
     }
-
-    function changePage() {
-        $http({
-            method: 'GET',
-            url: '/api/cards?' + objectToString(params)
-        }).then(function successCallback(response) {
-            $scope.topRow = [];
-            $scope.botRow = [];
-            var data = response.data;
-            if (data.length < 8) {
-                $("#forward").css("display", "none");
-            } else {
-                $("#forward").css("display", "inherit");
-            }
-            for (var x = 0; x < data.length; x++) {
-                data[x].empty = false;
-                if (x < 4) {
-                    $scope.topRow.push(data[x]);
-                } else {
-                    $scope.botRow.push(data[x]);
-                }
-            }
-            if ($scope.topRow.length < 4) {
-                for (var q = 0; q < 4 - $scope.topRow.length; q++) {
-                    $scope.topRow.push({
-                        empty: true
-                    })
-                }
-                for (var w = 0; w < 4; w++) {
-                    $scope.botRow.push({
-                        empty: true
-                    })
-                }
-            }
-            calcCardsLeft();
-        }, function errorCallback(response) {
-            console.error(response.data)
-        });
-    }
-
-    function pageOne() {
-        currentPage = 1;
-        params.page = currentPage;
-    }
-
-
-    changePage();
 
     function calcCardsLeft() {
         var displayDeck = $scope.displayDeck;
         var topRow = $scope.topRow;
         var botRow = $scope.botRow;
 
-        for (var x = 0; x < topRow.length; x++) {
-            var card = topRow[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayDeck.length >= 1) {
-                var notFound = true;
-                displayDeck.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        $scope.topRow[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        $scope.topRow[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                $scope.topRow[x].cardsLeft = 4;
-            }
-        }
-
-        for (var x = 0; x < botRow.length; x++) {
-            var card = botRow[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayDeck.length >= 1) {
-                var notFound = true;
-                displayDeck.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        $scope.botRow[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        $scope.botRow[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                $scope.botRow[x].cardsLeft = 4;
-            }
-        }
+        var updatedCards = deckbuilderService.getCardsLeft(displayDeck, topRow, botRow);
+        $scope.topRow = updatedCards.topUpdate;
+        $scope.botRow = updatedCards.botUpdate;
+        console.log($scope.topRow)
     }
 
     function calcTotalCards() {
-        var deck = $scope.displayDeck;
-        var total = 0;
-        deck.forEach(function (card) {
-            total += card.count;
-        });
-
-        $scope.totalDisplayCards = total;
+        $scope.totalDisplayCards = deckbuilderService.getTotalCardCount($scope.displayDeck);
     }
+
+    function filterCards() {
+        deckbuilderService.getCards(params).then(function (cards) {
+            filteredCards = cards;
+            var totalPages = filteredCards.length / 8;
+            var minPages = Math.floor(filteredCards.length / 8);
+            console.log(totalPages + " - " + minPages);
+            if(totalPages - minPages > 0) {
+                maxPage = minPages + 1;
+            } else {
+                maxPage = minPages;
+            }
+            paginate(currentPage, filteredCards);
+        });
+    }
+    function populateCardView(cards){
+        $scope.topRow = [];
+        $scope.botRow = [];
+        for(var x = 0; x < 8; x++) {
+            var card = cards[x];
+            if(x < 4){
+                if(card){
+                    card.empty = false;
+                    $scope.topRow.push(card);
+                } else {
+                    $scope.topRow.push({
+                        empty: true
+                    })
+                }
+
+            } else {
+                if(card){
+                    card.empty = false;
+                    $scope.botRow.push(card);
+                } else {
+                    $scope.botRow.push({
+                        empty: true
+                    })
+                }
+            }
+        }
+        $scope.$apply();
+    }
+
+    function paginate(page, cards) {
+        var newCards = [];
+        if (page > 0) {
+            var indexStart = (page * 8) - 8;
+            for (var x = indexStart; x < indexStart + 8; x++) {
+                if (objectValues(cards)[x]) {
+                    newCards.push(objectValues(cards)[x]);
+                }
+            }
+        } else {
+            for (var x = 0; x < 8; x++) {
+                if (objectValues(cards)[x]) {
+                    newCards.push(objectValues(cards)[x]);
+                }
+            }
+        }
+        validatePageChange();
+        populateCardView(newCards);
+    }
+
+    function validatePageChange(){
+        if(currentPage < 2) {
+            $("#back").css("display", "none");
+        } else {
+            $("#back").css("display", "inherit");
+        }
+        if(currentPage >= maxPage) {
+            $("#forward").css("display", "none");
+        } else {
+            $("#forward").css("display", "inherit");
+        }
+    }
+
+    filterCards();
 });
 
 function objectToString(obj) {
@@ -598,3 +580,11 @@ function scrollUp() {
         $('#display-box').scrollTop(scroll);
     }
 };
+
+function objectValues(obj) {
+    var res = [];
+    for(var k in obj) res.push(obj[k]);
+    return res;
+}
+
+

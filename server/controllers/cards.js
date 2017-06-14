@@ -8,7 +8,6 @@ var cardData = require('./filters/cardData'),
 
 
 function getCards(req, res) {
-    var page = req.query.page;
     var format = req.query.format;
     var set = req.query.set;
     var type = req.query.type;
@@ -43,10 +42,6 @@ function getCards(req, res) {
 
     if (cmcs) {
         cards = cmcFilter(cmcs, cards);
-    }
-
-    if (page) {
-        cards = pageFilter(page, cards);
     }
 
     res.send(cards)
