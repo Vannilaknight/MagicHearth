@@ -72,4 +72,37 @@ angular.module('app').service('deckbuilderService', function ($http) {
             botUpdate: botUpdate
         }
     }
+
+    this.getSortedDisplayDeck = function (displayCards) {
+        var creatures = [];
+        var spells = [];
+        var lands = [];
+        var creatureRegXp = '/Creature/g';
+        var landRegXp = '/Land/g';
+
+        displayCards.forEach(function (card) {
+            if(creatureRegXp.test(card.type.test)) {
+                creatures.push(card);
+            } else if (landRegXp.test(card.type.test)) {
+                lands.push(card);
+            } else {
+                spells.push(card);
+            }
+
+        });
+        creatures = sortByCMC(creatures);
+        spells = sortByCMC(spells);
+
+        return {creature: creatures,
+                spell: spells,
+                land: lands
+        };
+    }
+
+    function sortByCMC(cards) {
+        var sortedArray = cards.sort(function (a, b) {
+            return a.cmc - b.cmc;
+        });
+        return sortedArray;
+    }
 });
