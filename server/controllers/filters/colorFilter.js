@@ -1,15 +1,12 @@
 module.exports = function filterColor(colors, operator, cards) {
-    var andColors;
-    var splitColors;
     var and = false;
     var only = false;
+    console.log(colors);
 
-    console.log(operator);
-
+    colors = colors.replace(/\,/g, '');
     if(operator) {
-        console.log(operator);
-        only = operator.match("only");
-        and = operator.match("and");
+        only = !!(operator.match("only"));
+        and = !!(operator.match("and"));
     }
 
     var andResults = [];
@@ -19,33 +16,40 @@ module.exports = function filterColor(colors, operator, cards) {
     filteredCards = filteredCards.filter(function (card) {
         andResults = [];
         var result = false;
+
         if (card.colorIdentity) {
             card.colorIdentity.forEach(function (cardColor) {
-                if(colors.match(cardColor) && and) {
-                        andResults.push(true);
-                } else if (colors.match(cardColor)){
+
+                if(!!(colors.match(cardColor)) && and) {
+                    andResults.push(true);
+
+                } else if (!!(colors.match(cardColor))){
+
                     result = true;
                 }
             });
         } else {
-            if(colors.match("C") && and) {
+            if(!!(colors.match("C")) && and) {
                 andResults.push(true);
-            } else if(colors.match("C")) {
+            } else if(!!(colors.match("C"))) {
                 result = true;
             }
         }
         if(and) {
             result = andResults.length == colors.length;
+            //console.log(colors.length);
         }
 
         if(only){
             if(card.colorIdentity) {
                 card.colorIdentity.forEach(function (cardColor) {
-                    if(colors.match(cardColor) && result) {
+                    if(!!(colors.match(cardColor)) && result) {
                         result = true;
+                        console.log(card.name);
                     }
                     else {
                         result = false;
+                        return;
                     }
                 });
             }
