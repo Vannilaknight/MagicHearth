@@ -4,22 +4,12 @@ module.exports = function filterColor(colors, operator, cards) {
     var and = false;
     var only = false;
 
-    if(operator) {
-        var operators = operator.split(',');
-        console.log(operators);
-        operators.forEach(function (op) {
-            if(op == "only") {
-                splitColors = colors.split(",");
-                only = true;
-            }
+    console.log(operator);
 
-            if (op == "and") {
-                andColors = colors.split(",");
-                and = true;
-            }
-        })
-    } else {
-        splitColors = colors.split(",");
+    if(operator) {
+        console.log(operator);
+        only = operator.match("only");
+        and = operator.match("and");
     }
 
     var andResults = [];
@@ -29,41 +19,25 @@ module.exports = function filterColor(colors, operator, cards) {
     filteredCards = filteredCards.filter(function (card) {
         andResults = [];
         var result = false;
-
         if (card.colorIdentity) {
             card.colorIdentity.forEach(function (cardColor) {
-                if (and) {
-                    andColors.forEach(function (andColor) {
-                        if (cardColor == andColor) {
-                            andResults.push(true);
-                        }
-                    })
-                } else {
-                    splitColors.forEach(function (filterColor) {
-                        if (cardColor == filterColor) {
-                            result = true;
-                        }
-                    });
+                if(colors.match(cardColor) && and) {
+                        andResults.push(true);
+                } else if (colors.match(cardColor)){
+                    result = true;
                 }
             });
         } else {
-            if (and) {
-                andColors.forEach(function (andColor) {
-                    if (andColor == "C") {
-                        andResults.push(true);
-                    }
-                })
-            } else {
-                splitColors.forEach(function (filterColor) {
-                    if (filterColor == "C") {
-                        result = true;
-                    }
-                });
+            if(colors.match("C") && and) {
+                andResults.push(true);
+            } else if(colors.match("C")) {
+                result = true;
             }
         }
-        if (and) {
-            result = andResults.length == andColors.length;
+        if(and) {
+            result = andResults.length == colors.length;
         }
+
         if(only){
             if(card.colorIdentity) {
                 card.colorIdentity.forEach(function (cardColor) {
