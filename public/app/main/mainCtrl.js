@@ -44,6 +44,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     $scope.$watch('models.dropzones', function (model) {
         $scope.decklist = $scope.models.dropzones.deck;
         $scope.displayDeck = reduceArrayP2($scope.decklist);
+        var sortedDeck = deckbuilderService.getSortedDisplayDeck($scope.displayDeck);
+        console.log(sortedDeck);
+        var concatSortedArray = (sortedDeck.creature.concat(sortedDeck.spell)).concat(sortedDeck.land);
+        $scope.displayDeck = concatSortedArray;
+
         calcCardsLeft();
         calcTotalCards();
     }, true);
@@ -425,7 +430,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         var updatedCards = deckbuilderService.getCardsLeft(displayDeck, topRow, botRow);
         $scope.topRow = updatedCards.topUpdate;
         $scope.botRow = updatedCards.botUpdate;
-        console.log($scope.topRow)
+        //console.log($scope.topRow)
     }
 
     function calcTotalCards() {
