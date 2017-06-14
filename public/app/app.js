@@ -16,6 +16,14 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 controller: 'landingCtrl'
             })
     })
+    .factory('$exceptionHandler', function ($log) {
+        return function myExceptionHandler(exception, cause) {
+            if(!exception.toString().includes("$rootScope:inprog")){
+                $log.error(exception, cause)
+            }
+
+        };
+    })
     .run(function ($rootScope, $location) {
         $rootScope.$on('$routeChangeError', function (evt, current, previous, rejection) {
             if (rejection === 'not authorized') {

@@ -200,7 +200,18 @@
         height: 100%;
         z-index: 2000;
       }
-
+      .export-import {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        z-index: 999;
+        margin: 2% 5%;
+        .btn {
+          display: inline-block;
+          width: 45%;
+          margin-bottom: 10px;
+        }
+      }
     }
 
 
