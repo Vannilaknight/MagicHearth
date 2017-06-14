@@ -77,13 +77,14 @@ angular.module('app').service('deckbuilderService', function ($http) {
         var creatures = [];
         var spells = [];
         var lands = [];
-        var creatureRegXp = '/Creature/g';
-        var landRegXp = '/Land/g';
+        var creatureRegXp = /Creature/;
+        var landRegXp = /Land/;
 
         displayCards.forEach(function (card) {
-            if(creatureRegXp.test(card.type.test)) {
+
+            if(creatureRegXp.test(card.type)) {
                 creatures.push(card);
-            } else if (landRegXp.test(card.type.test)) {
+            } else if (landRegXp.test(card.type)) {
                 lands.push(card);
             } else {
                 spells.push(card);
@@ -93,7 +94,8 @@ angular.module('app').service('deckbuilderService', function ($http) {
         creatures = sortByCMC(creatures);
         spells = sortByCMC(spells);
 
-        return {creature: creatures,
+        return {
+                creature: creatures,
                 spell: spells,
                 land: lands
         };
