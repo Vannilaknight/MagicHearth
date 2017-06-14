@@ -173,12 +173,18 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         }
     };
 
-    $scope.importDeck = function (importedString) {
+    $scope.importDeck = function (importedString, willOverride) {
         $http({
             method: 'GET',
             url: '/api/buildImport?importedString=' + importedString
         }).then(function responseCallback(response) {
-            $scope.models.dropzones.deck = response.data;
+            if(willOverride) {
+                $scope.models.dropzones.deck = response.data;
+
+            } else {
+                $scope.models.dropzones.deck = $scope.models.dropzones.deck.concat(response.data);
+            }
+
         }, function errorCallback(response) {
             console.error(response.data);
         });
