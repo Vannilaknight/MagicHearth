@@ -30,7 +30,7 @@ function searchForCard(searchText) {
         if(cardName == "Plains" || cardName == "Swamp" || cardName == "Forest" || cardName == "Mountain" || cardName == "Island"){
             cards = filterLand(cardName, cards);
         } else {
-            cards = textFilter(cardName, cards);
+            cards = filterName(cardName, cards);
         }
     }
 
@@ -49,6 +49,12 @@ function filterLand(searchText, cards) {
         return contains;
     });
     return cards;
+}
+
+function filterName(searchName, cards) {
+    return cards.filter(function (card) {
+        return searchName == card.name;
+    });
 }
 
 module.exports = {
