@@ -445,6 +445,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     }
 
     function filterCards() {
+        $scope.topRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
+        $scope.botRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
         deckbuilderService.getCards(params).then(function (cards) {
             filteredCards = cards;
             var totalPages = filteredCards.length / 8;
@@ -465,8 +467,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     }
 
     function populateCardView(cards) {
-        $scope.topRow = [{empty: true}, {empty: true}, {empty: true}, {empty: true}];
-        $scope.botRow = [{empty: true}, {empty: true}, {empty: true}, {empty: true}];
+
         for (var x = 0; x < 8; x++) {
             var index = x;
             var card = cards[index];
