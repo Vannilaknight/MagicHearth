@@ -55,7 +55,7 @@ function buildImportedDeck(req, res) {
         /* Regex:
             ((\d\dx|\dx)): split on either (\d\dx) or (\dx)
         */
-        var regex = /(\d\dx|\dx)/g;
+        var regex = /(\d\dx|\dx|\d)/g;
         var splitImportedString = importedString.split(regex);
         splitImportedString.splice(0,1);
         for(var i = 0; i < splitImportedString.length; i = i+2) {

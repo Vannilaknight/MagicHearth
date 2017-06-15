@@ -4,8 +4,8 @@ module.exports = function filterText(searchText, cards) {
     var pwrTough = getPowerToughness(searchText);
 
     searchText = searchText.replace(/\(.*?\)/g, '');
-    if(pwrTough) {
 
+    if(pwrTough) {
         var pwrTghVal = pwrTough[0].split("/");
         var hasPower = pwrTghVal[0].toLowerCase() != "x";
         var hasToughness = pwrTghVal[1].toLowerCase() != "x";
