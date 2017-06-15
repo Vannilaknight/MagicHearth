@@ -8,6 +8,9 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
 
     var maxPage;
     var filteredCards;
+    var textCards;
+    var textSearchOn = false;
+    var textToSearch;
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
@@ -19,10 +22,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         cmcs: "",
         colorop: "",
         rarities: "",
-        searchText: "",
         type: "",
         format: "modern"
     };
+
+    var emptyCards = [];
 
     $scope.formatSelect = "modern";
     $scope.typeFilter = "none";
@@ -149,8 +153,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     };
 
     $scope.searchText = function (text) {
-        params.searchText = text;
-        resetPage();
+        textToSearch = text;
+        filterText(textToSearch);
     };
 
     $scope.formatChange = function (format) {
@@ -182,7 +186,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             method: 'GET',
             url: '/api/buildImport?importedString=' + importedString
         }).then(function responseCallback(response) {
-            if(willOverride) {
+            if (willOverride) {
                 $scope.models.dropzones.deck = response.data;
 
             } else {
@@ -277,13 +281,13 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     $("#and").change(function (event) {
         var checkbox = event.target;
         if (checkbox.checked) {
-            if(params.colorop == "only"){
+            if (params.colorop == "only") {
                 params.colorop = "and,only";
             } else {
                 params.colorop = "and";
             }
         } else {
-            if(params.colorop == "and,only"){
+            if (params.colorop == "and,only") {
                 params.colorop = "only";
             } else {
                 params.colorop = "";
@@ -295,13 +299,13 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     $("#only").change(function (event) {
         var checkbox = event.target;
         if (checkbox.checked) {
-            if(params.colorop == "and"){
+            if (params.colorop == "and") {
                 params.colorop = "and,only";
             } else {
                 params.colorop = "only";
             }
         } else {
-            if(params.colorop == "and,only"){
+            if (params.colorop == "and,only") {
                 params.colorop = "and";
             } else {
                 params.colorop = "";
@@ -401,7 +405,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         resetPage();
     }
 
-    function resetPage(){
+    function resetPage() {
         currentPage = 1;
         filterCards();
     }
@@ -415,7 +419,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             } else {
                 currentPage++;
             }
-            paginate(currentPage, filteredCards)
+            if (textSearchOn) {
+                paginate(currentPage, textCards)
+            } else {
+                paginate(currentPage, filteredCards)
+            }
+
         } else {
             paginate(currentPage, filteredCards)
         }
@@ -429,7 +438,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         var updatedCards = deckbuilderService.getCardsLeft(displayDeck, topRow, botRow);
         $scope.topRow = updatedCards.topUpdate;
         $scope.botRow = updatedCards.botUpdate;
-        //console.log($scope.topRow)
     }
 
     function calcTotalCards() {
@@ -441,38 +449,41 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             filteredCards = cards;
             var totalPages = filteredCards.length / 8;
             var minPages = Math.floor(filteredCards.length / 8);
-            console.log(totalPages + " - " + minPages);
-            if(totalPages - minPages > 0) {
+
+            if (totalPages - minPages > 0) {
                 maxPage = minPages + 1;
             } else {
                 maxPage = minPages;
             }
-            paginate(currentPage, filteredCards);
+
+            if (textSearchOn) {
+                filterText(textToSearch);
+            } else {
+                paginate(currentPage, filteredCards);
+            }
         });
     }
-    function populateCardView(cards){
-        $scope.topRow = [];
-        $scope.botRow = [];
-        for(var x = 0; x < 8; x++) {
-            var card = cards[x];
-            if(x < 4){
-                if(card){
-                    card.empty = false;
-                    $scope.topRow.push(card);
-                } else {
-                    $scope.topRow.push({
-                        empty: true
-                    })
-                }
 
-            } else {
-                if(card){
+    function populateCardView(cards) {
+        $scope.topRow = [{empty: true}, {empty: true}, {empty: true}, {empty: true}];
+        $scope.botRow = [{empty: true}, {empty: true}, {empty: true}, {empty: true}];
+        for (var x = 0; x < 8; x++) {
+            var index = x;
+            var card = cards[index];
+
+            if (x < 4) {
+                if (card) {
                     card.empty = false;
-                    $scope.botRow.push(card);
+                    $scope.topRow[index] = card;
                 } else {
-                    $scope.botRow.push({
-                        empty: true
-                    })
+                    $scope.topRow[index] = {empty: true};
+                }
+            } else {
+                if (card) {
+                    card.empty = false;
+                    $scope.botRow[index - 4] = card;
+                } else {
+                    $scope.botRow[index - 4] = {empty: true}
                 }
             }
         }
@@ -499,16 +510,28 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         populateCardView(newCards);
     }
 
-    function validatePageChange(){
-        if(currentPage < 2) {
+    function validatePageChange() {
+        if (currentPage < 2) {
             $("#back").css("display", "none");
         } else {
             $("#back").css("display", "inherit");
         }
-        if(currentPage >= maxPage) {
+        if (currentPage >= maxPage) {
             $("#forward").css("display", "none");
         } else {
             $("#forward").css("display", "inherit");
+        }
+    }
+
+    function filterText(text) {
+        if (text.length > 0) {
+            textSearchOn = true;
+            textCards = deckbuilderService.filterText(text, filteredCards);
+            currentPage = 1;
+            paginate(currentPage, textCards);
+        } else {
+            textSearchOn = false;
+            resetPage();
         }
     }
 
@@ -593,7 +616,7 @@ function scrollUp() {
 
 function objectValues(obj) {
     var res = [];
-    for(var k in obj) res.push(obj[k]);
+    for (var k in obj) res.push(obj[k]);
     return res;
 }
 
