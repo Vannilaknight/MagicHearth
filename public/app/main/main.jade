@@ -12,11 +12,13 @@
                 include templates/CMCFilter
         .deck-tray(ng-repeat="(zone, list) in models.dropzones")
             .deck-boxes
-                .total-cards Total Cards: {{totalDisplayCards}}
+                .total-cards
+                    | Total Cards: {{totalDisplayCards}}
+                    button.clearall-btn.btn.btn-primary(ng-click="clearDeck()") Clear all
                 ul#display-box.display-box
                     div
                         li.deck-card.display-card-border(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.manaCost)")
-                            .card-content
+                            .card-content(ng-mouseenter="showHover(displayCard.multiverseid)", ng-mouseleave="hideHover()")
                                 .add-remove-control
                                     button.remove(ng-click="removeCard(displayCard)") -
                                     button.add(ng-click="addCard(displayCard)", ng-disabled="displayCard.count >= 4", ng-class="{'disabled-add-btn': displayCard.count >= 4}") +
@@ -34,5 +36,7 @@
                     .export-import
                         button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
                         button.btn.btn-primary.import-btn(data-toggle="modal", data-target="#importModal") Import
+    img.zoom-view(ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{hoverId}}&type=card", ng-show="isHover")
+
 include Modals/Export
 include Modals/Import
