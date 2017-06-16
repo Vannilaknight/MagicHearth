@@ -1,3 +1,2 @@
 # SwingFace
-MTG deckbuilder that looks better than most
-Its cool
+MTG deckbuilder that looks better than mos
