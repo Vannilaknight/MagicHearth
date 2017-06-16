@@ -1,6 +1,5 @@
 var cardData = require('./filters/cardData'),
     typeFilter = require('./filters/typeFilter'),
-    textFilter = require('./filters/textFilter'),
     colorFilter = require('./filters/colorFilter'),
     rarityFilter = require('./filters/rarityFilter'),
     cmcFilter = require('./filters/cmcFilter'),
@@ -14,7 +13,6 @@ function getCards(req, res) {
     var rarities = req.query.rarities;
     var colors = req.query.colors;
     var cmcs = req.query.cmcs;
-    var searchText = req.query.searchText;
     var colorOperator = req.query.colorop;
     var cards = [];
 
@@ -26,10 +24,6 @@ function getCards(req, res) {
 
     if(type){
         cards = typeFilter(type, cards);
-    }
-
-    if (searchText) {
-        cards = textFilter(searchText, cards);
     }
 
     if (colors) {
