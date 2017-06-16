@@ -528,6 +528,15 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         if (text.length > 0) {
             textSearchOn = true;
             textCards = deckbuilderService.filterText(text, filteredCards);
+            var totalPages = textCards.length / 8;
+            var minPages = Math.floor(textCards.length / 8);
+
+            if (totalPages - minPages > 0) {
+                maxPage = minPages + 1;
+            } else {
+                maxPage = minPages;
+            }
+
             currentPage = 1;
             paginate(currentPage, textCards);
         } else {
