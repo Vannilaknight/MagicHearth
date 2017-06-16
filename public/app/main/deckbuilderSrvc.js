@@ -101,9 +101,10 @@ angular.module('app').service('deckbuilderService', function ($http) {
         };
     }
     this.suggestBasicLands = function(displayCards, maxLands) {
-        var suggestedLands = [];
+        var suggestLands = {};
+        var numOfLandsLeft = maxLands;
         var basicLands = [
-            {
+             {
                 "artist": "Noah Bradley",
                 "colorIdentity": [
                     "B"
@@ -336,25 +337,36 @@ angular.module('app').service('deckbuilderService', function ($http) {
             var numOfLand = 0;
             if(land.name == "Mountain") {
                 numOfLand = (manaSymbols.red / manaSymbols.totalManaSymbols()) * maxLands;
+
+                console.log((manaSymbols.red / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Island") {
                  numOfLand = (manaSymbols.blue / manaSymbols.totalManaSymbols()) * maxLands;
+                console.log((manaSymbols.blue / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Plains") {
                  numOfLand = (manaSymbols.white / manaSymbols.totalManaSymbols()) * maxLands;
+                console.log((manaSymbols.white / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Swamp") {
                  numOfLand = (manaSymbols.black / manaSymbols.totalManaSymbols()) * maxLands;
+                console.log((manaSymbols.black / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Forest") {
                 numOfLand = (manaSymbols.green / manaSymbols.totalManaSymbols()) * maxLands;
+                console.log((manaSymbols.green / manaSymbols.totalManaSymbols()) * 100);
             }
 
             numOfLand = Math.round(numOfLand);
+            numOfLandsLeft -= numOfLand;
+
             console.log(numOfLand);
-            for(var i = 0; i < numOfLand; i++) {
-                suggestedLands.push(land);
-            }
+
+            suggestLands.hasOwnProperty(land.name)
+            suggestLands[land.name] = land;
+
+            suggestLands[land.name].count = numOfLand;
+
         })
 
 
-        return suggestedLands;
+        return suggestLands;
     }
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {
