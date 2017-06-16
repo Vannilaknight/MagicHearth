@@ -111,7 +111,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     };
 
     $scope.getManaCost = function (card) {
-        var manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").replace(/[0-9]/g, '').split("");
+        var manaCost = [];
+        if(card.manaCost){
+            manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").replace(/[0-9]/g, '').split("");
+        }
+
         var counts = [];
         manaCost.forEach(function (mana) {
             counts.push(mana);
