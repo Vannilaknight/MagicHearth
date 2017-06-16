@@ -281,92 +281,173 @@ angular.module('app').service('deckbuilderService', function ($http) {
         }
 
         displayCards.forEach(function(card) {
-            console.log(card.manaCost);
             var numOfCard = displayCards[displayCards.indexOf(card)].count;
+            if(card.hasOwnProperty("manaCost")){
+                if(card.text) {
+                    if(!(/{2\/\w}/g.test(card.text))) {
+                        var greenMatch = card.text.match(/{G}|{G\/|\/G\/|\/G}/g);
+                        var blueMatch = card.text.match(/{U}|{U\/|\/U\/|\/U}/g);
+                        var redMatch = card.text.match(/{R}|{R\/|\/R\/|\/R}/g);
+                        var whiteMatch = card.text.match(/{W}|{W\/|\/W\/|\/W}/g);
+                        var blackMatch = card.text.match(/{B}|{B\/|\/B\/|\/B}/g);
 
-            if(card.text) {
-                var greenMatch = card.text.match(/{G}|{G\/|\/G\/|\/G}/g);
-                var blueMatch = card.text.match(/{U}|{U\/|\/U\/|\/U}/g);
-                var redMatch = card.text.match(/{R}|{R\/|\/R\/|\/R}/g);
-                var whiteMatch = card.text.match(/{W}|{W\/|\/W\/|\/W}/g);
-                var blackMatch = card.text.match(/{B}|{B\/|\/B\/|\/B}/g);
+                        if(greenMatch) {
+                            manaSymbols.green += greenMatch.length * numOfCard;
+                        }
+                        if(blueMatch) {
+                            manaSymbols.blue += blueMatch.length * numOfCard;
+                        }
+                        if(redMatch) {
+                            manaSymbols.red += redMatch.length * numOfCard;
+                        }
+                        if(whiteMatch) {
+                            manaSymbols.white += whiteMatch.length * numOfCard;
+                        }
+                        if(blackMatch) {
+                            manaSymbols.black += blackMatch.length * numOfCard;
+                        }
+                    }
+                    if(!(/{2\/\w}/g.test(card.manaCost))) {
+                        var greenMatch = card.manaCost.match(/{G}|{G\/|\/G\/|\/G}/g);
+                        var blueMatch = card.manaCost.match(/{U}|{U\/|\/U\/|\/U}/g);
+                        var redMatch = card.manaCost.match(/{R}|{R\/|\/R\/|\/R}/g);
+                        var whiteMatch = card.manaCost.match(/{W}|{W\/|\/W\/|\/W}/g);
+                        var blackMatch = card.manaCost.match(/{B}|{B\/|\/B\/|\/B}/g);
 
-                if(greenMatch) {
-                    manaSymbols.green += greenMatch.length * numOfCard;
-                }
-                if(blueMatch) {
-                    manaSymbols.blue += blueMatch.length * numOfCard;
-                }
-                if(redMatch) {
-                    manaSymbols.red += redMatch.length * numOfCard;
-                }
-                if(whiteMatch) {
-                    manaSymbols.white += whiteMatch.length * numOfCard;
-                }
-                if(blackMatch) {
-                    manaSymbols.black += blackMatch.length * numOfCard;
-                }
-                //manaSymbols.colorless += card.text.match(/{\d}/g).length;
-            }
-            var greenMatch = card.manaCost.match(/{G}|{G\/|\/G\/|\/G}/g);
-            var blueMatch = card.manaCost.match(/{U}|{U\/|\/U\/|\/U}/g);
-            var redMatch = card.manaCost.match(/{R}|{R\/|\/R\/|\/R}/g);
-            var whiteMatch = card.manaCost.match(/{W}|{W\/|\/W\/|\/W}/g);
-            var blackMatch = card.manaCost.match(/{B}|{B\/|\/B\/|\/B}/g);
+                        if(greenMatch) {
+                            manaSymbols.green += greenMatch.length * numOfCard;
+                        }
+                        if(blueMatch) {
+                            manaSymbols.blue += blueMatch.length * numOfCard;
+                        }
+                        if(redMatch) {
+                            manaSymbols.red += redMatch.length * numOfCard;
+                        }
+                        if(whiteMatch) {
+                            manaSymbols.white += whiteMatch.length * numOfCard;
+                        }
+                        if(blackMatch) {
+                            manaSymbols.black += blackMatch.length * numOfCard;
+                        }
 
-            if(greenMatch) {
-                manaSymbols.green += greenMatch.length * numOfCard;
-            }
-            if(blueMatch) {
-                manaSymbols.blue += blueMatch.length * numOfCard;
-            }
-            if(redMatch) {
-                manaSymbols.red += redMatch.length * numOfCard;
-            }
-            if(whiteMatch) {
-                manaSymbols.white += whiteMatch.length * numOfCard;
-            }
-            if(blackMatch) {
-                manaSymbols.black += blackMatch.length * numOfCard;
+                    }
+                }
             }
 
-            //manaSymbols.colorless += card.manaCost.match(/{\d}/g).length;
+
         })
 
         basicLands.forEach(function (land) {
             var numOfLand = 0;
             if(land.name == "Mountain") {
                 numOfLand = (manaSymbols.red / manaSymbols.totalManaSymbols()) * maxLands;
-
-                console.log((manaSymbols.red / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Island") {
                 numOfLand = (manaSymbols.blue / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.blue / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Plains") {
                 numOfLand = (manaSymbols.white / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.white / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Swamp") {
                 numOfLand = (manaSymbols.black / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.black / manaSymbols.totalManaSymbols()) * 100);
             } else if (land.name == "Forest") {
                 numOfLand = (manaSymbols.green / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.green / manaSymbols.totalManaSymbols()) * 100);
             }
-
-            numOfLand = Math.round(numOfLand);
+            if(numOfLand < 1 && numOfLand > 0) {
+                numOfLand = 1;
+            }
+            numOfLand = Math.floor(numOfLand);
             numOfLandsLeft -= numOfLand;
-
-            console.log(numOfLand);
-
-            suggestLands.hasOwnProperty(land.name);
             suggestLands[land.name] = land;
-
             suggestLands[land.name].count = numOfLand;
-
         })
 
+        if(numOfLandsLeft > 0) {
+            suggestLands = increaseLowest(suggestLands, numOfLandsLeft);
+
+        } else if (numOfLandsLeft < 0) {
+            suggestLands = decreaseHighest(suggestLands, Math.abs(numOfLandsLeft));
+        }
 
         return suggestLands;
+    }
+    function decreaseHighest(cards, remainder) {
+
+
+        for(var i = 0; i < remainder; i++) {
+            var land;
+            var r = cards["Mountain"].count;
+            var u = cards["Island"].count;
+            var w = cards["Plains"].count;
+            var g = cards["Forest"].count;
+            var b = cards["Swamp"].count;
+
+            if(r > 0) {
+                land = cards["Mountain"];
+            }
+            if(b > 0) {
+                land = cards["Swamp"];
+
+            }
+            if(w > 0) {
+                land = cards["Plains"];
+
+            }
+            if(u > 0) {
+                land = cards["Island"];
+
+            }
+            if(g > 0) {
+                land = cards["Forest"];
+            }
+
+            if(u > land.count && u > 0) land = cards["Island"];
+            if(w > land.count && w > 0) land = cards["Plains"];
+            if(b > land.count && b > 0) land = cards["Swamp"];;
+            if(r > land.count && r > 0) land = cards["Mountain"];
+            if(g > land.count && g > 0) land = cards["Forest"];
+            cards[land.name].count -= 1;
+        }
+        return cards;
+    }
+
+    function increaseLowest(cards, remainder) {
+
+        for(var i = 0; i < remainder; i++) {
+            var land;
+            var r = cards["Mountain"].count;
+            var u = cards["Island"].count;
+            var w = cards["Plains"].count;
+            var g = cards["Forest"].count;
+            var b = cards["Swamp"].count;
+
+            if(r > 0) {
+                land = cards["Mountain"];
+            }
+            if(b > 0) {
+                land = cards["Swamp"];
+
+            }
+            if(w > 0) {
+                land = cards["Plains"];
+
+            }
+            if(u > 0) {
+                land = cards["Island"];
+
+            }
+            if(g > 0) {
+                land = cards["Forest"];
+            }
+
+            if(u < land.count && u > 0) land = cards["Island"];
+            if(w < land.count && w > 0) land = cards["Plains"];
+            if(b < land.count && b > 0) land = cards["Swamp"];;
+            if(r < land.count && r > 0) land = cards["Mountain"];
+            if(g < land.count && g > 0) land = cards["Forest"];
+            console.log(land.name);
+            console.log("Loop");
+            cards[land.name].count += 1;
+
+        }
+        return cards;
     }
 
     this.filterText = function (searchText, cards) {
@@ -456,7 +537,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return cards;
     }
-    
+
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {
             return a.cmc - b.cmc;
