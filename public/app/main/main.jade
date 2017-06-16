@@ -21,7 +21,7 @@
                             .card-content(ng-mouseenter="showHover(displayCard.multiverseid)", ng-mouseleave="hideHover()")
                                 .add-remove-control
                                     button.remove(ng-click="removeCard(displayCard)") -
-                                    button.add(ng-click="addCard(displayCard)", ng-disabled="displayCard.count >= 4", ng-class="{'disabled-add-btn': displayCard.count >= 4}") +
+                                    button.add(ng-click="addCard(displayCard)", ng-disabled="displayCard.count >= 4 && displayCard.supertypes[0] != 'Basic'", ng-class="{'disabled-add-btn': displayCard.count >= 4 && displayCard.supertypes[0] != 'Basic'}") +
                                 .card-data
                                     span.text {{displayCard.name}}
                                     .mana-cost
