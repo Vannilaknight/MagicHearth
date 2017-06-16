@@ -53,7 +53,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         var sortedDeck = deckbuilderService.getSortedDisplayDeck($scope.displayDeck);
         var concatSortedArray = (sortedDeck.creature.concat(sortedDeck.spell)).concat(sortedDeck.land);
         $scope.displayDeck = concatSortedArray;
-
+        $scope.isHover = false;
         calcCardsLeft();
         calcTotalCards();
     }, true);
