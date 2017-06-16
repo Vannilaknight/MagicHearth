@@ -19,15 +19,24 @@
       }
     }
     .total-cards {
+      border-bottom: 3px groove #ccbb99;
       font-family: Relay;
       position: relative;
-      margin-top: 10px;
-      margin-left: 10px;
+      padding: 10px;
       color: #eeeecc;
       z-index: 1000;
+      .clearall-btn {
+        float: right;
+        background: rgba(255, 0, 0, 0.1);
+        &:hover {
+          background: rgba(255, 0, 0, 0.2);
+          cursor: pointer;
+        }
+      }
+
     }
     .display-box {
-      height: 90%;
+      height: 85%;
       overflow-y: scroll;
       .deck-card {
         width: 90%;
@@ -213,8 +222,13 @@
         }
       }
     }
-
-
   }
+}
 
+.zoom-view {
+  left: 50%;
+  top: 10%;
+  position: fixed;
+  border: 1px solid red;
+  z-index: 9999;
 }

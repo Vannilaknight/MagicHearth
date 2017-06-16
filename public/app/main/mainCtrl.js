@@ -33,6 +33,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     $scope.topRow = [];
     $scope.botRow = [];
     $scope.decklist = [];
+    $scope.isHover = false;
+    $scope.hoverId = "";
     $scope.exportedDeck = "";
 
     $scope.models = {
@@ -55,6 +57,10 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         calcCardsLeft();
         calcTotalCards();
     }, true);
+
+    $scope.clearDeck = function () {
+        $scope.models.dropzones.deck = [];
+    };
 
     $scope.getBorder = function (manaCost) {
         if (manaCost) {
@@ -529,6 +535,15 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         if (text.length > 0) {
             textSearchOn = true;
             textCards = deckbuilderService.filterText(text, filteredCards);
+            var totalPages = textCards.length / 8;
+            var minPages = Math.floor(textCards.length / 8);
+
+            if (totalPages - minPages > 0) {
+                maxPage = minPages + 1;
+            } else {
+                maxPage = minPages;
+            }
+
             currentPage = 1;
             paginate(currentPage, textCards);
         } else {
@@ -536,6 +551,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             resetPage();
         }
     }
+
+    $scope.showHover = function (multiverseid) {
+        $scope.isHover = true;
+        $scope.hoverId = multiverseid;
+    };
+
+    $scope.hideHover = function () {
+        $scope.isHover = false;
+        $scope.hoverId = "";
+    };
 
     filterCards();
 });
@@ -555,6 +580,7 @@ function reduceArrayP2(cards) {
     var counts = {};
 
     cards.forEach(function (card) {
+        console.log(card.name);
         if (!counts.hasOwnProperty(card.name)) {
             counts[card.name] = card;
             counts[card.name].count = 1;
