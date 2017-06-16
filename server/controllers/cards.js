@@ -49,13 +49,15 @@ function buildImportedDeck(req, res) {
         /* Regex:
             ((\d\dx|\dx)): split on either (\d\dx) or (\dx)
         */
-        var regex = /(\d\dx|\dx|\d|\d\d)/g;
+
+        var regex = /(\d\dx|\dx|\d\d|\d)/g;
         var splitImportedString = importedString.split(regex);
         splitImportedString.splice(0,1);
+        console.log(splitImportedString[0]);
         for(var i = 0; i < splitImportedString.length; i = i+2) {
-
             var cardName = splitImportedString[(i+1)].trim();
             var numOfCard = parseInt(splitImportedString[i].replace('x', ''));
+
             var cardInfo = cardData.searchForCard(cardName);
 
             for (var j = numOfCard; j > 0; j--) {

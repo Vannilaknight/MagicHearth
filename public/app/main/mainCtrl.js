@@ -179,6 +179,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         else {
             $scope.exportedDeck = "No cards in deck."
         }
+        console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
     };
 
     $scope.importDeck = function (importedString, willOverride) {
