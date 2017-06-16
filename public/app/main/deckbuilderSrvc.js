@@ -101,7 +101,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
         };
     }
     this.suggestBasicLands = function(displayCards, maxLands) {
-        var suggestedCards = [];
+        var suggestedLands = [];
         var basicLands = [
             {
                 "artist": "Noah Bradley",
@@ -271,40 +271,85 @@ angular.module('app').service('deckbuilderService', function ($http) {
             black: 0,
             colorless: 0,
             totalManaSymbols: function getTotalManaSymbols() {
-                return blue + red + green + white + black;
+                return this.blue
+                     + this.red
+                     + this.green
+                     + this.white
+                     + this.black;
             },
         }
 
         displayCards.forEach(function(card) {
-            manaSymbols.blue += card.manaCost.match(/{U}/).count + card.text.match(/{U}/).count;
-            manaSymbols.red += card.manaCost.match(/{R}/).count + card.text.match(/{R}/).count;
-            manaSymbols.green += card.manaCost.match(/{G}/).count + card.text.match(/{G}/).count;
-            manaSymbols.white += card.manaCost.match(/{W}/).count + card.text.match(/{W}/).count;
-            manaSymbols.black += card.manaCost.match(/{B}/).count + card.text.match(/{B}/).count;
-            manaSymbols.colorless += card.manaCost.match(/{\d}/).count + card.text.match(/{\d}/).count;
+            console.log(card.manaCost);
+            var numOfCard = displayCards[displayCards.indexOf(card)].count;
+
+            if(card.text) {
+                var greenMatch = card.text.match(/{G}|{G\/|\/G\/|\/G}/g);
+                var blueMatch = card.text.match(/{U}|{U\/|\/U\/|\/U}/g);
+                var redMatch = card.text.match(/{R}|{R\/|\/R\/|\/R}/g);
+                var whiteMatch = card.text.match(/{W}|{W\/|\/W\/|\/W}/g);
+                var blackMatch = card.text.match(/{B}|{B\/|\/B\/|\/B}/g);
+
+                if(greenMatch) {
+                    manaSymbols.green += greenMatch.length * numOfCard;
+                }
+                if(blueMatch) {
+                    manaSymbols.blue += blueMatch.length * numOfCard;
+                }
+                if(redMatch) {
+                    manaSymbols.red += redMatch.length * numOfCard;
+                }
+                if(whiteMatch) {
+                    manaSymbols.white += whiteMatch.length * numOfCard;
+                }
+                if(blackMatch) {
+                    manaSymbols.black += blackMatch.length * numOfCard;
+                }
+                //manaSymbols.colorless += card.text.match(/{\d}/g).length;
+            }
+            var greenMatch = card.manaCost.match(/{G}|{G\/|\/G\/|\/G}/g);
+            var blueMatch = card.manaCost.match(/{U}|{U\/|\/U\/|\/U}/g);
+            var redMatch = card.manaCost.match(/{R}|{R\/|\/R\/|\/R}/g);
+            var whiteMatch = card.manaCost.match(/{W}|{W\/|\/W\/|\/W}/g);
+            var blackMatch = card.manaCost.match(/{B}|{B\/|\/B\/|\/B}/g);
+
+            if(greenMatch) {
+                manaSymbols.green += greenMatch.length * numOfCard;
+            }
+            if(blueMatch) {
+                manaSymbols.blue += blueMatch.length * numOfCard;
+            }
+            if(redMatch) {
+                manaSymbols.red += redMatch.length * numOfCard;
+            }
+            if(whiteMatch) {
+                manaSymbols.white += whiteMatch.length * numOfCard;
+            }
+            if(blackMatch) {
+                manaSymbols.black += blackMatch.length * numOfCard;
+            }
+
+            //manaSymbols.colorless += card.manaCost.match(/{\d}/g).length;
         })
 
         basicLands.forEach(function (land) {
             var numOfLand = 0;
             if(land.name == "Mountain") {
                 numOfLand = (manaSymbols.red / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.red / manaSymbols.totalManaSymbols()) * maxLands);
-            }  else if (land.name == "Island") {
+            } else if (land.name == "Island") {
                  numOfLand = (manaSymbols.blue / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.blue / manaSymbols.totalManaSymbols()) * maxLands);
             } else if (land.name == "Plains") {
                  numOfLand = (manaSymbols.white / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.white / manaSymbols.totalManaSymbols()) * maxLands);
             } else if (land.name == "Swamp") {
                  numOfLand = (manaSymbols.black / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.black / manaSymbols.totalManaSymbols()) * maxLands);
             } else if (land.name == "Forest") {
                 numOfLand = (manaSymbols.green / manaSymbols.totalManaSymbols()) * maxLands;
-                console.log((manaSymbols.green / manaSymbols.totalManaSymbols()) * maxLands);
             }
 
+            numOfLand = Math.round(numOfLand);
+            console.log(numOfLand);
             for(var i = 0; i < numOfLand; i++) {
-                suggestedCards.push(land);
+                suggestedLands.push(land);
             }
         })
 
