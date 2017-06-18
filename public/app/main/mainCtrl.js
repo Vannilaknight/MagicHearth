@@ -190,6 +190,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             $scope.exportedDeck = "No cards in deck."
         }
         console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
+        console.log(deckbuilderService.getManaSymbolCount($scope.displayDeck));
     };
 
     $scope.importDeck = function (importedString, willOverride) {
