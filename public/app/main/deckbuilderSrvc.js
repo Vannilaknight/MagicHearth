@@ -100,6 +100,22 @@ angular.module('app').service('deckbuilderService', function ($http) {
                 land: lands
         };
     };
+    this.getManaCurve = function (displayCards) {
+        var manaCurve = [0, 0, 0, 0, 0, 0, 0, 0];
+
+        displayCards.forEach(function (card) {
+            if(card.hasOwnProperty("cmc")) {
+                var numOfCard = displayCards[displayCards.indexOf(card)].count;
+                if(card.cmc < 8) {
+
+                    manaCurve[card.cmc] += numOfCard;
+                } else {
+                    manaCurve[8] += numOfCard;
+                }
+            }
+        })
+        return manaCurve;
+    }
     this.suggestBasicLands = function(displayCards, maxLands) {
         var suggestLands = {};
         var numOfLandsLeft = maxLands;

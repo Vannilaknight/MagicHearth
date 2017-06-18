@@ -191,6 +191,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         }
         console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
         console.log(deckbuilderService.getManaSymbolCount($scope.displayDeck));
+        console.log(deckbuilderService.getManaCurve($scope.displayDeck));
     };
 
     $scope.importDeck = function (importedString, willOverride) {
