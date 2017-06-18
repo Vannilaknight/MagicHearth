@@ -334,17 +334,30 @@ angular.module('app').service('deckbuilderService', function ($http) {
             var numOfCard = displayCards[displayCards.indexOf(card)].count;
             if(card.hasOwnProperty("manaCost")){
                 manaSymbols = countManaSymbols(card.manaCost, manaSymbols, numOfCard);
-                if(card.hasOwnProperty("text")) {
-                    manaSymbols = countManaSymbols(card.text, manaSymbols, numOfCard);
-                }
+            }
+            if(card.hasOwnProperty("text")) {
+                manaSymbols = countManaSymbols(card.text, manaSymbols, numOfCard);
             }
         })
         return manaSymbols;
     }
     function countManaSymbols (cardText, manaSymbols, numOfCard) {
-        var ignoreRegex = /{2\/\w}|{T}/g;
-
+        var ignoreRegex = /{2\/\w}/g;
+        var tapRegex = /{T}/g;
+        
         if(!(ignoreRegex.test(cardText))) {
+            if(tapRegex.test(cardText)) {
+                var splitCardText = cardText.split("\n");
+                if(splitCardText.length > 1) {
+                    splitCardText.forEach(function (string) {
+                        var secondSplit = string.split("{T}");
+                        if(secondSplit.length > 1) {
+                            manaSymbols = countManaSymbols(string[0], manaSymbols, numOfCard);
+                        }
+                    })
+                }
+            }
+
             var greenMatch = cardText.match(/{G}|{G\/|\/G\/|\/G}/g);
             var blueMatch = cardText.match(/{U}|{U\/|\/U\/|\/U}/g);
             var redMatch = cardText.match(/{R}|{R\/|\/R\/|\/R}/g);
