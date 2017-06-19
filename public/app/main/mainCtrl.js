@@ -111,7 +111,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     };
 
     $scope.getManaCost = function (card) {
-        var manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").replace(/[0-9]/g, '').split("");
+        var manaCost = [];
+        if(card.manaCost){
+            manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").replace(/[0-9]/g, '').split("");
+        }
+
         var counts = [];
         manaCost.forEach(function (mana) {
             counts.push(mana);
@@ -186,6 +190,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             $scope.exportedDeck = "No cards in deck."
         }
         console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
+        console.log(deckbuilderService.getManaSymbolCount($scope.displayDeck));
+        console.log(deckbuilderService.getManaCurve($scope.displayDeck));
     };
 
     $scope.importDeck = function (importedString, willOverride) {
@@ -564,7 +570,3 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
 
     filterCards();
 });
-
-
-
-
