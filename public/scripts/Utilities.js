@@ -1,3 +1,8 @@
+String.prototype.replaceAll = function (search, replacement) {
+    var target = this;
+    return target.replace(new RegExp(search, 'g'), replacement);
+};
+
 function objectToString(obj) {
     var returnStr = "";
     for (var prop in obj) {

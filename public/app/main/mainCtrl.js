@@ -1,9 +1,4 @@
 angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilderService) {
-    String.prototype.replaceAll = function (search, replacement) {
-        var target = this;
-        return target.replace(new RegExp(search, 'g'), replacement);
-    };
-
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
     var maxPage;
@@ -25,8 +20,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         type: "",
         format: "modern"
     };
-
-    var emptyCards = [];
 
     $scope.formatSelect = "modern";
     $scope.typeFilter = "none";
@@ -73,38 +66,18 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
                 "G": false,
             };
 
-            if (manaCost.includes("U")) {
-                colors["U"] = true;
-            }
-            if (manaCost.includes("W")) {
-                colors["W"] = true;
-            }
-            if (manaCost.includes("B")) {
-                colors["B"] = true;
-            }
-            if (manaCost.includes("R")) {
-                colors["R"] = true;
-            }
-            if (manaCost.includes("G")) {
-                colors["G"] = true;
-            }
+            if (manaCost.includes("U")) colors["U"] = true;
+            if (manaCost.includes("W")) colors["W"] = true;
+            if (manaCost.includes("B")) colors["B"] = true;
+            if (manaCost.includes("R")) colors["R"] = true;
+            if (manaCost.includes("G")) colors["G"] = true;
 
             var classString = "";
-            if (colors["U"]) {
-                classString += "-U";
-            }
-            if (colors["W"]) {
-                classString += "-W";
-            }
-            if (colors["B"]) {
-                classString += "-B";
-            }
-            if (colors["R"]) {
-                classString += "-R";
-            }
-            if (colors["G"]) {
-                classString += "-G";
-            }
+            if (colors["U"]) classString += "-U";
+            if (colors["W"]) classString += "-W";
+            if (colors["B"]) classString += "-B";
+            if (colors["R"]) classString += "-R";
+            if (colors["G"]) classString += "-G";
         }
 
         return classString + "-border";
@@ -116,11 +89,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
             manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").replace(/[0-9]/g, '').split("");
         }
 
-        var counts = [];
-        manaCost.forEach(function (mana) {
-            counts.push(mana);
-        });
-        return counts;
+        return manaCost;
     };
 
     $scope.getIcon = function (mana) {
@@ -209,7 +178,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         }, function errorCallback(response) {
             console.error(response.data);
         });
-
     };
 
     $scope.getCardsLeft = function (card) {
@@ -480,7 +448,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     }
 
     function populateCardView(cards) {
-
         for (var x = 0; x < 8; x++) {
             var index = x;
             var card = cards[index];
