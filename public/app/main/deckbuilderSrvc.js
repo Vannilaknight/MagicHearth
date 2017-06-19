@@ -344,7 +344,8 @@ angular.module('app').service('deckbuilderService', function ($http) {
     function countManaSymbols (cardText, manaSymbols, numOfCard) {
         var ignoreRegex = /{2\/\w}/g;
         var tapRegex = /{T}/g;
-        
+
+
         if(!(ignoreRegex.test(cardText))) {
             if(tapRegex.test(cardText)) {
                 var splitCardText = cardText.split("\n");
@@ -357,7 +358,6 @@ angular.module('app').service('deckbuilderService', function ($http) {
                     })
                 }
             }
-
             var greenMatch = cardText.match(/{G}|{G\/|\/G\/|\/G}/g);
             var blueMatch = cardText.match(/{U}|{U\/|\/U\/|\/U}/g);
             var redMatch = cardText.match(/{R}|{R\/|\/R\/|\/R}/g);
@@ -380,6 +380,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
                 manaSymbols.black += blackMatch.length * numOfCard;
             }
         }
+
         return manaSymbols;
     }
     function decreaseHighest(cards, remainder) {
