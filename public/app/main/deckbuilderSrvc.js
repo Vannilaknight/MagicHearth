@@ -304,91 +304,89 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return landSuggestion;
     }
 
-    this.filterText = function (searchText, cards) {
+    this.filterText = function (searchText, cards){
+        var splitText = /@/g;
+
+        if(searchText.match(splitText)) {
+            var searchBy = searchText.split('@');
+            cards = this.filterText(searchBy[0], cards);
+            cards = this.filterText(searchBy[1], cards);
+            return cards;
+        }
+
         var subtypes = getSubtypes(searchText);
         var cardText = getCardText(searchText);
         var pwrTough = getPowerToughness(searchText);
 
-        searchText = searchText.replace(/\(.*?\)/g, '');
-
         if(pwrTough) {
-            var pwrTghVal = pwrTough[0].split("/");
-            var hasPower = pwrTghVal[0] != "x" || pwrTghVal[0] != "X" ;
-            var hasToughness = pwrTghVal[1] != "x" || pwrTghVal[1] != "X";
-
-            cards = cards.filter(function (card) {
-                var result = false;
-
-                if(!hasPower && hasToughness) {
-                    result = card.toughness == pwrTghVal[1];
-                }
-                else if (hasPower && !hasToughness) {
-                    result = card.power == pwrTghVal[0];
-                }
-                else if (hasPower && hasToughness) {
-                    result = card.power == pwrTghVal[0]
-                        && card.toughness == pwrTghVal[1];
-                }
-
-                return result;
-            });
+            cards = checkPowerToughness(pwrTough, cards);
         } else {
-            searchText = searchText.replace(/\*.*?\*/g, "");
-            searchText = searchText.replace(/".*?"/g, "");
-
             if(subtypes){
-                cards = cards.filter(function (card) {
-                    var result = false;
-                    if(card.subtypes){
-                        subtypes.forEach(function (subtypeSearch) {
-                            card.subtypes.forEach(function (subtypeResult) {
-                                if(subtypeSearch.toLowerCase() == subtypeResult.toLowerCase()){
-                                    result = true;
-                                }
-                            });
-                        })
-                    }
-                    return result;
-                });
+                cards = checkSubTypes(subtypes, cards);
             }
-
             if(cardText){
-                cards = cards.filter(function (card) {
-                    var result = false;
-                    if(card.text){
-                        cardText.forEach(function (cardTextSearch) {
-                            if(card.text.toLowerCase().includes(cardTextSearch.toLowerCase())){
-                                result = true;
-                            }
-                        })
-                    }
-                    return result;
-                })
+                cards = checkCardText(cardText, cards);
             }
-
-
-            cards = cards.filter(function (card) {
-                var contains = false;
-                if (card.subtypes) {
-                    card.subtypes.forEach(function (subtype) {
-                        if (subtype.toLowerCase().includes(searchText.toLowerCase())) {
-                            contains = true;
-                        }
-                    });
-                }
-                if (card.text) {
-                    if (card.text.toLowerCase().includes(searchText.toLowerCase())) {
-                        contains = true;
-                    }
-                }
-                if (card.name.toLowerCase().includes(searchText.toLowerCase())) {
-                    contains = true;
-                }
-
-                return contains;
-            });
         }
 
+        return cards;
+    };
+
+    function checkPowerToughness(text, cards) {
+        var pwrTghVal = text[0].split("/");
+        var hasPower = pwrTghVal[0].toLowerCase() != "x";
+        var hasToughness = pwrTghVal[1].toLowerCase() != "x";
+
+        cards = cards.filter(function (card) {
+            var result = false;
+
+            if(!hasPower && hasToughness) {
+                result = card.toughness == pwrTghVal[1];
+            }
+            else if (hasPower && !hasToughness) {
+                result = card.power == pwrTghVal[0];
+            }
+            else if (hasPower && hasToughness) {
+                result = card.power == pwrTghVal[0]
+                    && card.toughness == pwrTghVal[1];
+            }
+
+            return result;
+        });
+        return cards;
+    };
+    function checkSubTypes(subtypes, cards) {
+        cards = cards.filter(function (card) {
+            var result = false;
+            if(card.hasOwnProperty("subtypes")) {
+                if(card.subtypes){
+                    subtypes.forEach(function (subtypeSearch) {
+                        card.subtypes.forEach(function (subtypeResult) {
+                            if(subtypeSearch.toLowerCase() == subtypeResult.toLowerCase()){
+                                result = true;
+                            }
+                        });
+                    })
+                }
+            }
+
+            return result;
+        });
+
+        return cards;
+    };
+    function checkCardText(cardText, cards) {
+        cards = cards.filter(function (card) {
+            var result = false;
+            if(card.text){
+                cardText.forEach(function (cardTextSearch) {
+                    if(card.text.toLowerCase().includes(cardTextSearch.toLowerCase())){
+                        result = true;
+                    }
+                })
+            }
+            return result;
+        })
         return cards;
     };
 

@@ -1,5 +1,4 @@
-var textFilter = require('./textFilter'),
-    modernSet = require('./../Modern.json'),
+var modernSet = require('./../Modern.json'),
     standardSet = require('./../Standard.json'),
     sets = require('./../AllSets.json');
 
