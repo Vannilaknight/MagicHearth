@@ -102,7 +102,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
     };
 
     this.getManaCurve = function (displayCards) {
-        var manaCurve = [0, 0, 0, 0, 0, 0, 0, 0];
+        var manaCurve = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         displayCards.forEach(function (card) {
             if(card.hasOwnProperty("cmc")) {
