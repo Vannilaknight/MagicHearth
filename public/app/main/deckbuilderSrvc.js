@@ -120,33 +120,27 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
     this.suggestBasicLands = function(displayCards, maxLands) {
         var suggestLands = {
-            "island": {},
-            "plains": {},
-            "swamp": {},
-            "mountain": {},
-            "forest": {},
+            "Island": ISLAND,
+            "Plains": PLAINS,
+            "Swamp": SWAMP,
+            "Mountain": MOUNTAIN,
+            "Forest": FOREST,
         };
 
-        var numOfLandsLeft = maxLands;
-
         var manaSymbols = this.getManaSymbolCount(displayCards);
+        var totalSymbolCount = manaSymbols.totalManaSymbols();
 
-        var blueCount = Math.floor((manaSymbols.blue / manaSymbols.totalManaSymbols()) * maxLands);
-        var whiteCount = Math.floor((manaSymbols.white / manaSymbols.totalManaSymbols()) * maxLands);
-        var blackCount = Math.floor((manaSymbols.black / manaSymbols.totalManaSymbols()) * maxLands);
-        var redCount = Math.floor((manaSymbols.red / manaSymbols.totalManaSymbols()) * maxLands);
-        var greenCount = Math.floor((manaSymbols.green / manaSymbols.totalManaSymbols()) * maxLands);
+        suggestLands.Island.count = checkLandCount(manaSymbols.blue, totalSymbolCount, maxLands);
+        suggestLands.Plains.count = checkLandCount(manaSymbols.white, totalSymbolCount, maxLands);
+        suggestLands.Swamp.count = checkLandCount(manaSymbols.black, totalSymbolCount, maxLands);
+        suggestLands.Mountain.count = checkLandCount(manaSymbols.red, totalSymbolCount, maxLands);
+        suggestLands.Forest.count = checkLandCount(manaSymbols.green, totalSymbolCount, maxLands);
 
-        suggestLands.island = grabLand("island", blueCount);
-        numOfLandsLeft -= blueCount;
-        suggestLands.plains = grabLand("plains", whiteCount);
-        numOfLandsLeft -= whiteCount;
-        suggestLands.swamp = grabLand("swamp", blackCount);
-        numOfLandsLeft -= blackCount;
-        suggestLands.mountain = grabLand("mountain", redCount);
-        numOfLandsLeft -= redCount;
-        suggestLands.forest = grabLand("forest", greenCount);
-        numOfLandsLeft -= greenCount;
+        var numOfLandsLeft = maxLands - (suggestLands.Island.count   +
+                                         suggestLands.Swamp.count    +
+                                         suggestLands.Mountain.count +
+                                         suggestLands.Forest.count   +
+                                         suggestLands.Plains.count);
 
         if(numOfLandsLeft > 0) {
             suggestLands = increaseLowest(suggestLands, numOfLandsLeft);
@@ -157,7 +151,14 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return suggestLands;
     };
+    function checkLandCount(symbolCount, totalSymbols, maxLands) {
+        var floorCount = (symbolCount / totalSymbols) * maxLands;
 
+        if(floorCount < 1 && floorCount > 0) {
+            floorCount = 1;
+        }
+        return Math.floor(floorCount);
+    }
     this.getManaSymbolCount = function (displayCards){
         var manaSymbols = {
             blue: 0,
@@ -230,77 +231,77 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return manaSymbols;
     }
 
-    function decreaseHighest(cards, remainder) {
+    function decreaseHighest(landSuggestion, remainder) {
         for(var i = 0; i < remainder; i++) {
             var land;
-            var red = cards["Mountain"].count;
-            var blue = cards["Island"].count;
-            var white = cards["Plains"].count;
-            var green = cards["Forest"].count;
-            var black = cards["Swamp"].count;
+            var red = landSuggestion["Mountain"].count;
+            var blue = landSuggestion["Island"].count;
+            var white = landSuggestion["Plains"].count;
+            var green = landSuggestion["Forest"].count;
+            var black = landSuggestion["Swamp"].count;
 
             if(red > 0) {
-                land = cards["Mountain"];
+                land = landSuggestion["Mountain"];
             }
             if(black > 0) {
-                land = cards["Swamp"];
+                land = landSuggestion["Swamp"];
             }
             if(white > 0) {
-                land = cards["Plains"];
+                land = landSuggestion["Plains"];
             }
             if(blue > 0) {
-                land = cards["Island"];
+                land = landSuggestion["Island"];
             }
             if(green > 0) {
-                land = cards["Forest"];
+                land = landSuggestion["Forest"];
             }
 
-            if(blue > land.count && blue > 0) land = cards["Island"];
-            if(white > land.count && white > 0) land = cards["Plains"];
-            if(black > land.count && black > 0) land = cards["Swamp"];
-            if(red > land.count && red > 0) land = cards["Mountain"];
-            if(green > land.count && green > 0) land = cards["Forest"];
-            cards[land.name].count -= 1;
+            if(blue > land.count && blue > 0) land = landSuggestion["Island"];
+            if(white > land.count && white > 0) land = landSuggestion["Plains"];
+            if(black > land.count && black > 0) land = landSuggestion["Swamp"];
+            if(red > land.count && red > 0) land = landSuggestion["Mountain"];
+            if(green > land.count && green > 0) land = landSuggestion["Forest"];
+            landSuggestion[land.name].count -= 1;
         }
-        return cards;
+        return landSuggestion;
     }
 
-    function increaseLowest(cards, remainder) {
+    function increaseLowest(landSuggestion, remainder) {
 
         for(var i = 0; i < remainder; i++) {
             var land;
-            var red = cards["Mountain"].count;
-            var blue = cards["Island"].count;
-            var white = cards["Plains"].count;
-            var green = cards["Forest"].count;
-            var black = cards["Swamp"].count;
+            var red = landSuggestion["Mountain"].count;
+            var blue = landSuggestion["Island"].count;
+            var white = landSuggestion["Plains"].count;
+            var green = landSuggestion["Forest"].count;
+            var black = landSuggestion["Swamp"].count;
 
             if(red > 0) {
-                land = cards["Mountain"];
+                land = landSuggestion["Mountain"];
             }
             if(black > 0) {
-                land = cards["Swamp"];
+                land = landSuggestion["Swamp"];
             }
             if(white > 0) {
-                land = cards["Plains"];
+                land = landSuggestion["Plains"];
             }
             if(blue > 0) {
-                land = cards["Island"];
+                land = landSuggestion["Island"];
             }
             if(green > 0) {
-                land = cards["Forest"];
+                land = landSuggestion["Forest"];
             }
 
-            if(blue < land.count && blue > 0) land = cards["Island"];
-            if(white < land.count && white > 0) land = cards["Plains"];
-            if(black < land.count && black > 0) land = cards["Swamp"];;
-            if(red < land.count && red > 0) land = cards["Mountain"];
-            if(green < land.count && green > 0) land = cards["Forest"];
+            if(blue < land.count && blue > 0) land = landSuggestion["Island"];
+            if(white < land.count && white > 0) land = landSuggestion["Plains"];
+            if(black < land.count && black > 0) land = landSuggestion["Swamp"];;
+            if(red < land.count && red > 0) land = landSuggestion["Mountain"];
+            if(green < land.count && green > 0) land = landSuggestion["Forest"];
 
-            cards[land.name].count += 1;
+            landSuggestion[land.name].count += 1;
 
         }
-        return cards;
+        return landSuggestion;
     }
 
     this.filterText = function (searchText, cards) {
@@ -420,23 +421,5 @@ angular.module('app').service('deckbuilderService', function ($http) {
             result = result.map(function(el) { return el.replace(/^\(|\)$/g, '')})
         }
         return result;
-    }
-
-    function grabLand(landType, amount) {
-        var land;
-        if (landType == "island") {
-            land = ISLAND;
-        } else if (landType == "plains") {
-            land = PLAINS;
-        } else if (landType == "swamp") {
-            land = SWAMP;
-        } else if (landType == "mountain") {
-            land = MOUNTAIN;
-        } else if (landType == "forest") {
-            land = FOREST;
-        }
-        var newLand = land;
-        newLand.count = amount;
-        return newLand;
     }
 });
