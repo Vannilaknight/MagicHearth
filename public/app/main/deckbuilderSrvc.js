@@ -310,7 +310,12 @@ angular.module('app').service('deckbuilderService', function ($http) {
         if(searchText.match(splitText)) {
             var searchBy = searchText.split('@');
             cards = this.filterText(searchBy[0], cards);
-            cards = this.filterText(searchBy[1], cards);
+            if(searchBy[1]) {
+                var regex = /(\(((\d|[x!X])\/(\d|[x|X]))\))/g
+                if(searchBy[1].match(regex)) {
+                    cards = this.filterText(searchBy[1], cards);
+                }
+            }
             return cards;
         }
 
@@ -321,24 +326,50 @@ angular.module('app').service('deckbuilderService', function ($http) {
         if(pwrTough) {
             cards = checkPowerToughness(pwrTough, cards);
         } else {
+            var check = true;
             if(subtypes){
                 cards = checkSubTypes(subtypes, cards);
+                check = false;
             }
             if(cardText){
                 cards = checkCardText(cardText, cards);
+                check = false;
             }
-            cards = matchName(searchText, cards);
+
+            if(check) {
+                cards = checkAll(searchText, cards);
+            }
         }
 
         return cards;
     };
 
-    function matchName(searchText, cards) {
-        searchText = searchText.replace(/\*.*?\*/g, "");
-        searchText = searchText.replace(/".*?"/g, "");
+    function checkAll(searchText, cards) {
+        searchText = searchText.replace('*', '');
+        searchText = searchText.replace('"', '');
+        searchText = searchText.replace('(', '').replace(')', '');
+        searchText = searchText.trim();
 
         cards = cards.filter(function(card) {
-            return !!(card.name.toLowerCase().match(searchText.toLowerCase()));
+            var result = false;
+            if(card.name.toLowerCase().match(searchText.toLowerCase())) {
+                return true;
+            }
+
+            if (card.hasOwnProperty("text")) {
+                if(card.text.toLowerCase().match(searchText.toLowerCase())) {
+                    return true;
+                }
+            }
+            if (card.hasOwnProperty("subtypes")){
+                card.subtypes.forEach(function (type) {
+                    if(type.toLowerCase() == searchText.toLowerCase()) {
+                        result = true;
+                    }
+
+                })
+            }
+            return result;
         })
         return cards;
     }
