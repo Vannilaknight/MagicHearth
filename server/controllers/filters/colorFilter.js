@@ -1,7 +1,6 @@
 module.exports = function filterColor(colors, operator, cards) {
     var and = false;
     var only = false;
-    console.log(colors);
 
     colors = colors.replace(/\,/g, '');
     if(operator) {
@@ -22,9 +21,7 @@ module.exports = function filterColor(colors, operator, cards) {
 
                 if(!!(colors.match(cardColor)) && and) {
                     andResults.push(true);
-
                 } else if (!!(colors.match(cardColor))){
-
                     result = true;
                 }
             });
@@ -37,7 +34,6 @@ module.exports = function filterColor(colors, operator, cards) {
         }
         if(and) {
             result = andResults.length == colors.length;
-            //console.log(colors.length);
         }
 
         if(only){
@@ -45,7 +41,6 @@ module.exports = function filterColor(colors, operator, cards) {
                 card.colorIdentity.forEach(function (cardColor) {
                     if(!!(colors.match(cardColor)) && result) {
                         result = true;
-                        console.log(card.name);
                     }
                     else {
                         result = false;
