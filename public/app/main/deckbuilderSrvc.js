@@ -327,11 +327,21 @@ angular.module('app').service('deckbuilderService', function ($http) {
             if(cardText){
                 cards = checkCardText(cardText, cards);
             }
+            cards = matchName(searchText, cards);
         }
 
         return cards;
     };
 
+    function matchName(searchText, cards) {
+        searchText = searchText.replace(/\*.*?\*/g, "");
+        searchText = searchText.replace(/".*?"/g, "");
+
+        cards = cards.filter(function(card) {
+            return !!(card.name.toLowerCase().match(searchText.toLowerCase()));
+        })
+        return cards;
+    }
     function checkPowerToughness(text, cards) {
         var pwrTghVal = text[0].split("/");
         var hasPower = pwrTghVal[0].toLowerCase() != "x";
