@@ -305,7 +305,7 @@ function isArrayLike(obj) {
  * @param {Object|Array} obj Object to iterate over.
  * @param {Function} iterator Iterator function.
  * @param {Object=} context Object to become context (`this`) for the iterator function.
- * @returns {Object|Array} Reference to `obj`.
+ * @returns {Object|Array} reference to `obj`.
  */
 
 function forEach(obj, iterator, context) {
@@ -403,7 +403,7 @@ function setHashKey(obj, h) {
  *
  * @param {Object} dst Destination object.
  * @param {...Object} src Source object(s).
- * @returns {Object} Reference to `dst`.
+ * @returns {Object} reference to `dst`.
  */
 function extend(dst) {
   var h = dst.$$hashKey;
@@ -485,7 +485,7 @@ function valueFn(value) {return function() {return value;};}
  * @description
  * Determines if a reference is undefined.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is undefined.
  */
 function isUndefined(value) {return typeof value === 'undefined';}
@@ -500,7 +500,7 @@ function isUndefined(value) {return typeof value === 'undefined';}
  * @description
  * Determines if a reference is defined.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is defined.
  */
 function isDefined(value) {return typeof value !== 'undefined';}
@@ -516,7 +516,7 @@ function isDefined(value) {return typeof value !== 'undefined';}
  * Determines if a reference is an `Object`. Unlike `typeof` in JavaScript, `null`s are not
  * considered to be objects. Note that JavaScript arrays are objects.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is an `Object` but not `null`.
  */
 function isObject(value) {
@@ -534,7 +534,7 @@ function isObject(value) {
  * @description
  * Determines if a reference is a `String`.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is a `String`.
  */
 function isString(value) {return typeof value === 'string';}
@@ -555,7 +555,7 @@ function isString(value) {return typeof value === 'string';}
  * [`isFinite'](https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/isFinite)
  * method.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is a `Number`.
  */
 function isNumber(value) {return typeof value === 'number';}
@@ -570,7 +570,7 @@ function isNumber(value) {return typeof value === 'number';}
  * @description
  * Determines if a value is a date.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is a `Date`.
  */
 function isDate(value) {
@@ -587,7 +587,7 @@ function isDate(value) {
  * @description
  * Determines if a reference is an `Array`.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is an `Array`.
  */
 var isArray = Array.isArray;
@@ -601,7 +601,7 @@ var isArray = Array.isArray;
  * @description
  * Determines if a reference is a `Function`.
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is a `Function`.
  */
 function isFunction(value) {return typeof value === 'function';}
@@ -611,7 +611,7 @@ function isFunction(value) {return typeof value === 'function';}
  * Determines if a value is a regular expression object.
  *
  * @private
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is a `RegExp`.
  */
 function isRegExp(value) {
@@ -683,7 +683,7 @@ var escapeForRegexp = function(s) {
  * @description
  * Determines if a reference is a DOM element (or wrapped jQuery element).
  *
- * @param {*} value Reference to check.
+ * @param {*} value reference to check.
  * @returns {boolean} True if `value` is a DOM element (or wrapped jQuery element).
  */
 function isElement(node) {
@@ -5001,7 +5001,7 @@ function Browser(window, document, $log, $sniffer) {
 
   /**
    * @param {number} interval How often should browser call poll functions (ms)
-   * @param {function()} setTimeout Reference to a real or fake `setTimeout` function.
+   * @param {function()} setTimeout reference to a real or fake `setTimeout` function.
    *
    * @description
    * Configures the poller to run in the specified intervals, using the specified
@@ -13804,7 +13804,7 @@ function $RootScopeProvider() {
       * @name $rootScope.Scope#$parent
       *
       * @description
-      * Reference to the parent scope.
+      * reference to the parent scope.
       */
 
       /**
@@ -13812,7 +13812,7 @@ function $RootScopeProvider() {
        * @name $rootScope.Scope#$root
        *
        * @description
-       * Reference to the root scope.
+       * reference to the root scope.
        */
 
     Scope.prototype = {

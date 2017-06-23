@@ -15,6 +15,10 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 templateUrl: '/partials/landing/landing',
                 controller: 'landingCtrl'
             })
+            .when('/reference', {
+                templateUrl: '/partials/reference/reference',
+                controller: 'referenceCtrl'
+            })
     })
     .factory('$exceptionHandler', function ($log) {
         return function myExceptionHandler(exception, cause) {

@@ -1,0 +1,81 @@
+@import 'vars';
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+
+.reference-body {
+  height: 100vh;
+  width: 100vw;
+  margin-left: -8px;
+  margin-top: -8px;
+  background-image: url("./../../images/tableBG.jpg");
+  color: #fff;
+  .container {
+    width: 50%;
+    margin: auto;
+    padding-top: 1%;
+    .paperList {
+      align: center;
+      position: absolute;
+      height: 905px;
+      width: 800px;
+      background: rgba(255,255,255, 1);
+      box-shadow: 0px 0px 10px 0px #888;
+      .logo {
+        height: 90px;
+        width: 50%;
+        margin-left: 23%;
+        img {
+          margin-top: 1%;
+          width: 100%;
+        }
+      }
+      .lines {
+        height: calc(100% - 90px);
+        width: 100%;
+        background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
+
+        .headerText {
+          font-weight: bold;
+          position: absolute;
+          top: 90px;
+          left: 55px;
+          bottom: 10px;
+          right: 10px;
+          line-height: 25px;
+          font-family: 'Indie Flower';
+          overflow: hidden;
+          outline: none;
+          .list {
+            color: black;
+            dt {
+              color: #CC0000;
+              dd {
+                font-weight: normal;
+              }
+            }
+          }
+        }
+      }
+    }
+    .paperList::before {
+      content: '';
+      position: absolute;
+      left: 45px;
+      height: 100%;
+      width: 2px;
+      background: rgba(255,0,0,0.4);
+    }
+
+
+    a {
+      margin-left: 40%;
+      margin-top: 1%;
+      background: #262626;
+      border: 2px groove #ccbb99;
+      text-decoration: none;
+      padding: 10px 20px;
+      text-align: center;
+      border-radius: 5px;
+      font-family: Relay;
+    }
+  }
+}
