@@ -17,21 +17,15 @@
                     button.clearall-btn.btn.btn-primary(ng-click="clearDeck()") Clear all
                 ul#display-box.display-box
                     div
-                        li.deck-card.display-card-border(ng-repeat='displayCard in displayDeck', ng-class="getBorder(displayCard.manaCost)")
-                            .card-content(ng-mouseenter="showHover(displayCard.multiverseid)", ng-mouseleave="hideHover()")
-                                .add-remove-control
-                                    button.remove(ng-click="removeCard(displayCard)") -
-                                    button.add(ng-click="addCard(displayCard)", ng-disabled="displayCard.count >= 4 && displayCard.supertypes[0] != 'Basic'", ng-class="{'disabled-add-btn': displayCard.count >= 4 && displayCard.supertypes[0] != 'Basic'}") +
-                                .card-data
-                                    span.text {{displayCard.name}}
-                                    .mana-cost
-                                        div(ng-if="displayCard.type.includes('Land')")
-                                            span.icon {{displayCard.type}}
-                                        div(ng-if="!displayCard.type.includes('Land')")
-                                            span.icon.icon-cmc-0(ng-if="getManaCost(displayCard).length < 1")
-                                            span.icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
-                                .card-count
-                                    span.count {{displayCard.count}}
+                        span CREATURES - {{totalCreatureCards}}
+                        li.deck-card.display-card-border(ng-repeat='displayCard in creatureDeck', ng-class="getBorder(displayCard.manaCost)")
+                            include templates/DeckDIsplayGroup
+                        span SPELLS - {{totalSpellCards}}
+                        li.deck-card.display-card-border(ng-repeat='displayCard in spellDeck', ng-class="getBorder(displayCard.manaCost)")
+                            include templates/DeckDIsplayGroup
+                        span LAND - {{totalLandCards}}
+                        li.deck-card.display-card-border(ng-repeat='displayCard in landDeck', ng-class="getBorder(displayCard.manaCost)")
+                            include templates/DeckDIsplayGroup
                 ul#drag-box.drag-box(dnd-list='list')
                     .export-import
                         button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export

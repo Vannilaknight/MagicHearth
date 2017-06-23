@@ -18,7 +18,6 @@ function reduceArrayP2(cards) {
     var counts = {};
 
     cards.forEach(function (card) {
-        console.log(card.name);
         if (!counts.hasOwnProperty(card.name)) {
             counts[card.name] = card;
             counts[card.name].count = 1;

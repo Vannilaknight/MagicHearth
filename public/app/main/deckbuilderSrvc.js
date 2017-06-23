@@ -151,14 +151,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return suggestLands;
     };
-    function checkLandCount(symbolCount, totalSymbols, maxLands) {
-        var floorCount = (symbolCount / totalSymbols) * maxLands;
 
-        if(floorCount < 1 && floorCount > 0) {
-            floorCount = 1;
-        }
-        return Math.floor(floorCount);
-    }
     this.getManaSymbolCount = function (displayCards){
         var manaSymbols = {
             blue: 0,
@@ -188,6 +181,55 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return manaSymbols;
     };
+
+    this.filterText = function (searchText, cards){
+        var splitText = /@/g;
+
+        if(searchText.match(splitText)) {
+            var searchBy = searchText.split('@');
+            cards = this.filterText(searchBy[0], cards);
+            if(searchBy[1]) {
+                var regex = /(\(((\d|[x!X])\/(\d|[x|X]))\))/g
+                if(searchBy[1].match(regex)) {
+                    cards = this.filterText(searchBy[1], cards);
+                }
+            }
+            return cards;
+        }
+
+        var subtypes = getSubtypes(searchText);
+        var cardText = getCardText(searchText);
+        var pwrTough = getPowerToughness(searchText);
+
+        if(pwrTough) {
+            cards = checkPowerToughness(pwrTough, cards);
+        } else {
+            var check = true;
+            if(subtypes){
+                cards = checkSubTypes(subtypes, cards);
+                check = false;
+            }
+            if(cardText){
+                cards = checkCardText(cardText, cards);
+                check = false;
+            }
+
+            if(check) {
+                cards = checkAll(searchText, cards);
+            }
+        }
+
+        return cards;
+    };
+
+    function checkLandCount(symbolCount, totalSymbols, maxLands) {
+        var floorCount = (symbolCount / totalSymbols) * maxLands;
+
+        if(floorCount < 1 && floorCount > 0) {
+            floorCount = 1;
+        }
+        return Math.floor(floorCount);
+    }
 
     function countManaSymbols (cardText, manaSymbols, numOfCard) {
         var ignoreRegex = /{2\/\w}/g;
@@ -304,46 +346,6 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return landSuggestion;
     }
 
-    this.filterText = function (searchText, cards){
-        var splitText = /@/g;
-
-        if(searchText.match(splitText)) {
-            var searchBy = searchText.split('@');
-            cards = this.filterText(searchBy[0], cards);
-            if(searchBy[1]) {
-                var regex = /(\(((\d|[x!X])\/(\d|[x|X]))\))/g
-                if(searchBy[1].match(regex)) {
-                    cards = this.filterText(searchBy[1], cards);
-                }
-            }
-            return cards;
-        }
-
-        var subtypes = getSubtypes(searchText);
-        var cardText = getCardText(searchText);
-        var pwrTough = getPowerToughness(searchText);
-
-        if(pwrTough) {
-            cards = checkPowerToughness(pwrTough, cards);
-        } else {
-            var check = true;
-            if(subtypes){
-                cards = checkSubTypes(subtypes, cards);
-                check = false;
-            }
-            if(cardText){
-                cards = checkCardText(cardText, cards);
-                check = false;
-            }
-
-            if(check) {
-                cards = checkAll(searchText, cards);
-            }
-        }
-
-        return cards;
-    };
-
     function checkAll(searchText, cards) {
         searchText = searchText.replace('*', '');
         searchText = searchText.replace('"', '');
@@ -373,6 +375,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
         })
         return cards;
     }
+
     function checkPowerToughness(text, cards) {
         var pwrTghVal = text[0].split("/");
         var hasPower = pwrTghVal[0].toLowerCase() != "x";
@@ -395,7 +398,8 @@ angular.module('app').service('deckbuilderService', function ($http) {
             return result;
         });
         return cards;
-    };
+    }
+
     function checkSubTypes(subtypes, cards) {
         cards = cards.filter(function (card) {
             var result = false;
@@ -415,7 +419,8 @@ angular.module('app').service('deckbuilderService', function ($http) {
         });
 
         return cards;
-    };
+    }
+
     function checkCardText(cardText, cards) {
         cards = cards.filter(function (card) {
             var result = false;
@@ -429,7 +434,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
             return result;
         })
         return cards;
-    };
+    }
 
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {

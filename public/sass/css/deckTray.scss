@@ -38,6 +38,16 @@
     .display-box {
       height: 85%;
       overflow-y: scroll;
+      span {
+        font-family: Beleren;
+        top: 10px;
+        left: 25px;
+        display: block;
+        position: relative;
+        z-index: 9999;
+        color: #bdbdbd;
+        margin-bottom: 20px;
+      }
       .deck-card {
         width: 90%;
         height: 40px;
@@ -56,7 +66,6 @@
           .add-remove-control {
             display: inline-block;
             position: relative;
-            top: -11px;
             padding: 0;
             margin: 0;
             width: 20%;
@@ -107,9 +116,8 @@
           .card-data {
             display: inline-block;
             margin: 0;
+            margin-top: -20px;
             padding: 0;
-            padding-top: 4px;
-            padding-left: 10px;
             width: 65%;
             span {
               margin: 0;
@@ -124,7 +132,7 @@
 
             .mana-cost {
               margin-top: 5px;
-              font-size: 6px;
+              font-size: 10px;
               .icon {
                 display: inline-block;
 
@@ -132,18 +140,13 @@
             }
           }
           .card-count {
+            position: relative;
+            top: -8px;
             width: 5%;
             display: inline-block;
-            float: right;
-            margin-top: 8px;
-            margin-right: 5px;
             .count {
-
               font-family: "Belwe";
             }
-          }
-          span {
-            margin-top: 5px;
           }
         }
       }
