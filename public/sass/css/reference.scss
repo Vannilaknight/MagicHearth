@@ -1,6 +1,7 @@
 @import 'vars';
 @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 
+
 .reference-body {
   height: 100vh;
   width: 100vw;
@@ -64,7 +65,17 @@
       width: 2px;
       background: rgba(255,0,0,0.4);
     }
-
+    $button--colors: (
+            grey: (text: #333, background: #bdc3c7),
+            white: (text: #333, background: #fff),
+            red: (text: #fff, background: #c0392b),
+            orange: (text: #fff, background: #e67e22),
+            yellow: (text: #fff, background: #f1c40f),
+            green: (text: #fff, background: #27ae60),
+            blue: (text: #fff, background: #446CB3),
+            dark-blue: (text: #fff, background: #2c3e50),
+            purple: (text: #fff, background: #8e44ad)
+    );
 
     a {
       margin-left: 40%;
@@ -76,6 +87,7 @@
       text-align: center;
       border-radius: 5px;
       font-family: Relay;
+
     }
   }
 }
