@@ -7,15 +7,15 @@ for (var set in Standard) {
 
     cards.forEach(function (card) {
         var code = set.code.toLowerCase();
-        if(set.oldCode){
-            code = set.oldCode.toLowerCase();
+        if(set.magicCardsInfoCode){
+            code = set.magicCardsInfoCode.toLowerCase();
         }
         card.set = code;
     });
 }
 
 var json = JSON.stringify(Standard);
-fs.writeFile("Modern.json", json, function (err) {
+fs.writeFile("./server/controllers/Modern.json", json, function (err) {
     if(err) throw err;
     console.log("COMPLETE")
 });
