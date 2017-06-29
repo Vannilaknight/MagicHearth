@@ -29,6 +29,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     $scope.isHover = false;
     $scope.hoverId = "";
     $scope.exportedDeck = "";
+    $scope.exportFile;
 
     $scope.totalCreatureCards = 0;
     $scope.totalSpellCards = 0;
@@ -168,18 +169,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         }
         else {
             $scope.exportedDeck = "No cards in deck."
+
         }
+        $scope.exportToFile();
         console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
         console.log(deckbuilderService.getManaSymbolCount($scope.displayDeck));
         console.log(deckbuilderService.getManaCurve($scope.displayDeck));
     };
 
     $scope.exportToFile = function() {
-        $scope.exportDeck();
-        var text = $scope.exportedDeck;
-            blob = new Blob([text], {type: "text/plain"}),
-            url = $window.URL || $window.webkitURL;
-        $scope.fileUrl = url.createObjectURL(blob);
+        $scope.exportFile = deckbuilderService.createExportFile($window, $scope.exportedDeck);
     }
 
     $scope.importDeck = function (importedString, willOverride) {

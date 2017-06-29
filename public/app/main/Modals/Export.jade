@@ -9,4 +9,4 @@
                 .form-group
                     .input-group
                         .input-group-btn
-                            button.btn.btn-primary.export-deck-btn(ng-href="{{ fileUrl }}" download="swingfaceDeck.txt" ng-click="exportToFile()") Download
+                            a.btn.btn-primary.export-deck-btn(ng-href="{{exportFile}}", download="swingfaceDeck.txt") Download

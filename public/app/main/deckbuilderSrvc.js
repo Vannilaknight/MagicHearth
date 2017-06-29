@@ -199,6 +199,12 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return cards;
     };
+    this.createExportFile = function ($window, textToWrite) {
+        var text = textToWrite.toString();
+            blob = new Blob([text], {type: "text/plain"}),
+            url = $window.URL || $window.webkitURL;
+        return url.createObjectURL(blob);
+    }
 
     this.getRandomPrice = function () {
       return randomPrecise(0, 100, 2);
