@@ -6,3 +6,7 @@
                 h4.modal-title Copy deck for export
             .modal-body
                 pre {{exportedDeck}}
+                .form-group
+                    .input-group
+                        .input-group-btn
+                            button.btn.btn-primary.export-deck-btn(ng-href="{{ fileUrl }}" download="swingfaceDeck.txt" ng-click="exportToFile()") Download
