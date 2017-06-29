@@ -3,13 +3,13 @@
 .mtgcard(ng-if="card.empty && !card.loading")
     img.cardImg(src="./../../images/invisCard.png")
 .mtgcard(ng-if="!card.empty && !card.loading && card.rarity != 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-disable-if="card.cardsLeft <= 0", dnd-copied="card.count = card.count + 1", ng-dblclick="addCard(card)")
-    img.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
+    img.cardImg(preload-image ng-src="http://magiccards.info/scans/en/{{card.set}}/{{card.number}}.jpg" default-image="./../../images/cardback.jpg")
     .pricing-box
         .pricing
             .vendor Reg
-            .price $100.00
+            .price $000.00
         .pricing
             .vendor Foil
-            .price $100.00
+            .price $000.00
 .mtgcard(ng-if="card.rarity == 'Basic Land'",dnd-draggable="card", dnd-dragstart="dragStart()", dnd-dragend="dragEnd()", dnd-effect-allowed="copy", dnd-copied="card.count = card.count + 1", ng-dblclick="addCard(card)")
-    img.cardImg(preload-image ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{card.multiverseid}}&type=card" default-image="./../../images/cardback.jpg")
+    img.cardImg(preload-image ng-src="http://magiccards.info/scans/en/{{card.set}}/{{card.number}}.jpg" default-image="./../../images/cardback.jpg")

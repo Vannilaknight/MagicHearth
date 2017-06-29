@@ -10,12 +10,11 @@
   color: #fff;
   overflow-y: scroll;
   .logo {
-    height: 90px;
     width: 50%;
     margin: 0 auto;
     margin-bottom: 50px;
     img {
-      margin-top: 1%;
+      height: auto;
       width: 100%;
     }
   }
@@ -57,6 +56,7 @@
         }
       }
     }
+
     .paperList::before {
       content: '';
       position: absolute;
@@ -65,6 +65,18 @@
       width: 2px;
       background: rgba(255, 0, 0, 0.4);
     }
+
+    $button--colors: (
+            grey: (text: #333, background: #bdc3c7),
+            white: (text: #333, background: #fff),
+            red: (text: #fff, background: #c0392b),
+            orange: (text: #fff, background: #e67e22),
+            yellow: (text: #fff, background: #f1c40f),
+            green: (text: #fff, background: #27ae60),
+            blue: (text: #fff, background: #446CB3),
+            dark-blue: (text: #fff, background: #2c3e50),
+            purple: (text: #fff, background: #8e44ad)
+    );
 
     a {
       margin-left: 40%;
@@ -76,6 +88,7 @@
       text-align: center;
       border-radius: 5px;
       font-family: Relay;
+
     }
   }
 }

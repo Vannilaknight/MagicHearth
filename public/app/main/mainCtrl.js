@@ -529,14 +529,14 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         }
     }
 
-    $scope.showHover = function (multiverseid) {
+    $scope.showHover = function (card) {
         $scope.isHover = true;
-        $scope.hoverId = multiverseid;
+        $scope.hoverCard = card;
     };
 
     $scope.hideHover = function () {
         $scope.isHover = false;
-        $scope.hoverId = "";
+        $scope.hoverCard = null;
     };
 
     $scope.randomPrice = function () {

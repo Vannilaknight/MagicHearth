@@ -5,6 +5,7 @@
                 include templates/ColorFilter
                 include templates/TextFilter
             .card-view
+                img.zoom-view(ng-src="http://magiccards.info/scans/en/{{hoverCard.set}}/{{hoverCard.number}}.jpg", ng-show="isHover")
                 include templates/CardView
             .bot-filter
                 include templates/FormatSetFilter
@@ -30,8 +31,6 @@
                     .export-import
                         button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
                         button.btn.btn-primary.import-btn(data-toggle="modal", data-target="#importModal") Import
-    img.zoom-view(ng-src="http://gatherer.wizards.com/Handlers/Image.ashx?multiverseid={{hoverId}}&type=card", ng-show="isHover")
-
 include Modals/Export
 include Modals/Import
 script.
