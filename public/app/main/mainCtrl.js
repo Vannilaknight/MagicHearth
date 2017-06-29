@@ -544,4 +544,5 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     };
 
     filterCards();
+    var blob = new Blob();
 });
