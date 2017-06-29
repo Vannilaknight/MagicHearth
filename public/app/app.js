@@ -1,6 +1,6 @@
 angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLists', 'ui.bootstrap', 'angular-preload-image'])
-    .config(function ($routeProvider, $locationProvider) {
-
+    .config(function ($routeProvider, $locationProvider, $compileProvider) {
+        $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
         $locationProvider.html5Mode(true);
         $routeProvider
             .when('/challenge', {
@@ -20,6 +20,7 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 controller: 'referenceCtrl'
             })
     })
+
     .factory('$exceptionHandler', function ($log) {
         return function myExceptionHandler(exception, cause) {
             if(!exception.toString().includes("$rootScope:inprog")){

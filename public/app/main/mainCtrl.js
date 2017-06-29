@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilderService) {
+angular.module('app').controller('mainCtrl', function ($scope, $http, $window, deckbuilderService) {
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
     var maxPage;
@@ -29,6 +29,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     $scope.isHover = false;
     $scope.hoverId = "";
     $scope.exportedDeck = "";
+    $scope.exportFile;
 
     $scope.totalCreatureCards = 0;
     $scope.totalSpellCards = 0;
@@ -158,21 +159,28 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     };
 
     $scope.exportDeck = function () {
-        $scope.exportedDeck = [];
+        $scope.exportedDeck = "";
         var displayDeck = $scope.displayDeck;
         if ($scope.displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
                 $scope.exportedDeck += (displayDeck[i].count + "x");
-                $scope.exportedDeck += (" " + displayDeck[i].name + "\n");
+                $scope.exportedDeck += (" " + displayDeck[i].name);
+                $scope.exportedDeck += "\r\n";
             }
         }
         else {
             $scope.exportedDeck = "No cards in deck."
+
         }
+        $scope.exportToFile();
         console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
         console.log(deckbuilderService.getManaSymbolCount($scope.displayDeck));
         console.log(deckbuilderService.getManaCurve($scope.displayDeck));
     };
+
+    $scope.exportToFile = function() {
+        $scope.exportFile = deckbuilderService.createExportFile($window, $scope.exportedDeck);
+    }
 
     $scope.importDeck = function (importedString, willOverride) {
         $http({
@@ -544,5 +552,4 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
     };
 
     filterCards();
-    var blob = new Blob();
-});
+})

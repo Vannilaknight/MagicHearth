@@ -1,3 +1,6 @@
+/**
+ * Created by Austin White on 6/29/2017.
+ */
 /* Blob.js
  * A Blob implementation.
  * 2014-07-24
@@ -64,7 +67,7 @@
                 , Uint8Array = view.Uint8Array
 
                 , origin = /^[\w-]+:\/*\[?[\w\.:-]+\]?(?::[0-9]+)?/
-                ;
+            ;
             FakeBlob.fake = FB_proto.fake = true;
             while (file_ex_code--) {
                 FileException.prototype[file_ex_codes[file_ex_code]] = file_ex_code + 1;
@@ -75,7 +78,7 @@
                     var
                         uri_info = document.createElementNS("http://www.w3.org/1999/xhtml", "a")
                         , uri_origin
-                        ;
+                    ;
                     uri_info.href = uri;
                     if (!("origin" in uri_info)) {
                         if (uri_info.protocol.toLowerCase() === "data:") {
@@ -92,7 +95,7 @@
                 var
                     type = blob.type
                     , data_URI_header
-                    ;
+                ;
                 if (type === null) {
                     type = "application/octet-stream";
                 }
@@ -125,7 +128,7 @@
                         , buf = new Uint8Array(data)
                         , i = 0
                         , buf_len = buf.length
-                        ;
+                    ;
                     for (; i < buf_len; i++) {
                         str += String.fromCharCode(buf[i]);
                     }
