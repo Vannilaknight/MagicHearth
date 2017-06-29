@@ -94,6 +94,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         if (card.manaCost) {
             manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").split("");
         }
+
         return manaCost;
     };
 
@@ -454,6 +455,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
 
             if (x < 4) {
                 if (card) {
+                    card.price = deckbuilderService.getRandomPrice();
                     card.empty = false;
                     $scope.topRow[index] = card;
                 } else {
@@ -461,6 +463,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
                 }
             } else {
                 if (card) {
+                    card.price = deckbuilderService.getRandomPrice();
                     card.empty = false;
                     $scope.botRow[index - 4] = card;
                 } else {
@@ -526,14 +529,18 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, deckbuilde
         }
     }
 
-    $scope.showHover = function (multiverseid) {
+    $scope.showHover = function (card) {
         $scope.isHover = true;
-        $scope.hoverId = multiverseid;
+        $scope.hoverCard = card;
     };
 
     $scope.hideHover = function () {
         $scope.isHover = false;
-        $scope.hoverId = "";
+        $scope.hoverCard = null;
+    };
+
+    $scope.randomPrice = function () {
+        return
     };
 
     filterCards();

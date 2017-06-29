@@ -1,7 +1,6 @@
 @import 'vars';
 @import url(https://fonts.googleapis.com/css?family=Indie+Flower);
 
-
 .reference-body {
   height: 100vh;
   width: 100vw;
@@ -9,35 +8,35 @@
   margin-top: -8px;
   background-image: url("./../../images/tableBG.jpg");
   color: #fff;
-  .container {
+  overflow-y: scroll;
+  .logo {
     width: 50%;
-    margin: auto;
-    padding-top: 1%;
+    margin: 0 auto;
+    margin-bottom: 50px;
+    img {
+      height: auto;
+      width: 100%;
+    }
+  }
+  .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%;
     .paperList {
       align: center;
-      position: absolute;
+      position: relative;
       height: 905px;
-      width: 800px;
-      background: rgba(255,255,255, 1);
+      width: 100%;
+      background: rgba(255, 255, 255, 1);
       box-shadow: 0px 0px 10px 0px #888;
-      .logo {
-        height: 90px;
-        width: 50%;
-        margin-left: 23%;
-        img {
-          margin-top: 1%;
-          width: 100%;
-        }
-      }
       .lines {
         height: calc(100% - 90px);
         width: 100%;
         background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px);
-
         .headerText {
           font-weight: bold;
           position: absolute;
-          top: 90px;
+          top: 25px;
           left: 55px;
           bottom: 10px;
           right: 10px;
@@ -57,14 +56,16 @@
         }
       }
     }
+
     .paperList::before {
       content: '';
       position: absolute;
       left: 45px;
       height: 100%;
       width: 2px;
-      background: rgba(255,0,0,0.4);
+      background: rgba(255, 0, 0, 0.4);
     }
+
     $button--colors: (
             grey: (text: #333, background: #bdc3c7),
             white: (text: #333, background: #fff),

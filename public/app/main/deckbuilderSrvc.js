@@ -200,6 +200,10 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return cards;
     };
 
+    this.getRandomPrice = function () {
+      return randomPrecise(0, 100, 2);
+    };
+
     function checkLandCount(symbolCount, totalSymbols, maxLands) {
         var floorCount = (symbolCount / totalSymbols) * maxLands;
 

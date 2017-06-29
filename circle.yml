@@ -14,4 +14,4 @@ deployment:
   master:
     branch: master
     commands:
-      - cat bin/rebuild.sh | ssh -i $KEY ubuntu@ec2-34-211-47-154.us-west-2.compute.amazonaws.com
+      - cat bin/rebuild.sh | ssh -i $KEY ubuntu@ec2-54-213-98-224.us-west-2.compute.amazonaws.com

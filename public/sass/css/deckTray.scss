@@ -8,6 +8,7 @@
   padding: 0;
   margin-left: 10px;
   z-index: 1000;
+
   .deck-boxes {
     height: 100%;
     ul {
@@ -55,7 +56,120 @@
         color: #262626;
         position: relative;
         z-index: 999;
-        .card-content {
+        .card-content-no-control {
+          color: #eeeecc;
+          background: #262626;
+          border: 1px solid #000;
+          position: relative;
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          .card-data {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: 5px;
+            width: 85%;
+
+            .text {
+              font-family: "beleren";
+              margin: 0;
+              padding: 0;
+              font-size: 12px;
+              display: block;
+              .subtype {
+                display: inline-block;
+                font-size: 10px;
+                color: #c2c2c2;
+              }
+            }
+
+            .mana-cost {
+              margin: 0;
+              padding: 0;
+              display: block;
+              margin-top: 5px;
+              font-size: 10px;
+              .icon {
+                display: inline-block;
+              }
+            }
+          }
+          .card-count {
+            text-align: center;
+            position: relative;
+            top: -20px;
+            width: 5%;
+            right: 8px;
+            display: inline-block;
+            .count {
+              font-family: "Belwe";
+            }
+          }
+        }
+        .card-content-no-control-creature {
+          color: #eeeecc;
+          background: #262626;
+          border: 1px solid #000;
+          position: relative;
+          padding: 0;
+          margin: 0;
+          height: 100%;
+          .card-data {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: 5px;
+            width: 70%;
+
+            .text {
+              font-family: "beleren";
+              margin: 0;
+              padding: 0;
+              font-size: 12px;
+              display: block;
+              .subtype {
+                display: inline-block;
+                font-size: 10px;
+                color: #c2c2c2;
+              }
+            }
+
+            .mana-cost {
+              margin: 0;
+              padding: 0;
+              display: block;
+              margin-top: 5px;
+              font-size: 10px;
+
+              .icon {
+                display: inline-block;
+              }
+            }
+          }
+          .powerTough {
+            width: 15%;
+            display: inline-block;
+            position: relative;
+            font-family: Relay;
+            font-size: 14px;
+            color: #c2c2c2;
+            top: -8px;
+            text-align: left;
+          }
+          .card-count {
+            position: relative;
+            top: -20px;
+            width: 5%;
+            right: 8px;
+            display: inline-block;
+            text-align: center;
+            .count {
+              font-family: "Belwe";
+            }
+          }
+        }
+        .card-content-control {
           color: #eeeecc;
           background: #262626;
           border: 1px solid #000;
@@ -66,6 +180,7 @@
           .add-remove-control {
             display: inline-block;
             position: relative;
+            float: left;
             padding: 0;
             margin: 0;
             width: 20%;
@@ -116,22 +231,27 @@
           .card-data {
             display: inline-block;
             margin: 0;
-            margin-top: -20px;
             padding: 0;
+            padding-left: 5px;
             width: 65%;
-            span {
+            .text {
+              font-family: "beleren";
               margin: 0;
               padding: 0;
               font-size: 12px;
               display: block;
-            }
-
-            .text {
-              font-family: "beleren";
+              .subtype {
+                display: inline-block;
+                font-size: 10px;
+                color: #c2c2c2;
+              }
             }
 
             .mana-cost {
+              padding: 0;
+              display: block;
               margin-top: 5px;
+
               font-size: 10px;
               .icon {
                 display: inline-block;
@@ -141,9 +261,11 @@
           }
           .card-count {
             position: relative;
-            top: -8px;
             width: 5%;
+            top: -20px;
+            right: 8px;
             display: inline-block;
+            text-align: center;
             .count {
               font-family: "Belwe";
             }
@@ -228,10 +350,3 @@
   }
 }
 
-.zoom-view {
-  left: 50%;
-  top: 10%;
-  position: fixed;
-  border: 1px solid red;
-  z-index: 9999;
-}
