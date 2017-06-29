@@ -9,7 +9,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
             console.error(response.data)
         });
     };
-
+    
     this.getTotalCardCount = function (deck) {
         var total = 0;
         deck.forEach(function (card) {
@@ -19,59 +19,38 @@ angular.module('app').service('deckbuilderService', function ($http) {
     };
 
     this.getCardsLeft = function (displayCards, topCards, botCards) {
-        var topUpdate = topCards;
-        var botUpdate = botCards;
-        for (var x = 0; x < topCards.length; x++) {
-            var card = topCards[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayCards.length >= 1) {
-                var notFound = true;
-                displayCards.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        topUpdate[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        topUpdate[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                topUpdate[x].cardsLeft = 4;
-            }
-        }
-
-        for (var x = 0; x < botCards.length; x++) {
-            var card = botCards[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayCards.length >= 1) {
-                var notFound = true;
-                displayCards.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        botUpdate[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        botUpdate[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                botUpdate[x].cardsLeft = 4;
-            }
-        }
-
         return {
-            topUpdate: topUpdate,
-            botUpdate: botUpdate
+            topUpdate: calcCardsLeft(displayCards, topCards),
+            botUpdate: calcCardsLeft(displayCards, botCards)
         }
     };
+
+    function calcCardsLeft(displayCards, cards) {
+        var updatedCards = cards;
+        for (var x = 0; x < cards.length; x++) {
+            var card = cards[x];
+            if (!card.cardsLeft) {
+                card.cardsLeft = 4;
+            }
+            if (displayCards.length >= 1) {
+                var notFound = true;
+                displayCards.forEach(function (displayCard) {
+                    if (card.name == displayCard.name) {
+                        updatedCards[x].cardsLeft = 4 - displayCard.count;
+                        notFound = false;
+                    }
+                });
+                if (notFound) {
+                    if (card.cardsLeft == 3) {
+                        updatedCards[x].cardsLeft = 4;
+                    }
+                }
+            } else {
+                updatedCards[x].cardsLeft = 4;
+            }
+        }
+        return updatedCards;
+    }
 
     this.getSortedDisplayDeck = function (displayCards) {
         var creatures = [];
@@ -91,8 +70,8 @@ angular.module('app').service('deckbuilderService', function ($http) {
             }
 
         });
-        creatures = sortByCMC(creatures);
-        spells = sortByCMC(spells);
+        creatures = sortCards(creatures);
+        spells = sortCards(spells);
 
         return {
             creature: creatures,
@@ -168,7 +147,6 @@ angular.module('app').service('deckbuilderService', function ($http) {
                     + this.black;
             },
         };
-
         displayCards.forEach(function(card) {
             var numOfCard = displayCards[displayCards.indexOf(card)].count;
             if(card.hasOwnProperty("manaCost")){
@@ -221,6 +199,16 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return cards;
     };
+    this.createExportFile = function ($window, textToWrite) {
+        var text = textToWrite.toString();
+            blob = new Blob([text], {type: "text/plain"}),
+            url = $window.URL || $window.webkitURL;
+        return url.createObjectURL(blob);
+    }
+
+    this.getRandomPrice = function () {
+      return randomPrecise(0, 100, 2);
+    };
 
     function checkLandCount(symbolCount, totalSymbols, maxLands) {
         var floorCount = (symbolCount / totalSymbols) * maxLands;
@@ -237,16 +225,9 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         if(!(ignoreRegex.test(cardText))) {
             if(tapRegex.test(cardText)) {
-                var splitCardText = cardText.split("\n");
-                if(splitCardText.length > 1) {
-                    splitCardText.forEach(function (string) {
-                        var secondSplit = string.split("{T}");
-                        if(secondSplit.length > 1) {
-                            manaSymbols = countManaSymbols(string[0], manaSymbols, numOfCard);
-                        }
-                    })
-                }
+                return manaSymbolExclusion(cardText, manaSymbols, numOfCard);
             }
+
             var greenMatch = cardText.match(/{G}|{G\/|\/G\/|\/G}/g);
             var blueMatch = cardText.match(/{U}|{U\/|\/U\/|\/U}/g);
             var redMatch = cardText.match(/{R}|{R\/|\/R\/|\/R}/g);
@@ -269,6 +250,22 @@ angular.module('app').service('deckbuilderService', function ($http) {
                 manaSymbols.black += blackMatch.length * numOfCard;
             }
         }
+
+        return manaSymbols;
+    }
+    function manaSymbolExclusion(cardText, manaSymbols, numOfCard) {
+        var splitCardText = cardText.split("\n");
+        splitCardText.forEach(function (line) {
+            var splitOnTap = line.split("{T}");
+            var ignoreRegex = /\(/g
+            if(ignoreRegex.test(splitOnTap[0])) {
+                manaSymbols = countManaSymbols(splitOnTap[0].split('(')[0], manaSymbols, numOfCard);
+            }
+            else {
+                manaSymbols = countManaSymbols(splitOnTap.toString(), manaSymbols, numOfCard);
+            }
+        })
+        return manaSymbols;
 
         return manaSymbols;
     }
@@ -436,11 +433,18 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return cards;
     }
 
+    function sortCards(cards) {
+        cards = sortByName(cards);
+        return sortByCMC(cards);
+    }
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {
             return a.cmc - b.cmc;
         });
         return sortedArray;
+    }
+    function sortByName(cards) {
+       return cards.sort();
     }
 
     function getSubtypes(text) {
@@ -466,4 +470,6 @@ angular.module('app').service('deckbuilderService', function ($http) {
         }
         return result;
     }
+
+
 });

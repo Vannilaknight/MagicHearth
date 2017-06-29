@@ -3,6 +3,16 @@ String.prototype.replaceAll = function (search, replacement) {
     return target.replace(new RegExp(search, 'g'), replacement);
 };
 
+function randomPrecise(minimum, maximum, precision) {
+    minimum = minimum === undefined ? 0 : minimum;
+    maximum = maximum === undefined ? 9007199254740992 : maximum;
+    precision = precision === undefined ? 0 : precision;
+
+    var random = Math.random() * (maximum - minimum + 1) + minimum;
+
+    return random.toFixed(precision);
+};
+
 function objectToString(obj) {
     var returnStr = "";
     for (var prop in obj) {
@@ -36,48 +46,6 @@ function reduceArrayP2(cards) {
 
     return newArray;
 }
-
-var myCounter = 0,
-    myOtherCounter = 0;
-var scroll = 0;
-
-//Firefox
-// $(document).bind(...) this works as well
-$('body').bind('DOMMouseScroll', function (e) {
-    if (e.originalEvent.detail > 0) {
-        scrollDown();
-    } else {
-        scrollUp();
-    }
-
-    //prevent page fom scrolling
-    return false;
-});
-
-//IE, Opera, Safari
-$('body').bind('mousewheel', function (e) {
-    if (e.originalEvent.wheelDelta < 0) {
-        scrollDown();
-    } else {
-        scrollUp();
-    }
-    //prevent page fom scrolling
-    return false;
-});
-
-function scrollDown() {
-    if (scroll < $('#display-box').find('div').height() - $('#display-box').height() + 20) {
-        scroll = $('#display-box').scrollTop() + 8;
-        $('#display-box').scrollTop(scroll);
-    }
-};
-
-function scrollUp() {
-    if (scroll > 0) {
-        scroll = $('#display-box').scrollTop() - 8;
-        $('#display-box').scrollTop(scroll);
-    }
-};
 
 function objectValues(obj) {
     var res = [];
