@@ -164,7 +164,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         if ($scope.displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
                 $scope.exportedDeck += (displayDeck[i].count + "x");
-                $scope.exportedDeck += (" " + displayDeck[i].name + "\n");
+                $scope.exportedDeck += (" " + displayDeck[i].name);
+                $scope.exportedDeck += "\r\n";
             }
         }
         else {
