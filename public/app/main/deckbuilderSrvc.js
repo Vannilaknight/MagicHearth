@@ -9,7 +9,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
             console.error(response.data)
         });
     };
-
+    
     this.getTotalCardCount = function (deck) {
         var total = 0;
         deck.forEach(function (card) {
@@ -19,60 +19,38 @@ angular.module('app').service('deckbuilderService', function ($http) {
     };
 
     this.getCardsLeft = function (displayCards, topCards, botCards) {
-        var topUpdate = topCards;
-        var botUpdate = botCards;
-
-        for (var x = 0; x < topCards.length; x++) {
-            var card = topCards[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayCards.length >= 1) {
-                var notFound = true;
-                displayCards.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        topUpdate[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        topUpdate[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                topUpdate[x].cardsLeft = 4;
-            }
-        }
-
-        for (var x = 0; x < botCards.length; x++) {
-            var card = botCards[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayCards.length >= 1) {
-                var notFound = true;
-                displayCards.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        botUpdate[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        botUpdate[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                botUpdate[x].cardsLeft = 4;
-            }
-        }
-
         return {
-            topUpdate: topUpdate,
-            botUpdate: botUpdate
+            topUpdate: calcCardsLeft(displayCards, topCards),
+            botUpdate: calcCardsLeft(displayCards, botCards)
         }
     };
+
+    function calcCardsLeft(displayCards, cards) {
+        var updatedCards = cards;
+        for (var x = 0; x < cards.length; x++) {
+            var card = cards[x];
+            if (!card.cardsLeft) {
+                card.cardsLeft = 4;
+            }
+            if (displayCards.length >= 1) {
+                var notFound = true;
+                displayCards.forEach(function (displayCard) {
+                    if (card.name == displayCard.name) {
+                        updatedCards[x].cardsLeft = 4 - displayCard.count;
+                        notFound = false;
+                    }
+                });
+                if (notFound) {
+                    if (card.cardsLeft == 3) {
+                        updatedCards[x].cardsLeft = 4;
+                    }
+                }
+            } else {
+                updatedCards[x].cardsLeft = 4;
+            }
+        }
+        return updatedCards;
+    }
 
     this.getSortedDisplayDeck = function (displayCards) {
         var creatures = [];
@@ -92,8 +70,8 @@ angular.module('app').service('deckbuilderService', function ($http) {
             }
 
         });
-        creatures = sortByCMC(creatures);
-        spells = sortByCMC(spells);
+        creatures = sortCards(creatures);
+        spells = sortCards(spells);
 
         return {
             creature: creatures,
@@ -445,11 +423,18 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return cards;
     }
 
+    function sortCards(cards) {
+        cards = sortByName(cards);
+        return sortByCMC(cards);
+    }
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {
             return a.cmc - b.cmc;
         });
         return sortedArray;
+    }
+    function sortByName(cards) {
+       return cards.sort();
     }
 
     function getSubtypes(text) {
@@ -475,4 +460,6 @@ angular.module('app').service('deckbuilderService', function ($http) {
         }
         return result;
     }
+
+
 });
