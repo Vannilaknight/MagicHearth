@@ -63,25 +63,38 @@
           vertical-align: middle;
         }
       }
-      .cards-left {
+      .pricing-box {
         position: relative;
-        padding-top: 4px;
-        padding-right: 10px;
-        font-family: "beleren";
-        font-size: 24px;
-        color: #2e2e2e;
-        text-align: right;
-        right: 30px;
-        top: 15px;
-        width: 50px;
-        height: 50px;
-        background: #EEEECC;
-        border-top: 3px groove #CCBB99;
-        border-right: 3px groove #CCBB99;
-        border-bottom: 3px groove #CCBB99;
-        border-top-right-radius: 15px;
-        border-bottom-right-radius: 15px;
-        z-index: 0;
+        top: 0;
+        background: #262626;
+        border: 2px groove #ccbb99;
+        border-top: none;
+        text-align: center;
+        border-bottom-left-radius: 10px;
+        border-bottom-right-radius: 10px;
+        width: 80%;
+        margin-left: auto;
+        margin-right: auto;
+        font-weight: lighter;
+        .pricing {
+          width: 48%;
+          display: inline-block;
+          .vendor {
+            display: inline-block;
+            font-family: Serif;
+            color: #ccbb99;
+            font-size: 10px;
+          }
+          .price {
+            display: inline-block;
+            font-family: Beleren;
+            margin-left: 5px;
+            margin-right: 5px;
+            font-size: 12px;
+            color: #eeeecc;
+          }
+
+        }
       }
     }
 

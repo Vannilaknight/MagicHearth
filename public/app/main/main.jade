@@ -19,13 +19,13 @@
                     div
                         span CREATURES - {{totalCreatureCards}}
                         li.deck-card.display-card-border(ng-repeat='displayCard in creatureDeck', ng-class="getBorder(displayCard.manaCost)")
-                            include templates/DeckDIsplayGroup
+                            include templates/CreatureDisplayGroup
                         span SPELLS - {{totalSpellCards}}
                         li.deck-card.display-card-border(ng-repeat='displayCard in spellDeck', ng-class="getBorder(displayCard.manaCost)")
-                            include templates/DeckDIsplayGroup
+                            include templates/SpellDisplayGroup
                         span LAND - {{totalLandCards}}
                         li.deck-card.display-card-border(ng-repeat='displayCard in landDeck', ng-class="getBorder(displayCard.manaCost)")
-                            include templates/DeckDIsplayGroup
+                            include templates/LandDisplayGroup
                 ul#drag-box.drag-box(dnd-list='list')
                     .export-import
                         button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
@@ -34,3 +34,45 @@
 
 include Modals/Export
 include Modals/Import
+script.
+    var myCounter = 0,
+        myOtherCounter = 0;
+    var scroll = 0;
+
+    //Firefox
+    // $(document).bind(...) this works as well
+    $('body').bind('DOMMouseScroll', function (e) {
+        if (e.originalEvent.detail > 0) {
+            scrollDown();
+        } else {
+            scrollUp();
+        }
+
+        //prevent page fom scrolling
+        return false;
+    });
+
+    //IE, Opera, Safari
+    $('body').bind('mousewheel', function (e) {
+        if (e.originalEvent.wheelDelta < 0) {
+            scrollDown();
+        } else {
+            scrollUp();
+        }
+        //prevent page fom scrolling
+        return false;
+    });
+
+    function scrollDown() {
+        if (scroll < $('#display-box').find('div').height() - $('#display-box').height() + 20) {
+            scroll = $('#display-box').scrollTop() + 10;
+            $('#display-box').scrollTop(scroll);
+        }
+    };
+
+    function scrollUp() {
+        if (scroll > 0) {
+            scroll = $('#display-box').scrollTop() - 10;
+            $('#display-box').scrollTop(scroll);
+        }
+    };
