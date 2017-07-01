@@ -199,6 +199,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return cards;
     };
+
     this.createExportFile = function ($window, textToWrite) {
         var text = textToWrite;
             blob = new Blob([text], {type: "text/plain"}),
@@ -253,6 +254,7 @@ angular.module('app').service('deckbuilderService', function ($http) {
 
         return manaSymbols;
     }
+
     function manaSymbolExclusion(cardText, manaSymbols, numOfCard) {
         var splitCardText = cardText.split("\n");
         splitCardText.forEach(function (line) {
@@ -437,12 +439,14 @@ angular.module('app').service('deckbuilderService', function ($http) {
         cards = sortByName(cards);
         return sortByCMC(cards);
     }
+
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {
             return a.cmc - b.cmc;
         });
         return sortedArray;
     }
+
     function sortByName(cards) {
        return cards.sort();
     }
@@ -470,6 +474,4 @@ angular.module('app').service('deckbuilderService', function ($http) {
         }
         return result;
     }
-
-
 });
