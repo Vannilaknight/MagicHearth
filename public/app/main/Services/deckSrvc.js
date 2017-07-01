@@ -1,58 +1,31 @@
-angular.module('app').service('deckbuilderService', function ($http) {
-    this.getCards = function (params) {
-        return $http({
-            method: 'GET',
-            url: '/api/cards?' + objectToString(params)
-        }).then(function successCallback(response) {
-            return response.data;
-        }, function errorCallback(response) {
-            console.error(response.data)
-        });
-    };
-    
-    this.getTotalCardCount = function (deck) {
-        var total = 0;
-        deck.forEach(function (card) {
-            total += card.count;
-        });
-        return total;
+angular.module('app').service('deckService', function () {
+    this.decklist = [];
+    this.displayDeck = [];
+    this.creatureDeck = [];
+    this.spellDeck = [];
+    this.landDeck = [];
+    this.isHover = false;
+
+    this.updateDeck = function (deck) {
+        this.decklist = deck;
+        this.displayDeck = reduceArrayP2(this.decklist);
+        var sortedDeck = getSortedDisplayDeck(this.displayDeck);
+        this.displayDeck = (sortedDeck.creature.concat(sortedDeck.spell)).concat(sortedDeck.land);
+        this.creatureDeck = sortedDeck.creature;
+        this.spellDeck = sortedDeck.spell;
+        this.landDeck = sortedDeck.land;
+        this.isHover = false;
     };
 
-    this.getCardsLeft = function (displayCards, topCards, botCards) {
+    this.getDeckDisplay = function () {
         return {
-            topUpdate: calcCardsLeft(displayCards, topCards),
-            botUpdate: calcCardsLeft(displayCards, botCards)
+            creatureDeck: this.creatureDeck,
+            spellDeck: this.spellDeck,
+            landDeck: this.landDeck
         }
     };
 
-    function calcCardsLeft(displayCards, cards) {
-        var updatedCards = cards;
-        for (var x = 0; x < cards.length; x++) {
-            var card = cards[x];
-            if (!card.cardsLeft) {
-                card.cardsLeft = 4;
-            }
-            if (displayCards.length >= 1) {
-                var notFound = true;
-                displayCards.forEach(function (displayCard) {
-                    if (card.name == displayCard.name) {
-                        updatedCards[x].cardsLeft = 4 - displayCard.count;
-                        notFound = false;
-                    }
-                });
-                if (notFound) {
-                    if (card.cardsLeft == 3) {
-                        updatedCards[x].cardsLeft = 4;
-                    }
-                }
-            } else {
-                updatedCards[x].cardsLeft = 4;
-            }
-        }
-        return updatedCards;
-    }
-
-    this.getSortedDisplayDeck = function (displayCards) {
+    function getSortedDisplayDeck(displayCards) {
         var creatures = [];
         var spells = [];
         var lands = [];
@@ -78,6 +51,15 @@ angular.module('app').service('deckbuilderService', function ($http) {
             spell: spells,
             land: lands
         };
+    }
+
+    this.getTotalCardCount = function () {
+        return {
+            total: countCards(this.displayDeck),
+            creature: countCards(this.creatureDeck),
+            spell: countCards(this.spellDeck),
+            land: countCards(this.landDeck)
+        }
     };
 
     this.getManaCurve = function (displayCards) {
@@ -200,15 +182,50 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return cards;
     };
 
-    this.createExportFile = function ($window, textToWrite) {
-        var text = textToWrite;
-            blob = new Blob([text], {type: "text/plain"}),
-            url = $window.URL || $window.webkitURL;
-        return url.createObjectURL(blob);
-    }
+    this.buildBorder = function (manaCost) {
+        if (manaCost) {
+            var manaCost = manaCost.replaceAll("{", "").replaceAll("}", "");
+            var colors = {
+                "U": false,
+                "W": false,
+                "B": false,
+                "R": false,
+                "G": false,
+            };
 
-    this.getRandomPrice = function () {
-      return randomPrecise(0, 100, 2);
+            if (manaCost.includes("U")) colors["U"] = true;
+            if (manaCost.includes("W")) colors["W"] = true;
+            if (manaCost.includes("B")) colors["B"] = true;
+            if (manaCost.includes("R")) colors["R"] = true;
+            if (manaCost.includes("G")) colors["G"] = true;
+
+            var classString = "";
+            if (colors["U"]) classString += "-U";
+            if (colors["W"]) classString += "-W";
+            if (colors["B"]) classString += "-B";
+            if (colors["R"]) classString += "-R";
+            if (colors["G"]) classString += "-G";
+        }
+
+        return classString + "-border";
+    };
+
+    this.buildCMCicon = function (mana) {
+        var ret = "";
+        if (mana == "U") {
+            ret = "icon-bluesvg";
+        } else if (mana == "W") {
+            ret = "icon-whitesvg";
+        } else if (mana == "B") {
+            ret = "icon-blacksvg";
+        } else if (mana == "R") {
+            ret = "icon-redsvg";
+        } else if (mana == "G") {
+            ret = "icon-greensvg";
+        } else {
+            ret = "icon-" + mana;
+        }
+        return ret;
     };
 
     function checkLandCount(symbolCount, totalSymbols, maxLands) {
@@ -473,5 +490,13 @@ angular.module('app').service('deckbuilderService', function ($http) {
             result = result.map(function(el) { return el.replace(/^\(|\)$/g, '')})
         }
         return result;
+    }
+
+    function countCards(cards){
+        var total = 0;
+        cards.forEach(function (card) {
+            total += card.count;
+        });
+        return total;
     }
 });

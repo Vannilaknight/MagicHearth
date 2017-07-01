@@ -52,3 +52,30 @@ function objectValues(obj) {
     for (var k in obj) res.push(obj[k]);
     return res;
 }
+
+function calcCardsLeft(displayCards, cards) {
+    var updatedCards = cards;
+    for (var x = 0; x < cards.length; x++) {
+        var card = cards[x];
+        if (!card.cardsLeft) {
+            card.cardsLeft = 4;
+        }
+        if (displayCards.length >= 1) {
+            var notFound = true;
+            displayCards.forEach(function (displayCard) {
+                if (card.name == displayCard.name) {
+                    updatedCards[x].cardsLeft = 4 - displayCard.count;
+                    notFound = false;
+                }
+            });
+            if (notFound) {
+                if (card.cardsLeft == 3) {
+                    updatedCards[x].cardsLeft = 4;
+                }
+            }
+        } else {
+            updatedCards[x].cardsLeft = 4;
+        }
+    }
+    return updatedCards;
+}

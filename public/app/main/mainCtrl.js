@@ -1,25 +1,14 @@
-angular.module('app').controller('mainCtrl', function ($scope, $http, $window, deckbuilderService) {
+angular.module('app').controller('mainCtrl', function ($scope, $http, $window, deckService, cardService, exportImportService, paginateService) {
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
     var maxPage;
-    var filteredCards;
-    var textCards;
-    var textSearchOn = false;
+
     var textToSearch;
     var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
     var currentRarities = [];
-    var andColors = false;
-    var onlyColors = false;
-    var params = {
-        colors: "",
-        cmcs: "",
-        colorop: "",
-        rarities: "",
-        type: "",
-        format: "modern"
-    };
+
 
     $scope.formatSelect = "modern";
     $scope.typeFilter = "none";
@@ -46,16 +35,13 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     };
 
     $scope.$watch('models.dropzones', function (model) {
-        $scope.decklist = $scope.models.dropzones.deck;
-        $scope.displayDeck = reduceArrayP2($scope.decklist);
-        var sortedDeck = deckbuilderService.getSortedDisplayDeck($scope.displayDeck);
-        $scope.displayDeck = (sortedDeck.creature.concat(sortedDeck.spell)).concat(sortedDeck.land);
-        $scope.creatureDeck = sortedDeck.creature;
-        $scope.spellDeck = sortedDeck.spell;
-        $scope.landDeck = sortedDeck.land;
-        $scope.isHover = false;
-        calcCardsLeft();
+        deckService.updateDeck(model.deck);
+        applyCardsLeft();
         calcTotalCards();
+        var display = deckService.getDeckDisplay();
+        $scope.creatureDeck = display.creatureDeck;
+        $scope.spellDeck = display.spellDeck;
+        $scope.landDeck = display.landDeck;
     }, true);
 
     $scope.clearDeck = function () {
@@ -63,31 +49,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     };
 
     $scope.getBorder = function (manaCost) {
-        if (manaCost) {
-            var manaCost = manaCost.replaceAll("{", "").replaceAll("}", "");
-            var colors = {
-                "U": false,
-                "W": false,
-                "B": false,
-                "R": false,
-                "G": false,
-            };
-
-            if (manaCost.includes("U")) colors["U"] = true;
-            if (manaCost.includes("W")) colors["W"] = true;
-            if (manaCost.includes("B")) colors["B"] = true;
-            if (manaCost.includes("R")) colors["R"] = true;
-            if (manaCost.includes("G")) colors["G"] = true;
-
-            var classString = "";
-            if (colors["U"]) classString += "-U";
-            if (colors["W"]) classString += "-W";
-            if (colors["B"]) classString += "-B";
-            if (colors["R"]) classString += "-R";
-            if (colors["G"]) classString += "-G";
-        }
-
-        return classString + "-border";
+        return deckService.buildBorder(manaCost);
     };
 
     $scope.getManaCost = function (card) {
@@ -100,21 +62,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     };
 
     $scope.getIcon = function (mana) {
-        var ret = "";
-        if (mana == "U") {
-            ret = "icon-bluesvg";
-        } else if (mana == "W") {
-            ret = "icon-whitesvg";
-        } else if (mana == "B") {
-            ret = "icon-blacksvg";
-        } else if (mana == "R") {
-            ret = "icon-redsvg";
-        } else if (mana == "G") {
-            ret = "icon-greensvg";
-        } else {
-            ret = "icon-" + mana;
-        }
-        return ret;
+        return deckService.buildCMCicon(mana);
     };
 
     $("#back").click(function () {
@@ -138,65 +86,48 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
 
     $scope.addCard = function (card) {
         if (card.cardsLeft > 0) {
-            console.log("pushing: " + card.cardsLeft);
             $scope.models.dropzones.deck.push(card);
         }
     };
 
     $scope.searchText = function (text) {
-        textToSearch = text;
-        filterText(textToSearch);
+        cardService.filterText(text);
+        updatePage();
     };
 
     $scope.formatChange = function (format) {
-        params.format = format;
+        cardService.setParam("format", format);
         resetPage();
     };
 
     $scope.typeChange = function (type) {
-        params.type = type;
+        cardService.setParam("type", type);
         resetPage();
     };
 
     $scope.exportDeck = function () {
         $scope.exportedDeck = "";
-        var displayDeck = $scope.displayDeck;
-        if ($scope.displayDeck.length >= 1) {
+        var displayDeck = deckService.displayDeck;
+        if (displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
                 $scope.exportedDeck += (displayDeck[i].count + "x");
                 $scope.exportedDeck += (" " + displayDeck[i].name);
                 $scope.exportedDeck += "\r\n";
             }
+            $scope.exportFile = exportImportService.createExportFile($window, $scope.exportedDeck);
         }
         else {
             $scope.exportedDeck = "No cards in deck."
-
         }
-        $scope.exportToFile();
-        console.log(deckbuilderService.suggestBasicLands($scope.displayDeck, 20));
-        console.log(deckbuilderService.getManaSymbolCount($scope.displayDeck));
-        console.log(deckbuilderService.getManaCurve($scope.displayDeck));
     };
 
-    $scope.exportToFile = function() {
-        $scope.exportFile = deckbuilderService.createExportFile($window, $scope.exportedDeck);
-    }
-
     $scope.importDeck = function (importedString, willOverride) {
-        $http({
-            method: 'GET',
-            url: '/api/buildImport?importedString=' + importedString
-        }).then(function responseCallback(response) {
-            if (willOverride) {
-                $scope.models.dropzones.deck = response.data;
-
-            } else {
-                $scope.models.dropzones.deck = $scope.models.dropzones.deck.concat(response.data);
-            }
-
-        }, function errorCallback(response) {
-            console.error(response.data);
-        });
+        var imported = exportImportService.import(importedString);
+        if (willOverride) {
+            $scope.models.dropzones.deck = imported;
+        } else {
+            $scope.models.dropzones.deck = $scope.models.dropzones.deck.concat(imported);
+        }
     };
 
     /*
@@ -378,22 +309,22 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     }
 
     function colorFilter() {
-        params.colors = currentColors.join(",");
+        cardService.setParam("colors", currentColors.join(","));
         resetPage();
     }
 
     function cmcFilter() {
-        params.cmcs = currentCMC.join(",");
+        cardService.setParam("cmcs", currentCMC.join(","));
         resetPage();
     }
 
     function rarityFilter() {
-        params.rarities = currentRarities.join(",");
+        cardService.setParam("rarities", currentRarities.join(","));
         resetPage();
     }
 
     function resetPage() {
-        currentPage = 1;
+        paginateService.setPage(1);
         filterCards();
     }
 
@@ -401,106 +332,40 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         if (direction) {
             if (direction == "left") {
                 if (currentPage > 1) {
-                    currentPage--;
+                    paginateService.setPage("-");
                 }
             } else {
-                currentPage++;
+                paginateService.setPage("+");
             }
-            if (textSearchOn) {
-                paginate(currentPage, textCards)
-            } else {
-                paginate(currentPage, filteredCards)
-            }
-
-        } else {
-            paginate(currentPage, filteredCards)
+            cardService.changePage();
+            updatePage();
         }
     }
 
-    function calcCardsLeft() {
-        var displayDeck = $scope.displayDeck;
-        var topRow = $scope.topRow;
-        var botRow = $scope.botRow;
-
-        var updatedCards = deckbuilderService.getCardsLeft(displayDeck, topRow, botRow);
-        $scope.topRow = updatedCards.topUpdate;
-        $scope.botRow = updatedCards.botUpdate;
-    }
-
     function calcTotalCards() {
-        $scope.totalDisplayCards = deckbuilderService.getTotalCardCount($scope.displayDeck);
-        $scope.totalCreatureCards = deckbuilderService.getTotalCardCount($scope.creatureDeck);
-        $scope.totalSpellCards = deckbuilderService.getTotalCardCount($scope.spellDeck);
-        $scope.totalLandCards = deckbuilderService.getTotalCardCount($scope.landDeck);
+        var counts = deckService.getTotalCardCount();
+        $scope.totalDisplayCards = counts.total;
+        $scope.totalCreatureCards = counts.creature;
+        $scope.totalSpellCards = counts.spell;
+        $scope.totalLandCards = counts.land;
     }
 
     function filterCards() {
         $scope.topRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
         $scope.botRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
-        deckbuilderService.getCards(params).then(function (cards) {
-            filteredCards = cards;
-            var totalPages = filteredCards.length / 8;
-            var minPages = Math.floor(filteredCards.length / 8);
-
-            if (totalPages - minPages > 0) {
-                maxPage = minPages + 1;
+        cardService.getCards().then(function (cards) {
+            cardService.setFilteredCards(cards);
+            var filteredCards = cardService.filteredCards;
+            paginateService.setMaxPages(filteredCards);
+            if (cardService.textSearchOn) {
+                cardService.filterText(textToSearch);
+                filterCards();
             } else {
-                maxPage = minPages;
+                cardService.changePage();
             }
-
-            if (textSearchOn) {
-                filterText(textToSearch);
-            } else {
-                paginate(currentPage, filteredCards);
-            }
+            updatePage();
         });
-    }
 
-    function populateCardView(cards) {
-        for (var x = 0; x < 8; x++) {
-            var index = x;
-            var card = cards[index];
-
-            if (x < 4) {
-                if (card) {
-                    card.price = deckbuilderService.getRandomPrice();
-                    card.empty = false;
-                    $scope.topRow[index] = card;
-                } else {
-                    $scope.topRow[index] = {empty: true};
-                }
-            } else {
-                if (card) {
-                    card.price = deckbuilderService.getRandomPrice();
-                    card.empty = false;
-                    $scope.botRow[index - 4] = card;
-                } else {
-                    $scope.botRow[index - 4] = {empty: true}
-                }
-            }
-        }
-        calcCardsLeft();
-        $scope.$apply();
-    }
-
-    function paginate(page, cards) {
-        var newCards = [];
-        if (page > 0) {
-            var indexStart = (page * 8) - 8;
-            for (var x = indexStart; x < indexStart + 8; x++) {
-                if (objectValues(cards)[x]) {
-                    newCards.push(objectValues(cards)[x]);
-                }
-            }
-        } else {
-            for (var x = 0; x < 8; x++) {
-                if (objectValues(cards)[x]) {
-                    newCards.push(objectValues(cards)[x]);
-                }
-            }
-        }
-        validatePageChange();
-        populateCardView(newCards);
     }
 
     function validatePageChange() {
@@ -516,27 +381,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         }
     }
 
-    function filterText(text) {
-        if (text.length > 0) {
-            textSearchOn = true;
-            textCards = deckbuilderService.filterText(text, filteredCards);
-            var totalPages = textCards.length / 8;
-            var minPages = Math.floor(textCards.length / 8);
-
-            if (totalPages - minPages > 0) {
-                maxPage = minPages + 1;
-            } else {
-                maxPage = minPages;
-            }
-
-            currentPage = 1;
-            paginate(currentPage, textCards);
-        } else {
-            textSearchOn = false;
-            resetPage();
-        }
-    }
-
     $scope.showHover = function (card) {
         $scope.isHover = true;
         $scope.hoverCard = card;
@@ -547,9 +391,18 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         $scope.hoverCard = null;
     };
 
-    $scope.randomPrice = function () {
-        return
-    };
-
     filterCards();
-})
+
+    function updatePage(){
+        applyCardsLeft();
+        $scope.topRow = cardService.topRow;
+        $scope.botRow = cardService.botRow;
+        validatePageChange();
+        $scope.$apply();
+    }
+
+    function applyCardsLeft() {
+        var displayDeck = deckService.displayDeck;
+        cardService.getCardsLeft(displayDeck);
+    }
+});
