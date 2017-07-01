@@ -42,4 +42,11 @@ angular.module('app').service('paginateService', function () {
         }
     }
 
+    this.noBack = function () {
+        return this.currentPage < 2;
+    }
+
+    this.noForward = function () {
+        return this.currentPage >= this.maxPage;
+    }
 });

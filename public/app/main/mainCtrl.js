@@ -1,10 +1,6 @@
 angular.module('app').controller('mainCtrl', function ($scope, $http, $window, deckService, cardService, exportImportService, paginateService) {
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
-    var maxPage;
-
-    var textToSearch;
-    var currentPage = 1;
     var currentColors = [];
     var currentCMC = [];
     var currentRarities = [];
@@ -91,7 +87,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     };
 
     $scope.searchText = function (text) {
-        cardService.filterText(text);
+        cardService.setTextToSearch(text);
+        cardService.filterText();
         updatePage();
     };
 
@@ -331,7 +328,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     function pageChange(direction) {
         if (direction) {
             if (direction == "left") {
-                if (currentPage > 1) {
+                if (paginateService.currentPage > 1) {
                     paginateService.setPage("-");
                 }
             } else {
@@ -357,24 +354,20 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
             cardService.setFilteredCards(cards);
             var filteredCards = cardService.filteredCards;
             paginateService.setMaxPages(filteredCards);
-            if (cardService.textSearchOn) {
-                cardService.filterText(textToSearch);
-                filterCards();
-            } else {
-                cardService.changePage();
-            }
+            cardService.changePage();
             updatePage();
         });
 
     }
 
     function validatePageChange() {
-        if (currentPage < 2) {
+        if (paginateService.noBack()) {
             $("#back").css("display", "none");
         } else {
             $("#back").css("display", "inherit");
         }
-        if (currentPage >= maxPage) {
+
+        if (paginateService.noForward()) {
             $("#forward").css("display", "none");
         } else {
             $("#forward").css("display", "inherit");

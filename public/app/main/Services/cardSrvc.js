@@ -19,6 +19,9 @@ angular.module('app').service('cardService', function ($http, deckService, pagin
 
     this.setFilteredCards = function (cards) {
         this.filteredCards = cards;
+        if(this.textSearchOn){
+            this.filterText();
+        }
     };
 
     this.setParam = function (param, value) {
@@ -70,22 +73,31 @@ angular.module('app').service('cardService', function ($http, deckService, pagin
         }
     };
 
-    this.filterText = function (text) {
+    this.setTextToSearch = function(text){
         this.textToSearch = text;
+    };
+
+    this.filterText = function (text = this.textToSearch) {
         if (text.length > 0) {
+            console.log("ON")
             this.textSearchOn = true;
-            this.textCards = deckService.filterText(text, filteredCards);
+            this.textCards = deckService.filterText(text, this.filteredCards);
             paginateService.setMaxPages(this.textCards);
             paginateService.setPage(1);
             this.populateCardView(paginateService.paginate(this.textCards));
         } else {
             this.textSearchOn = false;
             paginateService.setPage(1);
+            this.populateCardView(paginateService.paginate(this.filteredCards));
         }
     };
 
     this.changePage = function () {
-        this.populateCardView(paginateService.paginate(this.filteredCards));
+        if(this.textSearchOn){
+            this.populateCardView(paginateService.paginate(this.textCards));
+        } else {
+            this.populateCardView(paginateService.paginate(this.filteredCards));
+        }
     }
 });
 
