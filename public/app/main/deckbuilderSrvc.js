@@ -59,19 +59,22 @@ angular.module('app').service('deckbuilderService', function ($http) {
         var creatureRegXp = /Creature/;
         var landRegXp = /Land/;
 
-        displayCards.forEach(function (card) {
-
-            if(creatureRegXp.test(card.type)) {
-                creatures.push(card);
-            } else if (landRegXp.test(card.type)) {
-                lands.push(card);
-            } else {
-                spells.push(card);
+            displayCards.forEach(function (card) {
+                if(creatureRegXp.test(card.type)) {
+                    creatures.push(card);
+                } else if (landRegXp.test(card.type)) {
+                    lands.push(card);
+                } else {
+                    spells.push(card);
+                }
+            });
+            if(creatures.length > 0) {
+                creatures = sortCards(creatures);
+            }
+            if(spells.length > 0) {
+                spells = sortCards(spells);
             }
 
-        });
-        creatures = sortCards(creatures);
-        spells = sortCards(spells);
 
         return {
             creature: creatures,
@@ -434,8 +437,36 @@ angular.module('app').service('deckbuilderService', function ($http) {
     }
 
     function sortCards(cards) {
-        cards = sortByName(cards);
-        return sortByCMC(cards);
+        var allCMCs = [];
+        var result = [];
+        var highestCMC = 0;
+        //Find Highest CMC
+        cards.forEach(function (card) {
+            if(card.cmc > highestCMC) {
+                highestCMC = parseInt(card.cmc);
+            }
+        })
+        //Initialize array
+        for(var i = 0; i <= highestCMC; i++) {
+            allCMCs[i] = [];
+        }
+        // Add cards to appropriate index in allCMCs
+
+        cards.forEach(function (card) {
+            if(card.hasOwnProperty("cmc")) {
+                allCMCs[parseInt(card.cmc)].push(card);
+            }
+        })
+        //Add each array of cards to result;
+
+        allCMCs.forEach(function(cmc) {
+            if(cmc.length > 0) {
+                var sortedCards = sortByName(cmc);
+                result = result.concat(sortedCards);
+            }
+        })
+
+        return result;
     }
     function sortByCMC(cards) {
         var sortedArray = cards.sort(function (a, b) {
@@ -444,7 +475,11 @@ angular.module('app').service('deckbuilderService', function ($http) {
         return sortedArray;
     }
     function sortByName(cards) {
-       return cards.sort();
+        return cards.sort(function (a, b) {
+            var textA = a.name.toUpperCase();
+            var textB = b.name.toUpperCase();
+            return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;
+        });
     }
 
     function getSubtypes(text) {
