@@ -119,12 +119,13 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     };
 
     $scope.importDeck = function (importedString, willOverride) {
-        var imported = exportImportService.import(importedString);
-        if (willOverride) {
-            $scope.models.dropzones.deck = imported;
-        } else {
-            $scope.models.dropzones.deck = $scope.models.dropzones.deck.concat(imported);
-        }
+        exportImportService.import(importedString).then(function (imported) {
+            if (willOverride) {
+                $scope.models.dropzones.deck = imported;
+            } else {
+                $scope.models.dropzones.deck = $scope.models.dropzones.deck.concat(imported);
+            }
+        });
     };
 
     /*

@@ -33,7 +33,8 @@ angular.module('app').service('cardService', function ($http, deckService, pagin
             method: 'GET',
             url: '/api/cards?' + objectToString(this.params)
         }).then(function successCallback(response) {
-            return response.data;
+            var data = response.data;
+            return sortCards(data);
         }, function errorCallback(response) {
             console.error(response.data)
         });

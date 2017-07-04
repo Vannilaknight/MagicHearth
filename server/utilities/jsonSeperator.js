@@ -1,7 +1,7 @@
 var fs = require("fs"),
     AllSets = require("./../controllers/AllSets.json");
 var filename = "Modern.json";
-var setToAdd = "AKH";
+var setToAdd = "TSB";
 var modernJSON = [];
 
 fs.exists(filename, function (exists) {

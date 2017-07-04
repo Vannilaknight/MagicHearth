@@ -1,4 +1,4 @@
-angular.module('app').service('exportImportService', function () {
+angular.module('app').service('exportImportService', function ($http) {
     this.createExportFile = function ($window, textToWrite) {
         var text = textToWrite;
         var blob = new Blob([text], {type: "text/plain"}),

@@ -29,11 +29,20 @@
       z-index: 9999;
       box-shadow: 0 0 15px #000;
     }
-    .cards {
+    .side-nav{
       position: relative;
       top: 0px;
+      border: 1px solid red;
+      padding: 25px;
+      z-index: 52;
+      display: inline-block;
+    }
+    .cards {
+      display: inline-block;
+      position: relative;
+      top: 0px;
+      border: 1px solid red;
       width: 100%;
-      height: 10%;
       padding: 25px;
       z-index: 51;
       &::before {
@@ -54,8 +63,8 @@
         display: inline-block;
         .mtgcard {
           user-select: none;
-          width: 60%;
-          padding: 15px;
+          width: 65%;
+          padding: 5px;
           z-index: 52;
           &:active + .drag-box {
             background: #fff !important;
