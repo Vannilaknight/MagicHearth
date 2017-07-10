@@ -3,6 +3,7 @@ module.exports = function filterType(type, cards) {
         cards = cards.filter(function (card) {
             var result = false;
             if(card.types) {
+
                 card.types.forEach(function (cardType) {
                     if(type.toLowerCase() == cardType.toLowerCase()){
                         result = true;

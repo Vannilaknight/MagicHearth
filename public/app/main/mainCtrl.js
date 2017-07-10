@@ -16,6 +16,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     $scope.exportedDeck = "";
     $scope.exportFile;
 
+    $scope.sIsland = 0;
+    $scope.sPlains = 0;
+    $scope.sSwamp = 0;
+    $scope.sMountain = 0;
+    $scope.sForest = 0;
+
     $scope.totalCreatureCards = 0;
     $scope.totalSpellCards = 0;
     $scope.totalLandCards = 0;
@@ -81,9 +87,15 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     };
 
     $scope.addCard = function (card) {
-        if (card.cardsLeft > 0) {
+        console.log(card);
+        if (card.cardsLeft) {
+            if (card.cardsLeft > 0) {
+                $scope.models.dropzones.deck.push(card);
+            }
+        } else {
             $scope.models.dropzones.deck.push(card);
         }
+
     };
 
     $scope.searchText = function (text) {
@@ -100,6 +112,25 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     $scope.typeChange = function (type) {
         cardService.setParam("type", type);
         resetPage();
+    };
+
+    $scope.suggestLand = function () {
+        var suggestedLand = deckService.suggestBasicLands();
+        $scope.sIsland = suggestedLand.Island.count;
+        $scope.sPlains = suggestedLand.Plains.count;
+        $scope.sSwamp = suggestedLand.Swamp.count;
+        $scope.sMountain = suggestedLand.Mountain.count;
+        $scope.sForest = suggestedLand.Forest.count;
+    };
+
+    $scope.applyLands = function (u, w, b, r, g) {
+        var lands = [{land:"u", count:u}, {land:"w", count:w}, {land:"b", count:b}, {land:"r", count:r}, {land:"g", count:g}];
+        lands.forEach(function (land) {
+           if(land.count > 0){
+               var deck = $scope.models.dropzones.deck;
+               $scope.models.dropzones.deck = deck.concat(createLand(land.land, land.count));
+           }
+        });
     };
 
     $scope.exportDeck = function () {
@@ -326,6 +357,27 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         filterCards();
     }
 
+    function createLand(color, count) {
+        var lands = [];
+        var land;
+        if (color == "u") {
+            land = ISLAND;
+        } else if (color == "w") {
+            land = PLAINS;
+        } else if (color == "b") {
+            land = SWAMP;
+        } else if (color == "r") {
+            land = MOUNTAIN;
+        } else if (color == "g") {
+            land = FOREST;
+        }
+
+        for(var x = 0; x < count; x++){
+            lands.push(land);
+        }
+        return lands;
+    }
+
     function pageChange(direction) {
         if (direction) {
             if (direction == "left") {
@@ -387,7 +439,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
 
     filterCards();
 
-    function updatePage(){
+    function updatePage() {
         applyCardsLeft();
         $scope.topRow = cardService.topRow;
         $scope.botRow = cardService.botRow;

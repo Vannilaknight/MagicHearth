@@ -182,3 +182,16 @@ pre {
   border: 1px solid #ccc;
   border-radius: 4px;
 }
+
+.mana-suggest {
+  display: inline-block;
+  margin: 5px;
+  .mana-count{
+    margin-left: 5px;
+    color: #fff;
+    padding-left: 5px;
+    background: none;
+    border: 1px solid #ccbb99;
+    width: 30px;
+  }
+}

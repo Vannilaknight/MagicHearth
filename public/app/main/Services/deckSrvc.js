@@ -38,9 +38,9 @@ angular.module('app').service('deckService', function () {
         var manaCurve = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         displayCards.forEach(function (card) {
-            if(card.hasOwnProperty("cmc")) {
+            if (card.hasOwnProperty("cmc")) {
                 var numOfCard = displayCards[displayCards.indexOf(card)].count;
-                if(card.cmc < 8) {
+                if (card.cmc < 8) {
 
                     manaCurve[card.cmc] += numOfCard;
                 } else {
@@ -51,7 +51,10 @@ angular.module('app').service('deckService', function () {
         return manaCurve;
     };
 
-    this.suggestBasicLands = function(displayCards, maxLands) {
+    this.suggestBasicLands = function () {
+        var displayCards = this.displayDeck;
+        var maxLands = 60 - this.getTotalCardCount().total;
+        console.log(maxLands);
         var suggestLands = {
             "Island": ISLAND,
             "Plains": PLAINS,
@@ -69,13 +72,13 @@ angular.module('app').service('deckService', function () {
         suggestLands.Mountain.count = checkLandCount(manaSymbols.red, totalSymbolCount, maxLands);
         suggestLands.Forest.count = checkLandCount(manaSymbols.green, totalSymbolCount, maxLands);
 
-        var numOfLandsLeft = maxLands - (suggestLands.Island.count   +
-                                         suggestLands.Swamp.count    +
-                                         suggestLands.Mountain.count +
-                                         suggestLands.Forest.count   +
-                                         suggestLands.Plains.count);
+        var numOfLandsLeft = maxLands - (suggestLands.Island.count +
+            suggestLands.Swamp.count +
+            suggestLands.Mountain.count +
+            suggestLands.Forest.count +
+            suggestLands.Plains.count);
 
-        if(numOfLandsLeft > 0) {
+        if (numOfLandsLeft > 0) {
             suggestLands = increaseLowest(suggestLands, numOfLandsLeft);
 
         } else if (numOfLandsLeft < 0) {
@@ -85,7 +88,7 @@ angular.module('app').service('deckService', function () {
         return suggestLands;
     };
 
-    this.getManaSymbolCount = function (displayCards){
+    this.getManaSymbolCount = function (displayCards) {
         var manaSymbols = {
             blue: 0,
             red: 0,
@@ -101,12 +104,12 @@ angular.module('app').service('deckService', function () {
                     + this.black;
             },
         };
-        displayCards.forEach(function(card) {
+        displayCards.forEach(function (card) {
             var numOfCard = displayCards[displayCards.indexOf(card)].count;
-            if(card.hasOwnProperty("manaCost")){
+            if (card.hasOwnProperty("manaCost")) {
                 manaSymbols = countManaSymbols(card.manaCost, manaSymbols, numOfCard);
             }
-            if(card.hasOwnProperty("text")) {
+            if (card.hasOwnProperty("text")) {
                 manaSymbols = countManaSymbols(card.text, manaSymbols, numOfCard);
             }
         });
@@ -114,18 +117,19 @@ angular.module('app').service('deckService', function () {
         return manaSymbols;
     };
 
-    this.filterText = function (searchText, cards){
+    this.filterText = function (searchText, cards) {
         var splitText = /@/g;
 
-        if(searchText.match(splitText)) {
+        if (searchText.match(splitText)) {
             var searchBy = searchText.split('@');
             cards = this.filterText(searchBy[0], cards);
-            if(searchBy[1]) {
+            if (searchBy[1]) {
                 var regex = /(\(((\d|[x!X])\/(\d|[x|X]))\))/g
-                if(searchBy[1].match(regex)) {
+                if (searchBy[1].match(regex)) {
                     cards = this.filterText(searchBy[1], cards);
                 }
             }
+
             return cards;
         }
 
@@ -133,24 +137,25 @@ angular.module('app').service('deckService', function () {
         var cardText = getCardText(searchText);
         var pwrTough = getPowerToughness(searchText);
 
-        if(pwrTough) {
+        if (pwrTough) {
             cards = checkPowerToughness(pwrTough, cards);
         } else {
             var check = true;
-            if(subtypes){
+            if (subtypes) {
                 cards = checkSubTypes(subtypes, cards);
                 check = false;
             }
-            if(cardText){
+            if (cardText) {
                 cards = checkCardText(cardText, cards);
                 check = false;
             }
 
-            if(check) {
+            if (check) {
                 cards = checkAll(searchText, cards);
             }
         }
 
+        console.log(cards)
         return cards;
     };
 

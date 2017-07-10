@@ -11,10 +11,11 @@
                 include templates/FormatSetFilter
                 include templates/RarityFilter
                 include templates/CMCFilter
-        .deck-tray(ng-repeat="(zone, list) in models.dropzones")
+        .deck-tray(ng-repeat="(zone, list) in models.dropzones", ng-mouseleave="hideHover()")
             .deck-boxes
                 .total-cards
                     | Total Cards: {{totalDisplayCards}}
+                    button.suggest-btn.btn.btn-primary(data-toggle="modal", data-target="#manaModal", ng-click="suggestLand()") Suggest Land
                     button.clearall-btn.btn.btn-primary(ng-click="clearDeck()") Clear all
                 ul#display-box.display-box
                     div
@@ -33,6 +34,7 @@
                         button.btn.btn-primary.import-btn(data-toggle="modal", data-target="#importModal") Import
 include Modals/Export
 include Modals/Import
+include Modals/ManaSuggest
 script.
     var myCounter = 0,
         myOtherCounter = 0;

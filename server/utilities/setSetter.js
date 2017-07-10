@@ -1,8 +1,8 @@
-var Standard = require("./../controllers/Modern.json"),
+var AllSets = require("./../controllers/AllSets.json"),
     fs = require("fs");
 
-for (var set in Standard) {
-    var set = Standard[set];
+for (var set in AllSets) {
+    var set = AllSets[set];
     var cards = set.cards;
 
     cards.forEach(function (card) {
@@ -14,8 +14,8 @@ for (var set in Standard) {
     });
 }
 
-var json = JSON.stringify(Standard);
-fs.writeFile("./server/controllers/Modern.json", json, function (err) {
+var json = JSON.stringify(AllSets);
+fs.writeFile("./server/controllers/AllSets.json", json, function (err) {
     if(err) throw err;
     console.log("COMPLETE")
 });
