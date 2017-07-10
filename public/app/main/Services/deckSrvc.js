@@ -191,6 +191,7 @@ angular.module('app').service('deckService', function () {
 
     this.buildCMCicon = function (mana) {
         var ret = "";
+        console.log(mana)
         if (mana == "U") {
             ret = "icon-bluesvg";
         } else if (mana == "W") {
@@ -201,6 +202,8 @@ angular.module('app').service('deckService', function () {
             ret = "icon-redsvg";
         } else if (mana == "G") {
             ret = "icon-greensvg";
+        } else if (mana == "X") {
+            ret = "icon-x";
         } else {
             ret = "icon-" + mana;
         }

@@ -178,3 +178,8 @@ $card-colorless: #afafaf;
   font-family: "Mana";
   color: $card-colorless;
 }
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: $card-colorless;
+}

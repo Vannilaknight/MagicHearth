@@ -148,6 +148,11 @@
   font-family: "Mana";
   color: #afafaf; }
 
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: #afafaf; }
+
 body {
   overflow: scroll;
   user-select: none; }
