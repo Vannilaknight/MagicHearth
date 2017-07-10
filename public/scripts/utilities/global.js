@@ -79,3 +79,13 @@ function calcCardsLeft(displayCards, cards) {
     }
     return updatedCards;
 }
+
+function removeDuplicates(key, arr) {
+    var values = {};
+    return arr.filter(function(item){
+        var val = item[key];
+        var exists = values[val];
+        values[val] = true;
+        return !exists;
+    });
+}

@@ -123,6 +123,41 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         $scope.sForest = suggestedLand.Forest.count;
     };
 
+    $scope.countMana = function (color, direction) {
+        switch (color) {
+            case 'u':
+                if(direction == "+")
+                    $scope.sIsland++;
+                else
+                    $scope.sIsland--;
+                break;
+            case 'w':
+                if(direction == "+")
+                    $scope.sPlains++;
+                else
+                    $scope.sPlains--;
+                break;
+            case 'b':
+                if(direction == "+")
+                    $scope.sSwamp++;
+                else
+                    $scope.sSwamp--;
+                break;
+            case 'r':
+                if(direction == "+")
+                    $scope.sMountain++;
+                else
+                    $scope.sMountain--;
+                break;
+            case 'g':
+                if(direction == "+")
+                    $scope.sForest++;
+                else
+                    $scope.sForest--;
+                break;
+        }
+    };
+
     $scope.applyLands = function (u, w, b, r, g) {
         var lands = [{land:"u", count:u}, {land:"w", count:w}, {land:"b", count:b}, {land:"r", count:r}, {land:"g", count:g}];
         lands.forEach(function (land) {
@@ -410,6 +445,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         $scope.topRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
         $scope.botRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
         cardService.getCards().then(function (cards) {
+            cards = removeDuplicates("name", cards);
             cardService.setFilteredCards(cards);
             var filteredCards = cardService.filteredCards;
             paginateService.setMaxPages(filteredCards);

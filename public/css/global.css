@@ -149,7 +149,8 @@
   color: #afafaf; }
 
 body {
-  overflow: scroll; }
+  overflow: scroll;
+  user-select: none; }
 
 .container-fluid {
   padding: 0; }

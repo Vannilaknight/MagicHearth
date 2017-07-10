@@ -164,9 +164,16 @@ button.close {
   border: 0;
 }
 
+.export-deck-btn {
+  position: relative;
+  text-decoration: none;
+  padding: 4px;
+}
+
 .import-area {
   width: 100%;
   min-height: 400px;
+  user-select: text;
 }
 
 pre {
@@ -181,18 +188,47 @@ pre {
   background-color: #f5f5f5;
   border: 1px solid #ccc;
   border-radius: 4px;
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
 }
 
 .mana-suggest {
   display: inline-block;
-  margin: 5px;
-  .mana-count{
-    margin-left: 5px;
-    color: #fff;
-    padding-left: 5px;
-    background: none;
-    border: 1px solid #ccbb99;
-    width: 30px;
+  width: 15%;
+  margin-left: 2%;
+  margin-right: 2%;
+  .land-title {
+    width: 100%;
+    display: block;
+    text-align: center;
+    font-family: Relay;
+  }
+  .mana-count {
+    display: block;
+    width: 100%;
+    .count-btn {
+      border: 1px solid #ccbb99;
+      border-radius: 5px;
+      width: 20%;
+      display: inline-block;
+      text-align: center;
+      cursor: pointer;
+    }
+    .count {
+      color: #fff;
+      background: none;
+      width: 50%;
+      display: inline-block;
+      text-align: center;
+    }
+    .minus {
+      color: #e88593;
+    }
+    .plus {
+      color: #e2ffc1;
+    }
   }
 }
 
