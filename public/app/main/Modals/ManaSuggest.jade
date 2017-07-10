@@ -10,7 +10,7 @@
                         .land-title Islands
                         .mana-count
                             .count-btn.minus(ng-click="countMana('u', '-')") -
-                            .count {{sIsland}}
+                            .count {{sIsland || 0}}
                             .count-btn.plus(ng-click="countMana('u', '+')") +
                     .mana-suggest
                         .land-title Plains

@@ -116,11 +116,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
 
     $scope.suggestLand = function () {
         var suggestedLand = deckService.suggestBasicLands();
-        $scope.sIsland = suggestedLand.Island.count;
-        $scope.sPlains = suggestedLand.Plains.count;
-        $scope.sSwamp = suggestedLand.Swamp.count;
-        $scope.sMountain = suggestedLand.Mountain.count;
-        $scope.sForest = suggestedLand.Forest.count;
+        $scope.sIsland = suggestedLand.Island.count || 0;
+        $scope.sPlains = suggestedLand.Plains.count || 0;
+        $scope.sSwamp = suggestedLand.Swamp.count || 0;
+        $scope.sMountain = suggestedLand.Mountain.count || 0;
+        $scope.sForest = suggestedLand.Forest.count || 0;
     };
 
     $scope.countMana = function (color, direction) {
@@ -129,31 +129,36 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
                 if(direction == "+")
                     $scope.sIsland++;
                 else
-                    $scope.sIsland--;
+                    if($scope.sIsland > 0)
+                        $scope.sIsland--;
                 break;
             case 'w':
                 if(direction == "+")
                     $scope.sPlains++;
                 else
-                    $scope.sPlains--;
+                    if($scope.sPlains > 0)
+                        $scope.sPlains--;
                 break;
             case 'b':
                 if(direction == "+")
                     $scope.sSwamp++;
                 else
-                    $scope.sSwamp--;
+                    if($scope.sSwamp > 0)
+                        $scope.sSwamp--;
                 break;
             case 'r':
                 if(direction == "+")
                     $scope.sMountain++;
                 else
-                    $scope.sMountain--;
+                    if($scope.sMountain > 0)
+                        $scope.sMountain--;
                 break;
             case 'g':
                 if(direction == "+")
                     $scope.sForest++;
                 else
-                    $scope.sForest--;
+                    if($scope.sForest > 0)
+                        $scope.sForest--;
                 break;
         }
     };
