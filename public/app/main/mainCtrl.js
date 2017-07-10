@@ -133,6 +133,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         });
     };
 
+    $scope.prepareStats = function () {
+        var symbols = deckService.getManaSymbolCount();
+        var symbolsCount = [symbols.blue, symbols.white,symbols.black,symbols.red,symbols.green];
+      createChart(deckService.getManaCurve(), symbolsCount);
+    };
+
     $scope.exportDeck = function () {
         $scope.exportedDeck = "";
         var displayDeck = deckService.displayDeck;

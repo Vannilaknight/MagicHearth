@@ -1,43 +1,9 @@
-.container
-    .col-sm-12
-        a.btn.btn-warning.btn-sm.home-btn(href='/') Home
-    .col-sm-12.toggles
-        .col-sm-2
-            input#toggle-tribe.sw(type='checkbox', name='toggle')
-            label(for='toggle-tribe')
-                span Tribes
-        .col-sm-2
-            input#toggle-cmc.sw(type='checkbox', name='toggle')
-            label(for='toggle-cmc')
-                span CMC
-        .col-sm-2
-            input#toggle-budget.sw(type='checkbox', name='toggle')
-            label(for='toggle-budget')
-                span Budget
-        .col-sm-2
-            input#toggle-color.sw(type='checkbox', name='toggle')
-            label(for='toggle-color')
-                span Color
-        .col-sm-2
-            input#toggle-set.sw(type='checkbox', name='toggle')
-            label(for='toggle-set')
-                span Set
-    .col-sm-12
-        button.btn.btn-primary(ng-click="roll()") Roll Challenge
-    .col-sm-12
-        h1 {{english}}
-    //.col-sm-12
-    //    .col-sm-2 Tribe:
-    //    .col-sm-10 {{challenge.tribe}}
-    //.col-sm-12
-    //    .col-sm-2 CMC:
-    //    .col-sm-10 {{challenge.cmc}}
-    //.col-sm-12
-    //    .col-sm-2 Budget:
-    //    .col-sm-10 {{challenge.budget}}
-    //.col-sm-12
-    //    .col-sm-2 Color:
-    //    .col-sm-10 {{challenge.color}}
-    //.col-sm-12
-    //    .col-sm-2 Set:
-    //    .col-sm-10 {{challenge.set}}
+link(rel="stylesheet", href="/css/challenge.css")
+.cover
+    .cover-inner
+        header.inner
+            .border-line
+            h1.light-black.headline coming soon
+            .border-line
+            p.muli.inner
+                | This is a cool feature that hasn't yet been implemented. Don't worry, its gonna be awesome.

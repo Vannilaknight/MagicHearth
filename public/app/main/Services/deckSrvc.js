@@ -34,7 +34,8 @@ angular.module('app').service('deckService', function () {
         }
     };
 
-    this.getManaCurve = function (displayCards) {
+    this.getManaCurve = function () {
+        var displayCards = this.displayDeck;
         var manaCurve = [0, 0, 0, 0, 0, 0, 0, 0, 0];
 
         displayCards.forEach(function (card) {
@@ -88,7 +89,8 @@ angular.module('app').service('deckService', function () {
         return suggestLands;
     };
 
-    this.getManaSymbolCount = function (displayCards) {
+    this.getManaSymbolCount = function () {
+        var displayCards = this.displayDeck;
         var manaSymbols = {
             blue: 0,
             red: 0,

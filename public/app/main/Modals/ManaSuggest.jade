@@ -1,0 +1,24 @@
+#manaModal.modal.fade(tabindex='-1', role='dialog', aria-labelledby='manaModal', aria-hidden='true')
+    .modal-dialog
+        .modal-content
+            .modal-header
+                button.close(type='button', data-dismiss='modal', aria-hidden='true') ×
+                h4.modal-title Suggested Mana
+            .modal-body
+                .form-group.col
+                    .col-xs-offset-2.col-xs-2.mana-suggest
+                        span Island:
+                        input.mana-count(min="0", type="number", ng-model="sIsland")
+                    .col-xs-2.mana-suggest
+                        span Plains:
+                        input.mana-count(min="0", type="number", ng-model="sPlains")
+                    .col-xs-2.mana-suggest
+                        span Swamp:
+                        input.mana-count(min="0", type="number", ng-model="sSwamp")
+                    .col-xs-2.mana-suggest
+                        span Mountain:
+                        input.mana-count(min="0", type="number", ng-model="sMountain")
+                    .col-xs-2.mana-suggest
+                        span Forest:
+                        input.mana-count(min="0", type="number", ng-model="sForest")
+                button.btn.btn-primary(ng-click="applyLands(sIsland, sPlains, sSwamp, sMountain, sForest)") Apply Lands

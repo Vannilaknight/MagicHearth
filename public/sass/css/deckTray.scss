@@ -19,13 +19,17 @@
         list-style: none;
       }
     }
-    .total-cards {
+    .deck-options {
       border-bottom: 3px groove #ccbb99;
       font-family: Relay;
       position: relative;
       padding: 10px;
       color: #eeeecc;
       z-index: 1000;
+      button{
+        margin: 5px;
+        margin-bottom: 0;
+      }
       .clearall-btn {
         float: right;
         background: rgba(255, 0, 0, 0.1);
@@ -34,7 +38,6 @@
           cursor: pointer;
         }
       }
-
     }
     .display-box {
       height: 85%;
@@ -48,6 +51,16 @@
         z-index: 9999;
         color: #bdbdbd;
         margin-bottom: 20px;
+      }
+      .total {
+        font-family: Belwe;
+        top: 10px;
+        left: 25px;
+        display: block;
+        position: relative;
+        z-index: 9999;
+        color: #ccbb99;
+        margin-bottom: 10px;
       }
       .deck-card {
         width: 90%;

@@ -13,12 +13,13 @@
                 include templates/CMCFilter
         .deck-tray(ng-repeat="(zone, list) in models.dropzones", ng-mouseleave="hideHover()")
             .deck-boxes
-                .total-cards
-                    | Total Cards: {{totalDisplayCards}}
+                .deck-options
                     button.suggest-btn.btn.btn-primary(data-toggle="modal", data-target="#manaModal", ng-click="suggestLand()") Suggest Land
+                    button.stats-btn.btn.btn-primary(data-toggle="modal", data-target="#statsModal", ng-click="prepareStats()") Deck Statistics
                     button.clearall-btn.btn.btn-primary(ng-click="clearDeck()") Clear all
                 ul#display-box.display-box
                     div
+                        .total TOTAL - {{totalDisplayCards}}
                         span CREATURES - {{totalCreatureCards}}
                         li.deck-card.display-card-border(ng-repeat='displayCard in creatureDeck', ng-class="getBorder(displayCard.manaCost)")
                             include templates/CreatureDisplayGroup
@@ -35,6 +36,8 @@
 include Modals/Export
 include Modals/Import
 include Modals/ManaSuggest
+include Modals/Stats
+script(src='/scripts/Charts/charts.js')
 script.
     var myCounter = 0,
         myOtherCounter = 0;

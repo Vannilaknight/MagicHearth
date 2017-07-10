@@ -15,6 +15,7 @@
     "tests"
   ],
   "dependencies": {
-    "angular-preload-image": "*"
+    "angular-preload-image": "*",
+    "chart.js": "^2.6.0"
   }
 }
