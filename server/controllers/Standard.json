@@ -13212,6 +13212,7 @@
           "Human",
           "Wizard"
         ],
+        "banned": true,
         "text": "When Reflector Mage enters the battlefield, return target creature an opponent controls to its owner's hand. That creature's owner can't cast spells with the same name as that creature until your next turn.",
         "toughness": "3",
         "type": "Creature — Human Wizard",
@@ -23449,6 +23450,7 @@
         "supertypes": [
           "Legendary"
         ],
+        "banned": true,
         "text": "Emrakul, the Promised End costs {1} less to cast for each card type among cards in your graveyard.  \nWhen you cast Emrakul, you gain control of target opponent during that player's next turn. After that turn, that player takes an extra turn.\nFlying, trample, protection from instants",
         "toughness": "13",
         "type": "Legendary Creature — Eldrazi",
@@ -36074,6 +36076,7 @@
         "subtypes": [
           "Vehicle"
         ],
+        "banned": true,
         "text": "Flying\nWhenever Smuggler's Copter attacks or blocks, you may draw a card. If you do, discard a card.\nCrew 1 (Tap any number of creatures you control with total power 1 or more: This Vehicle becomes an artifact creature until end of turn.)",
         "toughness": "3",
         "type": "Artifact — Vehicle",
@@ -37644,6 +37647,7 @@
           "Cat",
           "Beast"
         ],
+        "banned": true,
         "text": "When Felidar Guardian enters the battlefield, you may exile another target permanent you control, then return that card to the battlefield under its owner's control.",
         "toughness": "4",
         "type": "Creature — Cat Beast",
