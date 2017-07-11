@@ -170,7 +170,7 @@ body, html {
   margin-top: -8px; }
   .deck-builder-body .deck-builder {
     position: absolute;
-    margin-top: 50px;
+    margin-top: 20px;
     width: 100%;
     height: 90%; }
     .deck-builder-body .deck-builder .collection-box {

@@ -4,6 +4,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
     var currentColors = [];
     var currentCMC = [];
     var currentRarities = [];
+    var hideDupes = false;
+    var hideBanned = false;
 
 
     $scope.formatSelect = "modern";
@@ -204,6 +206,19 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
             }
         });
     };
+
+    /*
+     SETTINGS
+     */
+    $("#banned").change(function (event) {
+        hideBanned = !hideBanned;
+        filterCards();
+    });
+
+    $("#duplicates").change(function (event) {
+        hideDupes = !hideDupes;
+        filterCards();
+    });
 
     /*
      RARITY FILTERS
@@ -450,7 +465,12 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         $scope.topRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
         $scope.botRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
         cardService.getCards().then(function (cards) {
-            cards = removeDuplicates("name", cards);
+            if(hideDupes){
+                cards = removeDuplicates("name", cards);
+            }
+            if(hideBanned){
+                cards = removeBanned(cards);
+            }
             cardService.setFilteredCards(cards);
             var filteredCards = cardService.filteredCards;
             paginateService.setMaxPages(filteredCards);

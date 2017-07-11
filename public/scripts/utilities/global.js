@@ -89,3 +89,13 @@ function removeDuplicates(key, arr) {
         return !exists;
     });
 }
+
+function removeBanned(arr) {
+    return arr.filter(function(item){
+        var ret = true;
+        if(item.banned){
+            ret = false;
+        }
+        return ret;
+    });
+}
