@@ -30,6 +30,11 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 templateUrl: '/partials/login/login',
                 controller: 'loginCtrl'
             })
+            .when('/admin', {
+                templateUrl: '/partials/admin/admin',
+                controller: 'adminCtrl',
+                resolve: routeRoleChecks.admin
+            })
             .when('/reference', {
                 templateUrl: '/partials/reference/reference',
                 controller: 'referenceCtrl',

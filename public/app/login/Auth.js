@@ -1,5 +1,5 @@
 var user;
-angular.module('app').factory('Auth', function($http, $rootScope, Identity, $q, User) {
+angular.module('app').factory('Auth', function($http, $rootScope, Identity, $q, User, Admin) {
     return {
         authenticateUser: function(username, password) {
             var dfd = $q.defer();
@@ -18,12 +18,11 @@ angular.module('app').factory('Auth', function($http, $rootScope, Identity, $q, 
             return dfd.promise;
         },
 
-        createUser: function(newUserData) {
-            var newUser = new User(newUserData);
+        createAdmin: function(newAdminData) {
+            var newAdmin = new Admin(newAdminData);
             var dfd = $q.defer();
 
-            newUser.$save().then(function() {
-                Identity.currentUser = newUser;
+            newAdmin.$save().then(function() {
                 dfd.resolve();
             }, function(response) {
                 dfd.reject(response.data.reason);

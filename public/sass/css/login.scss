@@ -14,9 +14,11 @@ body {
 }
 
 .wrapper {
-  background: #70652C;
-  background: -webkit-linear-gradient(top left, #70652C 0%, #EFD96A 100%);
-  background: linear-gradient(to bottom right, #70652C 0%, #EFD96A 100%);
+  background-image: url("./../../images/tableBG.jpg");
+  background-size: 100% 100%;
+  //background: #70652C;
+  //background: -webkit-linear-gradient(top left, #70652C 0%, #EFD96A 100%);
+  //background: linear-gradient(to bottom right, #70652C 0%, #EFD96A 100%);
   position: absolute;
   top: 0;
   left: 0;
@@ -54,8 +56,8 @@ form {
     -moz-appearance: none;
     appearance: none;
     outline: 0;
-    border: 1px solid rgba(255, 255, 255, 0.4);
-    background-color: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgb(184, 184, 184);
+    background-color: rgb(149, 149, 149);
     width: 250px;
     border-radius: 3px;
     padding: 10px 15px;
@@ -68,7 +70,7 @@ form {
     transition-duration: 0.25s;
     font-weight: 300;
     &:hover {
-      background-color: rgba(255, 255, 255, 0.4);
+      background-color: rgb(184, 184, 184);
     }
     &:focus {
       background-color: white;

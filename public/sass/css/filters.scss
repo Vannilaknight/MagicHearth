@@ -110,7 +110,13 @@
           box-shadow: none;
         }
       }
-
+      .admin-settings {
+        text-decoration: none;
+        background: rgba(255, 169, 17, 0.43);
+        font-family: Relay;
+        font-size: 10px;
+        padding: 2px;
+      }
     }
   }
 
