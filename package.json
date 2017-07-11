@@ -18,14 +18,18 @@
     "assert-plus": "^1.0.0",
     "body-parser": "^1.15.2",
     "cookie-parser": "^1.4.3",
+    "crypto": "0.0.3",
     "express": "^4.14.0",
     "express-session": "^1.14.1",
     "http": "0.0.0",
     "jade": "^1.11.0",
     "magicbus": "^2.3.4",
+    "mongoose": "^4.11.1",
     "morgan": "^1.7.0",
     "node-sass": "^4.5.3",
     "node-sass-middleware": "^0.11.0",
+    "passport": "^0.3.2",
+    "passport-local": "^1.0.0",
     "request": "^2.75.0",
     "socket.io": "^1.7.2"
   }

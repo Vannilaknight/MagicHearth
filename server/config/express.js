@@ -3,7 +3,8 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     cookieParser = require('cookie-parser'),
     session = require('express-session'),
-    sassMiddleware = require('node-sass-middleware');
+    sassMiddleware = require('node-sass-middleware'),
+    passport = require('passport');
 
 
 module.exports = function (app, config) {
@@ -21,5 +22,7 @@ module.exports = function (app, config) {
     app.use(bodyParser.urlencoded({extended: true}));
     app.use(bodyParser.json());
     app.use(session({secret: 'Wish upon a star', resave: false, saveUninitialized: false}));
+    app.use(passport.initialize());
+    app.use(passport.session());
     app.use(express.static(config.self.rootPath + '/public'));
 };

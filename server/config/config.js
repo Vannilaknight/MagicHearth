@@ -30,10 +30,13 @@ if(isEnv('dev')){
     setEnv('port', 80);
 }
 
+setEnv('db', "mongodb://admin:admin@ds153752.mlab.com:53752/swingfacedev");
+
 var config = {
     self: {
         port: getEnv('port'),
-        rootPath: rootPath
+        rootPath: rootPath,
+        db: getEnv('db')
     }
 };
 
