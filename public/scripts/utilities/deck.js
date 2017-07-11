@@ -257,6 +257,7 @@ function sortCards(cards) {
     var allCMCs = [];
     var result = [];
     var highestCMC = 0;
+
     //Find Highest CMC
     cards.forEach(function (card) {
         if(card.cmc > highestCMC) {
@@ -273,9 +274,11 @@ function sortCards(cards) {
         if(card.hasOwnProperty("cmc")) {
             allCMCs[parseInt(card.cmc)].push(card);
         }
+        else {
+            allCMCs[0].push(card);
+        }
     })
     //Add each array of cards to result;
-
     allCMCs.forEach(function(cmc) {
         if(cmc.length > 0) {
             var sortedCards = sortByName(cmc);
