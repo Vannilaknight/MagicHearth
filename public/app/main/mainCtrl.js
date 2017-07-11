@@ -1,4 +1,4 @@
-angular.module('app').controller('mainCtrl', function ($scope, $http, $window, deckService, cardService, exportImportService, paginateService) {
+angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $cookies, deckService, cardService, exportImportService, paginateService) {
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
 
     var currentColors = [];
@@ -212,11 +212,13 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
      */
     $("#banned").change(function (event) {
         hideBanned = !hideBanned;
+        $cookies.put('bannedSelection', hideBanned);
         filterCards();
     });
 
     $("#duplicates").change(function (event) {
         hideDupes = !hideDupes;
+        $cookies.put('duplicateSelection', hideDupes);
         filterCards();
     });
 
@@ -504,8 +506,6 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         $scope.hoverCard = null;
     };
 
-    filterCards();
-
     function updatePage() {
         applyCardsLeft();
         $scope.topRow = cardService.topRow;
@@ -518,4 +518,21 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, d
         var displayDeck = deckService.displayDeck;
         cardService.getCardsLeft(displayDeck);
     }
+
+    function init() {
+        filterCards();
+        var banned = $cookies.get('bannedSelection');
+        var duplicates = $cookies.get('duplicateSelection');
+        console.log(banned + "-" + duplicates);
+        if(banned){
+            hideBanned = banned;
+            $("#banned").prop('checked', hideBanned);
+        }
+        if(duplicates){
+            hideDupes = duplicates;
+            $("#duplicates").prop('checked', hideDupes);
+        }
+    }
+
+    init();
 });

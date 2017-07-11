@@ -126,7 +126,7 @@
       margin: 5px;
     }
     .format-select-box {
-      width: 30%;
+      width: 25%;
       height: 100%;
       position: relative;
       top: 0;
@@ -154,7 +154,8 @@
     }
 
     .rarity-filter-box {
-      width: 30%;
+      vertical-align: top;
+      width: 35%;
       position: relative;
       top: 10%;
       display: inline-block;
@@ -177,19 +178,19 @@
       }
 
       .rarity-tab {
+        position: relative;
         width: 100%;
         display: inline-block;
         border: 2px groove #CCBB99;
-        font-family: "Beleren";
-        font-size: 20px;
+        font-family: Relay;
+        height: 30px;
+        font-size: 10px;
         color: #eeeecc;
         text-align: center;
         border-top: none;
         background: #262626;
-        margin-top: 0;
-        margin-bottom: -8px;
-        margin-left: 5px;
-        margin-right: 5px;
+        top: -5px;
+        line-height: 30px;
         border-bottom-left-radius: 10px;
         border-bottom-right-radius: 10px;
         transition: height .5s;
@@ -197,20 +198,20 @@
       }
 
       input[type=checkbox]:checked ~ .rarity-c{
-        height: 60px;
         color: #000;
+        border: 2px groove #00d8ff;
       }
       input[type=checkbox]:checked ~ .rarity-u {
-        height: 60px;
         color: #bdbdbd;
+        border: 2px groove #00d8ff;
       }
       input[type=checkbox]:checked ~ .rarity-r {
-        height: 60px;
         color: #ffc642;
+        border: 2px groove #00d8ff;
       }
       input[type=checkbox]:checked ~ .rarity-m {
-        height: 60px;
         color: #ff7555;
+        border: 2px groove #00d8ff;
       }
     }
 
