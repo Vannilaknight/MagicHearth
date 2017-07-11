@@ -63,7 +63,7 @@ form {
     display: block;
     text-align: center;
     font-size: 18px;
-    color: white;
+    color: black;
     -webkit-transition-duration: 0.25s;
     transition-duration: 0.25s;
     font-weight: 300;
@@ -73,7 +73,7 @@ form {
     &:focus {
       background-color: white;
       width: 300px;
-      color: #ccbbpp;
+      color: #ccbb99;
     }
   }
   button {
