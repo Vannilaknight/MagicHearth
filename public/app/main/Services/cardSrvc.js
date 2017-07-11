@@ -80,7 +80,6 @@ angular.module('app').service('cardService', function ($http, deckService, pagin
 
     this.filterText = function (text = this.textToSearch) {
         if (text.length > 0) {
-            console.log("ON")
             this.textSearchOn = true;
             this.textCards = deckService.filterText(text, this.filteredCards);
             paginateService.setMaxPages(this.textCards);

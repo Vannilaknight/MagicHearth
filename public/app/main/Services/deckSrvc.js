@@ -156,8 +156,6 @@ angular.module('app').service('deckService', function () {
                 cards = checkAll(searchText, cards);
             }
         }
-
-        console.log(cards)
         return cards;
     };
 
