@@ -1,6 +1,6 @@
-var modernSet = require('./../Modern.json'),
-    standardSet = require('./../Standard.json'),
-    sets = require('./../AllSets.json');
+var modernSet = require('./../Data/Modern.json'),
+    standardSet = require('./../Data/Standard.json'),
+    sets = require('./../Data/AllSets.json');
 
 function filterFormat(format, cards) {
     if (format == "standard") {

@@ -70,11 +70,11 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $
     };
 
     $("#back").click(function () {
-        pageChange("left")
+        pageChange("left");
     });
 
     $("#forward").click(function () {
-        pageChange("right")
+        pageChange("right");
     });
 
     $scope.removeCard = function (card) {
@@ -511,6 +511,8 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $
         $scope.topRow = cardService.topRow;
         $scope.botRow = cardService.botRow;
         validatePageChange();
+        $scope.currentPage = paginateService.getCurrentPage();
+        $scope.totalPage = paginateService.getMaxPage();
         $scope.$apply();
     }
 

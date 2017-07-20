@@ -1,5 +1,5 @@
-var Sets = require("./../controllers/Modern.json"),
-    BanList = require("./../controllers/banList.json"),
+var Sets = require("./../controllers/Data/Modern.json"),
+    BanList = require("./../controllers/Data/banList.json"),
     fs = require("fs");
 
 Sets.forEach(function (set, setNum) {

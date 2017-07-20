@@ -1,4 +1,4 @@
-var Standard = require("./../controllers/Modern.json"),
+var Standard = require("./../controllers/Data/Modern.json"),
     fs = require("fs");
 
 for (var set in Standard) {

@@ -1,4 +1,4 @@
-var AllSets = require("./../controllers/AllSets.json"),
+var AllSets = require("./../controllers/Data/AllSets.json"),
     fs = require("fs");
 
 for (var set in AllSets) {

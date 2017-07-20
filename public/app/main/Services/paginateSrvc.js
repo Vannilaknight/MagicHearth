@@ -40,13 +40,21 @@ angular.module('app').service('paginateService', function () {
         } else {
             this.maxPage = minPages;
         }
-    }
+    };
 
     this.noBack = function () {
         return this.currentPage < 2;
-    }
+    };
 
     this.noForward = function () {
         return this.currentPage >= this.maxPage;
-    }
+    };
+
+    this.getCurrentPage = function () {
+        return this.currentPage;
+    };
+
+    this.getMaxPage = function () {
+        return this.maxPage;
+    };
 });

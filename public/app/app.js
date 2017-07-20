@@ -40,6 +40,11 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 controller: 'referenceCtrl',
                 resolve: routeRoleChecks.admin
             })
+            .when('/editor', {
+                templateUrl: '/partials/cardEditor/editor',
+                controller: 'editorCtrl',
+                resolve: routeRoleChecks.admin
+            })
             .when('/', {
                 templateUrl: '/partials/landing/landing',
                 controller: 'landingCtrl',
