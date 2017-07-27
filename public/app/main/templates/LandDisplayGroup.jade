@@ -5,7 +5,7 @@
             div(ng-if="displayCard.type.includes('Land')")
                 .icon {{displayCard.type}}
             div(ng-if="!displayCard.type.includes('Land')")
-                .icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
+                .icon(ng-if="getManaCost(displayCard.manaCost).length > 0", ng-repeat="cost in getManaCost(displayCard.manaCost) track by $index", ng-class="getIcon(cost)")
     .card-count
         span.count {{displayCard.count}}
 
@@ -19,6 +19,6 @@
             div(ng-if="displayCard.type.includes('Land')")
                 .icon {{displayCard.type}}
             div(ng-if="!displayCard.type.includes('Land')")
-                .icon(ng-if="getManaCost(displayCard).length > 0", ng-repeat="cost in getManaCost(displayCard) track by $index", ng-class="getIcon(cost)")
+                .icon(ng-if="getManaCost(displayCard.manaCost).length > 0", ng-repeat="cost in getManaCost(displayCard.manaCost) track by $index", ng-class="getIcon(cost)")
     .card-count
         span.count {{displayCard.count}}

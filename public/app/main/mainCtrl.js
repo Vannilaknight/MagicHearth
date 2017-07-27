@@ -56,14 +56,16 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $
         return deckService.buildBorder(manaCost);
     };
 
-    $scope.getManaCost = function (card) {
+    $scope.getManaCost = function (mana) {
         var manaCost = [];
-        if (card.manaCost) {
-            manaCost = card.manaCost.replaceAll("{", "").replaceAll("}", "").split("");
+        if (manaCost) {
+            manaCost = mana.replaceAll("{", "").replaceAll("}", "").split("");
         }
 
         return manaCost;
     };
+
+
 
     $scope.getIcon = function (mana) {
         return deckService.buildCMCicon(mana);
@@ -504,6 +506,30 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $
     $scope.hideHover = function () {
         $scope.isHover = false;
         $scope.hoverCard = null;
+    };
+
+    $scope.isSuspend = function (card) {
+        var ret = false;
+        var SuspendREGEX = /(Suspend \d+)—((\{\w\})+)/g;
+        var match = card.text.match(SuspendREGEX);
+        if(match) {
+            ret = true;
+        }
+        return ret;
+    };
+
+    $scope.suspendInfo = function (card) {
+        var ret = {
+            suspend: "",
+            cmc: "",
+        };
+        var SuspendREGEX = /(Suspend \d+)—((\{\w\})+)/g;
+        var SuspendText = /Suspend \d+/g;
+        var SuspendCMC = /((\{\w\})+)/g;
+        var match = card.text.match(SuspendREGEX);
+        ret.suspend = match[0].match(SuspendText)[0];
+        ret.cmc = match[0].match(SuspendCMC)[0];
+        return ret;
     };
 
     function updatePage() {
