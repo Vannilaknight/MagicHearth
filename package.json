@@ -10,7 +10,7 @@
     "dev_win": "set NODE_ENV=dev&&node index.js",
     "dev_win_austin": "set NODE_ENV=dev&&npm install&&bower install&&nodemon index.js"
   },
-  "author": "Taylor Boyd",
+  "author": "Taylor Boyd, Austin White",
   "license": "ISC",
   "dependencies": {
     "angular-drag-and-drop-lists": "^2.1.0",
