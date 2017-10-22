@@ -1,5 +1,6 @@
 var mongoose = require('mongoose'),
-    userModel = require('../models/User');
+    userModel = require('../models/User'),
+    cardModel = require('../models/Card');
 
 module.exports = function (config) {
     mongoose.connect(config.self.db);

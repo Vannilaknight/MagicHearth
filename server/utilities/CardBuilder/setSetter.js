@@ -1,22 +1,27 @@
-var allSetsFile = "./CardBuilder/AllSets.json",
-    AllSets = require("./AllSets.json"),
+var jsonfile = require('jsonfile'),
     fs = require("fs");
+var allSetsFile = "./CardBuilder/AllSets.json";
 
-for (var set in AllSets) {
-    var set = AllSets[set];
-    var cards = set.cards;
 
-    cards.forEach(function (card) {
-        var code = set.code.toLowerCase();
-        if(set.magicCardsInfoCode){
-            code = set.magicCardsInfoCode.toLowerCase();
+return new Promise(function (resolve, reject) {
+    jsonfile.readFile("./AllSets.json", function(err, AllSets) {
+        for (var set in AllSets) {
+            var set = AllSets[set];
+            var cards = set.cards;
+
+            cards.forEach(function (card) {
+                var code = set.code.toLowerCase();
+                if(set.magicCardsInfoCode){
+                    code = set.magicCardsInfoCode.toLowerCase();
+                }
+                card.set = code;
+            });
         }
-        card.set = code;
-    });
-}
 
-var json = JSON.stringify(AllSets);
-fs.writeFile(allSetsFile, json, function (err) {
-    if(err) throw err;
-    console.log("SETS SET")
+        jsonfile.writeFile(allSetsFile, AllSets, function (err) {
+            if(err) reject(err);
+            console.log("SETS SET");
+            resolve();
+        })
+    });
 });

@@ -1,4 +1,4 @@
-angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLists', 'ui.bootstrap', 'angular-preload-image'])
+angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLists', 'ui.bootstrap', 'angular-preload-image', 'angularjs-dropdown-multiselect'])
     .config(function ($routeProvider, $locationProvider, $compileProvider) {
         var routeRoleChecks = {
             admin: {
@@ -16,6 +16,11 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
         $compileProvider.aHrefSanitizationWhitelist(/^\s*(|blob|):/);
         $locationProvider.html5Mode(true);
         $routeProvider
+            .when('/edit', {
+                templateUrl: '/partials/cardEdit/cardEdit',
+                controller: 'cardEditCtrl',
+                resolve: routeRoleChecks.admin
+            })
             .when('/challenge', {
                 templateUrl: '/partials/challenge/challenge',
                 controller: 'challengeCtrl',
@@ -29,21 +34,6 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
             .when('/login', {
                 templateUrl: '/partials/login/login',
                 controller: 'loginCtrl'
-            })
-            .when('/admin', {
-                templateUrl: '/partials/admin/admin',
-                controller: 'adminCtrl',
-                resolve: routeRoleChecks.admin
-            })
-            .when('/reference', {
-                templateUrl: '/partials/reference/reference',
-                controller: 'referenceCtrl',
-                resolve: routeRoleChecks.admin
-            })
-            .when('/editor', {
-                templateUrl: '/partials/cardEditor/editor',
-                controller: 'editorCtrl',
-                resolve: routeRoleChecks.admin
             })
             .when('/', {
                 templateUrl: '/partials/landing/landing',

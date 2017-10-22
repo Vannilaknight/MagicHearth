@@ -2,7 +2,8 @@ var auth = require('./auth'),
     request = require('request'),
     Auth = require('./auth'),
     users = require('../controllers/users'),
-    cards = require('../controllers/cards');
+    cards = require('../controllers/cards'),
+    edit = require('../controllers/cardEdit');
 
 module.exports = function (app, config) {
 
@@ -12,7 +13,13 @@ module.exports = function (app, config) {
 
     app.post('/api/admin', auth.requiresRole('admin'), users.createAdmin);
 
-    app.get('/api/cards', cards.getCards);
+    app.get('/api/allSets', auth.requiresRole('admin'), edit.getAllSets);
+    app.post('/api/card', cards.setCard);
+
+    app.get('/api/allCards', cards.getCards);
+    app.get('/api/standardCards', cards.getStandardCards);
+    app.get('/api/modernCards', cards.getModernCards);
+
     app.get('/api/buildImport', cards.buildImportedDeck);
 
     app.all('/api/*', function (req, res) {
@@ -20,6 +27,10 @@ module.exports = function (app, config) {
     });
 
     app.post('/login', Auth.authenticate);
+    app.post('/logout', function (req, res) {
+        req.logout();
+        res.end();
+    });
 
     app.post('/logout', function (req, res) {
         req.logout();

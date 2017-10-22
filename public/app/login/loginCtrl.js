@@ -1,4 +1,4 @@
-angular.module('app').controller('loginCtrl', function($scope, $rootScope, $http, Identity, Auth, $location) {
+angular.module('app').controller('loginCtrl', function($scope, $rootScope, $http, Identity, Auth, $location, $cookies) {
     $scope.identity = Identity;
     $rootScope.gIdentity = Identity;
     $scope.signin = function(username, password) {

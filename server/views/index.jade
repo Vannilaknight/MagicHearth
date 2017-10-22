@@ -1,4 +1,28 @@
 extends ../includes/layout
 
 block main-content
+    nav.navbar.navbar-default
+        .container-fluid
+            .navbar-header
+                a.navbar-brand(href='/builder') SwingFace
+            ul.nav.navbar-nav
+                li.active
+                    a(href='/builder') Builder
+                li
+                    a(href='/challenge') Challenge
+                li
+                    a(href='/edit') Card Edit
+            ul.nav.navbar-nav.navbar-right
+                li.dropdown
+                    a.dropdown-toggle(data-toggle='dropdown', href='#')
+                        |  {{currentUser.username}}
+                        span.caret
+                    ul.dropdown-menu
+                        li
+                            a(href='/decks') Decks
+                        li
+                            a(href='/settings') Settings
+                        li
+                            a(href='#', ng-click="signout()") Logout
+
     div.view(ng-view)

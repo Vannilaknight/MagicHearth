@@ -30,7 +30,7 @@ if(isEnv('dev')){
     setEnv('port', 80);
 }
 
-setEnv('db', "mongodb://admin:admin@ds153752.mlab.com:53752/swingfacedev");
+setEnv('db', "mongodb://localhost:27017/mtgsets");
 
 var config = {
     self: {

@@ -3,24 +3,17 @@ html
     head
         title SwingFace
         link(href="/favicon.ico", rel="shortcut icon", type="image/x-icon")
-        //link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
+        link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css", integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u", crossorigin="anonymous")
         link(rel='stylesheet', href='https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css')
-        link(rel="stylesheet", href="/css/global.css")
-        link(rel="stylesheet", href="/css/deckBuilder.css")
+        link(rel="stylesheet", href="/css/bootstrapFixes.css")
+        link(rel="stylesheet", href="/css/builder.css")
         link(rel="stylesheet", href="/css/cards.css")
-        link(rel="stylesheet", href="/css/deckTray.css")
-        link(rel="stylesheet", href="/css/filters.css")
-        link(rel="stylesheet", href="/css/toggles.css")
-        link(rel="stylesheet", href="/css/landing.css")
-        link(rel="stylesheet", href="/css/reference.css")
-        link(rel="stylesheet", href="/css/borders.css")
-        link(rel="stylesheet", href="/css/modalStyle.css")
         meta(name='viewport', content='width=device-width, initial-scale=1')
         meta(name="description", content="MTG deck builder with more personality than most.")
         meta(name="keywords", content="MTG,Magic the Gathering,Deckbuilder,Swingface,Swing Face")
         meta(name="author", content="Taylor Boyd, Austin White")
         meta(property="og:image", content="./../../images/SwingFaceBrand.png")
         base(href="/")
-    body(ng-app='app', ng-controller='overlordCtrl')
+    body.container-fluid(ng-app='app', ng-controller='overlordCtrl')
         block main-content
         include scripts

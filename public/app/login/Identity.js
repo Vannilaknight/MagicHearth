@@ -1,11 +1,11 @@
-angular.module('app').factory('Identity', function ($window, User, $rootScope) {
+angular.module('app').factory('Identity', function ($window, User, $rootScope, $cookies) {
     var currentUser;
-    if (!!$window.bootstrappedUserObject) {
-        currentUser = new User();
-        $rootScope.currentUserId = currentUser;
-        console.log("/currentUser : " + $rootScope.currentUserId);
-        angular.extend(currentUser, $window.bootstrappedUserObject);
+    var oldUser = $cookies.getObject('currentUser');
+    if(oldUser){
+        currentUser = oldUser;
+        $rootScope.currentUser = oldUser;
     }
+
     return {
         currentUser: currentUser,
         isAuthenticated: function () {
@@ -15,4 +15,4 @@ angular.module('app').factory('Identity', function ($window, User, $rootScope) {
             return !!this.currentUser && this.currentUser.roles.indexOf(role) > -1;
         }
     }
-})
+});

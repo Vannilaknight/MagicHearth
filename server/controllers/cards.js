@@ -1,99 +1,57 @@
-var cardData = require('./filters/cardData'),
-    typeFilter = require('./filters/typeFilter'),
-    colorFilter = require('./filters/colorFilter'),
-    rarityFilter = require('./filters/rarityFilter'),
-    cmcFilter = require('./filters/cmcFilter'),
-    pageFilter = require('./filters/pageFilter');
+var Mongoose = require('mongoose'),
+    Card = Mongoose.model('Card');
 
+exports.getCards = function (req, res, next) {
+    Card.find({}).exec(function (err, collection) {
+        res.send(collection);
+    })
+};
 
-function getCards(req, res) {
-    var format = req.query.format;
-    var set = req.query.set;
-    var type = req.query.type;
-    var rarities = req.query.rarities;
-    var colors = req.query.colors;
-    var cmcs = req.query.cmcs;
-    var colorOperator = req.query.colorop;
-    var cards = [];
+exports.getStandardCards = function (req, res, next) {
+    Card.find({"format": "standard"}).exec(function (err, collection) {
+        res.send(collection);
+    })
+};
 
-    if(set) {
-        cards = cardData.filterSet(set, cards);
-    } else if (format) {
-        cards = cardData.filterFormat(format, cards);
-    }
+exports.getModernCards = function (req, res, next) {
+    Card.find({"format": "modern"}).exec(function (err, collection) {
+        res.send(collection);
+    })
+};
 
-    if(type){
-        cards = typeFilter(type, cards);
-    }
+exports.setCard = function (req, res, next) {
+    var newCard = req.body.card;
+    Card.update({_id: newCard._id}, newCard, function (err, raw) {
+        if(err) console.error(err);
+        res.send(raw);
+    })
+};
 
-    if (colors) {
-        cards = colorFilter(colors, colorOperator, cards)
-    }
-
-    if(rarities) {
-        cards = rarityFilter(rarities, cards)
-    }
-
-    if (cmcs) {
-        cards = cmcFilter(cmcs, cards);
-    }
-
-    res.send(cards)
-}
-
-function buildImportedDeck(req, res) {
+exports.buildImportedDeck = function (req, res) {
     var importedString = req.query.importedString;
     var newCards = [];
-
-    if(importedString){
+    if (importedString) {
         /* Regex:
-            ((\d\dx|\dx)): split on either (\d\dx) or (\dx)
-        */
-
+         ((\d\dx|\dx)): split on either (\d\dx) or (\dx)
+         */
         var regex = /(\d\dx|\dx|\d\d|\d)/g;
         var splitImportedString = importedString.split(regex);
-        splitImportedString.splice(0,1);
-        console.log(splitImportedString[0]);
-        for(var i = 0; i < splitImportedString.length; i = i+2) {
-            var cardName = splitImportedString[(i+1)].trim();
+        splitImportedString.splice(0, 1);
+        var cardsToSearch = [];
+        for (var i = 0; i < splitImportedString.length; i = i + 2) {
+            var cardName = splitImportedString[(i + 1)].trim();
             var numOfCard = parseInt(splitImportedString[i].replace('x', ''));
 
-            var cardInfo = cardData.searchForCard(cardName);
-
-            for (var j = numOfCard; j > 0; j--) {
-                 newCards.push(cardInfo);
+            for(var x = 0; x < numOfCard; x++){
+                cardsToSearch.push(Card.findOne({name: cardName}).exec());
             }
         }
-    }
-    res.send(newCards);
-}
 
-module.exports = {
-    getCards,
-    buildImportedDeck
-};
-
-// Not in use
-function getMultiverseId(imageName) {
-    var multiverseId = 0;
-    Object.values(sets).forEach(function (value, index, arr) {
-        var cardsResults = value.cards;
-        Object.values(cardsResults).forEach(function (card, index, arr) {
-            if (card.imageName == imageName) {
-                multiverseId = card.multiverseid;
-            }
+        Promise.all(cardsToSearch).then(function (results) {
+            res.send(results)
         });
-    });
-    return multiverseId;
-}
-
-function arrayContainsAnotherArray(needle, haystack) {
-    for (var i = 0; i < needle.length; i++) {
-        if (haystack.indexOf(needle[i]) === -1)
-            return false;
+    } else {
+        res.send([]);
     }
-    return true;
 };
-/*
 
- */

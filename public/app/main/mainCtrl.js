@@ -1,198 +1,280 @@
-angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $cookies, deckService, cardService, exportImportService, paginateService) {
+angular.module('app').controller('mainCtrl', function ($scope, $rootScope, $http, $window, $cookies) {
     $scope.importExample = "2x Aetherworks Marvel\n3x Glimmer of Genius\n20x Plains";
+    $scope.cards = null;
+    $scope.filteredCards = null;
+    $scope.searchedCards = null;
+    $scope.sidenavState = 'nav';
+    $scope.deck = [];
+    $scope.currentPage = 0;
+    $scope.totalPages = 0;
 
-    var currentColors = [];
-    var currentCMC = [];
-    var currentRarities = [];
-    var hideDupes = false;
-    var hideBanned = false;
+    var maxPages = 50;
 
+    $scope.selectedTypes = [];
+    $scope.types = [
+        {id: "Creature", label: "Creature"},
+        {id: "Instant", label: "Instant"},
+        {id: "Sorcery", label: "Sorcery"},
+        {id: "Planeswalker", label: "Planeswalker"},
+        {id: "Enchantment", label: "Enchantment"},
+        {id: "Artifact", label: "Artifact"},
+        {id: "Land", label: "Land"}
+    ];
 
-    $scope.formatSelect = "modern";
-    $scope.typeFilter = "none";
-    $scope.topRow = [];
-    $scope.botRow = [];
-    $scope.decklist = [];
-    $scope.isHover = false;
-    $scope.hoverId = "";
-    $scope.exportedDeck = "";
-    $scope.exportFile;
+    $scope.eventSettings = {
+        onSelectionChanged: function () {
+            if ($scope.searchedCards) {
+                filterType($scope.searchedCards);
+            } else {
+                filterType($scope.cards);
+            }
 
-    $scope.sIsland = 0;
-    $scope.sPlains = 0;
-    $scope.sSwamp = 0;
-    $scope.sMountain = 0;
-    $scope.sForest = 0;
-
-    $scope.totalCreatureCards = 0;
-    $scope.totalSpellCards = 0;
-    $scope.totalLandCards = 0;
-
-    $scope.models = {
-        selected: null,
-        templates: [
-            {type: "card", name: "name", count: 0}
-        ],
-        dropzones: {
-            "deck": [],
         }
     };
 
-    $scope.$watch('models.dropzones', function (model) {
-        deckService.updateDeck(model.deck);
-        applyCardsLeft();
-        calcTotalCards();
-        var display = deckService.getDeckDisplay();
-        $scope.creatureDeck = display.creatureDeck;
-        $scope.spellDeck = display.spellDeck;
-        $scope.landDeck = display.landDeck;
-    }, true);
-
-    $scope.clearDeck = function () {
-        $scope.models.dropzones.deck = [];
+    $scope.extraSettings = {
+        smartButtonMaxItems: 3,
+        selectionLimit: 3,
+        showCheckAll: false,
+        showUncheckAll: false
     };
 
-    $scope.getBorder = function (manaCost) {
-        return deckService.buildBorder(manaCost);
+    $scope.$watch('deck', function (newVal, oldVal) {
+       divideTypes($scope.deck);
+    }, true);
+
+    function divideTypes(deck) {
+        $scope.creatures = [];
+        $scope.spells = [];
+        $scope.lands = [];
+
+        var sorted = getSortedDisplayDeck(deck);
+        $scope.creatures = sorted.creature;
+        $scope.spells = sorted.spell;
+        $scope.lands = sorted.land;
+    }
+
+    $scope.nextPage = function () {
+        if ($scope.totalPages >= $scope.currentPage) {
+            $scope.currentPage++;
+            if ($scope.currentPage == $scope.totalPages) {
+                $scope.filteredCards = $scope.cards.slice(($scope.currentPage - 1) * maxPages, $scope.cards.length);
+            } else {
+                $scope.filteredCards = $scope.cards.slice(($scope.currentPage - 1) * maxPages, ($scope.currentPage * maxPages) + 1);
+            }
+        }
+    };
+
+    $scope.backPage = function () {
+        if ($scope.currentPage > 1) {
+            $scope.currentPage--;
+            $scope.filteredCards = $scope.cards.slice(($scope.currentPage - 1) * maxPages, ($scope.currentPage * maxPages) + 1);
+        }
+    };
+
+
+    $http.get('/api/standardCards').then(function (response) {
+        $scope.cards = response.data;
+        calculatePages($scope.cards);
+        $scope.filteredCards = $scope.cards.slice(0, 201);
+    });
+
+    $scope.changeSidenavState = function (state) {
+        $scope.sidenavState = state;
+    };
+
+    $scope.getCardColorClass = function (colors) {
+        var classname = "";
+        var white = false, blue = false, black = false, red = false, green = false;
+        colors.forEach(function (color) {
+            if (color == "White") {
+                white = true;
+            }
+            if (color == "Blue") {
+                blue = true;
+            }
+            if (color == "Black") {
+                black = true;
+            }
+            if (color == "Red") {
+                red = true;
+            }
+            if (color == "Green") {
+                green = true;
+            }
+        });
+
+        if (white) {
+            classname += "white-";
+        }
+        if (blue) {
+            classname += "blue-";
+        }
+        if (black) {
+            classname += "black-";
+        }
+        if (red) {
+            classname += "red-";
+        }
+        if (green) {
+            classname += "green-";
+        }
+
+        classname += "card";
+        return classname;
+    };
+
+    $scope.inspect = function (card) {
+        if (card == $scope.inspectedCard) {
+            $scope.inspectedCard = null;
+        } else {
+            $scope.inspectedCard = card;
+        }
+    };
+
+    $scope.add = function (card, count) {
+        for (var x = 0; x < count; x++) {
+            $scope.deck.push(card);
+        }
+    };
+
+    $scope.remove = function (card, count) {
+        for (var t = 0; t < count; t++) {
+            for (var x = 0; x < $scope.deck.length; x++) {
+                if ($scope.deck[x].name === card.name) {
+                    $scope.deck.splice(x, 1);
+                    break;
+                }
+            }
+        }
     };
 
     $scope.getManaCost = function (mana) {
         var manaCost = [];
-        if (manaCost) {
+        if (mana) {
             manaCost = mana.replaceAll("{", "").replaceAll("}", "").split("");
         }
-
         return manaCost;
     };
 
-
-
     $scope.getIcon = function (mana) {
-        return deckService.buildCMCicon(mana);
-    };
-
-    $("#back").click(function () {
-        pageChange("left");
-    });
-
-    $("#forward").click(function () {
-        pageChange("right");
-    });
-
-    $scope.removeCard = function (card) {
-        var deck = $scope.models.dropzones.deck;
-        for (var x = 0; x < deck.length; x++) {
-            var deckCard = deck[x];
-            if (deckCard.name == card.name) {
-                $scope.models.dropzones.deck.splice(x, 1);
-                break;
-            }
-        }
-    };
-
-    $scope.addCard = function (card) {
-        console.log(card);
-        if (card.cardsLeft) {
-            if (card.cardsLeft > 0) {
-                $scope.models.dropzones.deck.push(card);
-            }
+        var ret = "";
+        if (mana == "U") {
+            ret = "icon-bluesvg";
+        } else if (mana == "W") {
+            ret = "icon-whitesvg";
+        } else if (mana == "B") {
+            ret = "icon-blacksvg";
+        } else if (mana == "R") {
+            ret = "icon-redsvg";
+        } else if (mana == "G") {
+            ret = "icon-greensvg";
+        } else if (mana == "X") {
+            ret = "icon-x";
         } else {
-            $scope.models.dropzones.deck.push(card);
+            ret = "icon-" + mana;
         }
-
+        return ret;
     };
 
-    $scope.searchText = function (text) {
-        cardService.setTextToSearch(text);
-        cardService.filterText();
-        updatePage();
-    };
+    function calculatePages(cards) {
+        $scope.totalPages = cards.length / maxPages;
+        $scope.currentPage = 1;
+        $scope.filteredCards = cards.slice(($scope.currentPage - 1) * maxPages, ($scope.currentPage * maxPages) + 1);
+    }
 
-    $scope.formatChange = function (format) {
-        cardService.setParam("format", format);
-        resetPage();
-    };
+    function filterType(cards) {
+        $scope.filteredCards = cards.filter(function (card) {
+            var ret = false;
+            if ($scope.selectedTypes.length > 0) {
+                $scope.selectedTypes.forEach(function (type) {
+                    card.types.forEach(function (cardType) {
+                        if (type.id == cardType) {
+                            ret = true;
+                        }
+                    });
+                });
+            } else {
+                ret = true
+            }
 
-    $scope.typeChange = function (type) {
-        cardService.setParam("type", type);
-        resetPage();
-    };
-
-    $scope.suggestLand = function () {
-        var suggestedLand = deckService.suggestBasicLands();
-        $scope.sIsland = suggestedLand.Island.count || 0;
-        $scope.sPlains = suggestedLand.Plains.count || 0;
-        $scope.sSwamp = suggestedLand.Swamp.count || 0;
-        $scope.sMountain = suggestedLand.Mountain.count || 0;
-        $scope.sForest = suggestedLand.Forest.count || 0;
-    };
-
-    $scope.countMana = function (color, direction) {
-        switch (color) {
-            case 'u':
-                if(direction == "+")
-                    $scope.sIsland++;
-                else
-                    if($scope.sIsland > 0)
-                        $scope.sIsland--;
-                break;
-            case 'w':
-                if(direction == "+")
-                    $scope.sPlains++;
-                else
-                    if($scope.sPlains > 0)
-                        $scope.sPlains--;
-                break;
-            case 'b':
-                if(direction == "+")
-                    $scope.sSwamp++;
-                else
-                    if($scope.sSwamp > 0)
-                        $scope.sSwamp--;
-                break;
-            case 'r':
-                if(direction == "+")
-                    $scope.sMountain++;
-                else
-                    if($scope.sMountain > 0)
-                        $scope.sMountain--;
-                break;
-            case 'g':
-                if(direction == "+")
-                    $scope.sForest++;
-                else
-                    if($scope.sForest > 0)
-                        $scope.sForest--;
-                break;
-        }
-    };
-
-    $scope.applyLands = function (u, w, b, r, g) {
-        var lands = [{land:"u", count:u}, {land:"w", count:w}, {land:"b", count:b}, {land:"r", count:r}, {land:"g", count:g}];
-        lands.forEach(function (land) {
-           if(land.count > 0){
-               var deck = $scope.models.dropzones.deck;
-               $scope.models.dropzones.deck = deck.concat(createLand(land.land, land.count));
-           }
+            return ret;
         });
+        calculatePages($scope.filteredCards);
+    }
+
+    $scope.filterText = function () {
+        if ($scope.cardSearch != "") {
+            $scope.filteredCards = filterTextProcess($scope.cardSearch, $scope.cards);
+            $scope.searchedCards = $scope.filteredCards;
+            filterType($scope.searchedCards);
+        } else {
+            $scope.filteredCards = $scope.cards;
+            $scope.searchedCards = null;
+            filterType($scope.filteredCards);
+        }
+
+        calculatePages($scope.filteredCards);
     };
 
-    $scope.prepareStats = function () {
-        var symbols = deckService.getManaSymbolCount();
-        var symbolsCount = [symbols.blue, symbols.white,symbols.black,symbols.red,symbols.green];
-      createChart(deckService.getManaCurve(), symbolsCount);
-    };
+    function filterTextProcess(searchText, cards) {
+        var splitText = /@/g;
+        if (searchText.match(splitText)) {
+            var searchBy = searchText.split('@');
+            cards = filterTextProcess(searchBy[0], cards);
+            if (searchBy[1]) {
+                var regex = /(\(((\d|[x!X])\/(\d|[x|X]))\))/g
+                if (searchBy[1].match(regex)) {
+                    cards = filterTextProcess(searchBy[1], cards);
+                }
+            }
+            return cards;
+        }
+
+        var subtypes = getSubtypes(searchText);
+        var cardText = getCardText(searchText);
+        var pwrTough = getPowerToughness(searchText);
+
+        if (pwrTough) {
+            cards = checkPowerToughness(pwrTough, cards);
+        } else {
+            var check = true;
+            if (subtypes) {
+                cards = checkSubTypes(subtypes, cards);
+                check = false;
+            }
+            if (cardText) {
+                cards = checkCardText(cardText, cards);
+                check = false;
+            }
+
+            if (check) {
+                cards = checkAll(searchText, cards);
+            }
+        }
+        return cards;
+    }
+
+    $scope.getCount = function (i) {
+        var iCount = 0;
+        for (var j = 0; j < $scope.deck.length; j++) {
+            if ($scope.deck[j].name == i) {
+                iCount++;
+            }
+        }
+        return iCount;
+    }
 
     $scope.exportDeck = function () {
         $scope.exportedDeck = "";
-        var displayDeck = deckService.displayDeck;
+        var displayDeck = reduceArrayP2($scope.deck);
         if (displayDeck.length >= 1) {
             for (var i = 0; i < displayDeck.length; i++) {
                 $scope.exportedDeck += (displayDeck[i].count + "x");
                 $scope.exportedDeck += (" " + displayDeck[i].name);
                 $scope.exportedDeck += "\r\n";
             }
-            $scope.exportFile = exportImportService.createExportFile($window, $scope.exportedDeck);
+            $scope.exportFile = createExportFile($window, $scope.exportedDeck);
         }
         else {
             $scope.exportedDeck = "No cards in deck."
@@ -200,367 +282,47 @@ angular.module('app').controller('mainCtrl', function ($scope, $http, $window, $
     };
 
     $scope.importDeck = function (importedString, willOverride) {
-        exportImportService.import(importedString).then(function (imported) {
+        importDeck(importedString).then(function (imported) {
             if (willOverride) {
-                $scope.models.dropzones.deck = imported;
+                $scope.deck = imported;
             } else {
-                $scope.models.dropzones.deck = $scope.models.dropzones.deck.concat(imported);
+                $scope.deck = $scope.deck.concat(imported);
             }
         });
     };
 
-    /*
-     SETTINGS
-     */
-    $("#banned").change(function (event) {
-        hideBanned = !hideBanned;
-        $cookies.put('bannedSelection', hideBanned);
-        filterCards();
-    });
-
-    $("#duplicates").change(function (event) {
-        hideDupes = !hideDupes;
-        $cookies.put('duplicateSelection', hideDupes);
-        filterCards();
-    });
-
-    /*
-     RARITY FILTERS
-     */
-    $("#common").change(function (event) {
-        rarityChange("Common", event);
-        rarityFilter();
-    });
-
-    $("#uncommon").change(function (event) {
-        rarityChange("Uncommon", event);
-        rarityFilter();
-    });
-
-    $("#rare").change(function (event) {
-        rarityChange("Rare", event);
-        rarityFilter();
-    });
-
-    $("#mythic").change(function (event) {
-        rarityChange("Mythic Rare", event);
-        rarityFilter();
-    });
-
-    function rarityChange(rarity, event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentRarities.push(rarity);
-        } else {
-            var index = currentRarities.indexOf(rarity);
-            currentRarities.splice(index, 1);
-        }
+    function createExportFile($window, textToWrite) {
+        var text = textToWrite;
+        var blob = new Blob([text], {type: "text/plain"}),
+            url = $window.URL || $window.webkitURL;
+        return url.createObjectURL(blob);
     }
 
-    /*
-     COLOR FILTERS
-     */
-    $("#c").change(function (event) {
-        colorChange("C", event);
-        colorFilter();
-    });
-
-    $("#b").change(function (event) {
-        colorChange("B", event);
-        colorFilter();
-    });
-
-    $("#w").change(function (event) {
-        colorChange("W", event);
-        colorFilter();
-    });
-
-    $("#u").change(function (event) {
-        colorChange("U", event);
-        colorFilter();
-    });
-
-    $("#r").change(function (event) {
-        colorChange("R", event);
-        colorFilter();
-    });
-
-    $("#g").change(function (event) {
-        colorChange("G", event);
-        colorFilter();
-    });
-
-    $("#and").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            if (params.colorop == "only") {
-                params.colorop = "and,only";
-            } else {
-                params.colorop = "and";
-            }
-        } else {
-            if (params.colorop == "and,only") {
-                params.colorop = "only";
-            } else {
-                params.colorop = "";
-            }
-        }
-        colorFilter();
-    });
-
-    $("#only").change(function (event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            if (params.colorop == "and") {
-                params.colorop = "and,only";
-            } else {
-                params.colorop = "only";
-            }
-        } else {
-            if (params.colorop == "and,only") {
-                params.colorop = "and";
-            } else {
-                params.colorop = "";
-            }
-        }
-        colorFilter();
-    });
-
-    function colorChange(color, event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentColors.push(color);
-        } else {
-            var index = currentColors.indexOf(color);
-            currentColors.splice(index, 1);
-        }
-    }
-
-    /*
-     CMC FILTERS
-     */
-    $("#cmcZero").change(function (event) {
-        CMCChange("0", event);
-        cmcFilter();
-    });
-
-    $("#cmcOne").change(function (event) {
-        CMCChange("1", event);
-        cmcFilter();
-    });
-
-    $("#cmcTwo").change(function (event) {
-        CMCChange("2", event);
-        cmcFilter();
-    });
-
-    $("#cmcThree").change(function (event) {
-        CMCChange("3", event);
-        cmcFilter();
-    });
-
-    $("#cmcFour").change(function (event) {
-        CMCChange("4", event);
-        cmcFilter();
-    });
-
-    $("#cmcFive").change(function (event) {
-        CMCChange("5", event);
-        cmcFilter();
-    });
-
-    $("#cmcSix").change(function (event) {
-        CMCChange("6", event);
-        cmcFilter();
-    });
-
-    $("#cmcSeven").change(function (event) {
-        CMCChange("7", event);
-        cmcFilter();
-    });
-
-    $("#cmcEightPlus").change(function (event) {
-        CMCChange("8", event);
-        cmcFilter();
-    });
-
-    $scope.dragStart = function () {
-        $('#drag-box').removeClass("drag-box").addClass("drag-box-ondrag");
-    };
-
-    $scope.dragEnd = function () {
-        $('#drag-box').removeClass("drag-box-ondrag").addClass("drag-box");
-    };
-
-    function CMCChange(number, event) {
-        var checkbox = event.target;
-        if (checkbox.checked) {
-            currentCMC.push(number);
-        } else {
-            var index = currentCMC.indexOf(number);
-            currentCMC.splice(index, 1);
-        }
-    }
-
-    function colorFilter() {
-        cardService.setParam("colors", currentColors.join(","));
-        resetPage();
-    }
-
-    function cmcFilter() {
-        cardService.setParam("cmcs", currentCMC.join(","));
-        resetPage();
-    }
-
-    function rarityFilter() {
-        cardService.setParam("rarities", currentRarities.join(","));
-        resetPage();
-    }
-
-    function resetPage() {
-        paginateService.setPage(1);
-        filterCards();
-    }
-
-    function createLand(color, count) {
-        var lands = [];
-        var land;
-        if (color == "u") {
-            land = ISLAND;
-        } else if (color == "w") {
-            land = PLAINS;
-        } else if (color == "b") {
-            land = SWAMP;
-        } else if (color == "r") {
-            land = MOUNTAIN;
-        } else if (color == "g") {
-            land = FOREST;
-        }
-
-        for(var x = 0; x < count; x++){
-            lands.push(land);
-        }
-        return lands;
-    }
-
-    function pageChange(direction) {
-        if (direction) {
-            if (direction == "left") {
-                if (paginateService.currentPage > 1) {
-                    paginateService.setPage("-");
-                }
-            } else {
-                paginateService.setPage("+");
-            }
-            cardService.changePage();
-            updatePage();
-        }
-    }
-
-    function calcTotalCards() {
-        var counts = deckService.getTotalCardCount();
-        $scope.totalDisplayCards = counts.total;
-        $scope.totalCreatureCards = counts.creature;
-        $scope.totalSpellCards = counts.spell;
-        $scope.totalLandCards = counts.land;
-    }
-
-    function filterCards() {
-        $scope.topRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
-        $scope.botRow = [{loading: true}, {loading: true}, {loading: true}, {loading: true}];
-        cardService.getCards().then(function (cards) {
-            if(hideDupes){
-                cards = removeDuplicates("name", cards);
-            }
-            if(hideBanned){
-                cards = removeBanned(cards);
-            }
-            cardService.setFilteredCards(cards);
-            var filteredCards = cardService.filteredCards;
-            paginateService.setMaxPages(filteredCards);
-            cardService.changePage();
-            updatePage();
+    function importDeck(importedString) {
+        return $http({
+            method: 'GET',
+            url: '/api/buildImport?importedString=' + importedString
+        }).then(function responseCallback(response) {
+            return response.data;
+        }, function errorCallback(response) {
+            console.error(response.data);
         });
-
     }
 
-    function validatePageChange() {
-        if (paginateService.noBack()) {
-            $("#back").css("display", "none");
-        } else {
-            $("#back").css("display", "inherit");
-        }
-
-        if (paginateService.noForward()) {
-            $("#forward").css("display", "none");
-        } else {
-            $("#forward").css("display", "inherit");
-        }
-    }
-
-    $scope.showHover = function (card) {
-        $scope.isHover = true;
-        $scope.hoverCard = card;
+}).filter('roundup', function () {
+    return function (value) {
+        return Math.ceil(value);
     };
+}).filter('unique', function () {
 
-    $scope.hideHover = function () {
-        $scope.isHover = false;
-        $scope.hoverCard = null;
-    };
-
-    $scope.isSuspend = function (card) {
-        var ret = false;
-        var SuspendREGEX = /(Suspend \d+)—((\{\w\})+)/g;
-        var match = card.text.match(SuspendREGEX);
-        if(match) {
-            ret = true;
+    return function (arr, field) {
+        var o = {}, i, l = arr.length, r = [];
+        for (i = 0; i < l; i += 1) {
+            o[arr[i][field]] = arr[i];
         }
-        return ret;
-    };
-
-    $scope.suspendInfo = function (card) {
-        var ret = {
-            suspend: "",
-            cmc: "",
-        };
-        var SuspendREGEX = /(Suspend \d+)—((\{\w\})+)/g;
-        var SuspendText = /Suspend \d+/g;
-        var SuspendCMC = /((\{\w\})+)/g;
-        var match = card.text.match(SuspendREGEX);
-        ret.suspend = match[0].match(SuspendText)[0];
-        ret.cmc = match[0].match(SuspendCMC)[0];
-        return ret;
-    };
-
-    function updatePage() {
-        applyCardsLeft();
-        $scope.topRow = cardService.topRow;
-        $scope.botRow = cardService.botRow;
-        validatePageChange();
-        $scope.currentPage = paginateService.getCurrentPage();
-        $scope.totalPage = paginateService.getMaxPage();
-        $scope.$apply();
-    }
-
-    function applyCardsLeft() {
-        var displayDeck = deckService.displayDeck;
-        cardService.getCardsLeft(displayDeck);
-    }
-
-    function init() {
-        filterCards();
-        var banned = $cookies.get('bannedSelection');
-        var duplicates = $cookies.get('duplicateSelection');
-        console.log(banned + "-" + duplicates);
-        if(banned){
-            hideBanned = banned;
-            $("#banned").prop('checked', hideBanned);
+        for (i in o) {
+            r.push(o[i]);
         }
-        if(duplicates){
-            hideDupes = duplicates;
-            $("#duplicates").prop('checked', hideDupes);
-        }
-    }
-
-    init();
+        return r;
+    };
 });
