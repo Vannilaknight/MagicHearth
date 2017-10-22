@@ -1,0 +1,5 @@
+.format-select-box
+    select.format-select(ng-model="formatSelect", ng-change="formatChange(formatSelect)")
+        option(value="modern") Modern
+        option(value="standard") Standard
+    button.view-options-btn.btn.btn-primary(data-toggle="modal", data-target="#viewOptionsModal") View Options

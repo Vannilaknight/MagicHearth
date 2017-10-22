@@ -1,0 +1,14 @@
+$white: #D9BFA0;
+$blue: #548DBF;
+$black: #3F4038;
+$red: #D94E4E;
+$green: #5FA65D;
+$colorless: #AFAFAF;
+
+$card_bg_opacity: .6;
+$white_opacity: transparentize($white, $card_bg_opacity);
+$blue_opacity: transparentize($blue, $card_bg_opacity);
+$black_opacity: transparentize($black, $card_bg_opacity);
+$red_opacity: transparentize($red, $card_bg_opacity);
+$green_opacity: transparentize($green, $card_bg_opacity);
+$colorless_opacity: transparentize($colorless, $card_bg_opacity);

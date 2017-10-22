@@ -1,0 +1,29 @@
+html, body {
+  height: 100%;
+}
+
+.view {
+  height: calc(100% - 52px);
+}
+
+.container {
+  padding: 0;
+  margin: 0;
+}
+
+.container-fluid {
+  padding: 0;
+  margin: 0;
+}
+
+div[class*='col-'] {
+  padding: 0;
+  margin: 0;
+  //border: 1px solid green;
+}
+
+.navbar {
+  border-radius: 0;
+  padding: 0 15px;
+  margin: 0;
+}

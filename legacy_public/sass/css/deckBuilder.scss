@@ -1,0 +1,85 @@
+@import '../../../public/sass/css/vars';
+
+body, html {
+  width: 100vh;
+  height: 100vh;
+}
+
+.deck-builder-body {
+  position: relative;
+  background-image: url("./../../images/tableBG.jpg");
+  background-size: 100% 100%;
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  margin-left: -8px;
+  margin-top: -8px;
+  .deck-builder {
+    position: absolute;
+    margin-top: 20px;
+    width: 100%;
+    height: 90%;
+    .collection-box {
+      position: relative;
+      width: 69%;
+      display: inline-block;
+    }
+  }
+}
+
+
+
+
+
+.modal-header {
+  background: #262626;
+}
+
+.modal-body {
+  background: #262626;
+}
+
+
+@media screen and (min-width: 1920px) {
+  .deck-builder {
+    height: 900px;
+  }
+}
+
+@media screen and (min-width: 1680px) {
+  .deck-builder {
+    height: 900px;
+  }
+}
+
+@media screen and (min-width: 1600px) {
+  .deck-builder {
+    height: 800px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .deck-builder {
+    height: 800px;
+  }
+}
+
+@media screen and (min-width: 1366px) {
+  .deck-builder {
+    height: 700px;
+  }
+}
+
+@media screen and (min-width: 1280px) {
+  .deck-builder {
+    height: 700px;
+  }
+}
+
+@media screen and (min-width: 1024px) {
+  .deck-builder {
+    height: 700px;
+  }
+}

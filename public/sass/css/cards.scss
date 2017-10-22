@@ -1,0 +1,168 @@
+@import "colors";
+
+
+
+@function is-valid-keyword-direction($value) {
+  @return not not index(
+    'top' 'right' 'bottom' 'left'
+    'to top' 'to right' 'to bottom' 'to left'
+    'to top right' 'to right top'
+    'to bottom right' 'to right bottom'
+    'to top left' 'to left top'
+    'to bottom left' 'to left bottom', $value);
+}
+
+@mixin x-multiple-colored-gradient($args...) {
+
+  $gradient: ();
+  $pos: nth($args, 1);
+  $pos_newsyntax: ();
+
+  @if not is-valid-keyword-direction($pos) {
+    $pos: 'top';
+  }
+
+  // New Syntax
+  @if $pos == 'top' {
+    $pos_newsyntax: 'to bottom';
+  } @else if $pos == 'right' {
+    $pos_newsyntax: 'to left';
+  } @else if $pos == 'bottom' {
+    $pos_newsyntax: 'to top';
+  } @else if $pos == 'left' {
+    $pos_newsyntax: 'to right';
+  }
+
+  @each $g in $args {
+    @if not is-valid-keyword-direction($g) {
+      $gradient: append($gradient, $g, comma);
+    }
+  }
+
+  background-image: -webkit-linear-gradient(unquote($pos), $gradient);
+  background-image: linear-gradient(unquote($pos_newsyntax), $gradient);
+}
+
+// 1 Color
+.white-card {
+  background: $white_opacity;
+}
+
+.blue-card {
+  background: $blue_opacity;
+}
+
+.black-card {
+  background: $black_opacity;
+}
+
+.red-card {
+  background: $red_opacity;
+}
+
+.green-card {
+  background: $green_opacity;
+}
+
+// 2 Colors
+.white-blue-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 100%);
+}
+
+.white-black-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $black_opacity 100%);
+}
+
+.white-red-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $red_opacity 100%);
+}
+
+.white-green-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $green_opacity 100%);
+}
+
+.blue-black-card {
+  @include x-multiple-colored-gradient('left', $blue_opacity 0%, $black_opacity 100%);
+}
+
+.blue-red-card {
+  @include x-multiple-colored-gradient('left', $blue_opacity 0%, $red_opacity 100%);
+}
+
+.blue-green-card {
+  @include x-multiple-colored-gradient('left', $blue_opacity 0%, $green_opacity 100%);
+}
+
+.black-red-card {
+  @include x-multiple-colored-gradient('left', $black_opacity 0%, $red_opacity 100%);
+}
+
+.black-green-card {
+  @include x-multiple-colored-gradient('left', $black_opacity 0%, $green_opacity 100%);
+}
+
+.red-green-card {
+  @include x-multiple-colored-gradient('left', $red_opacity 0%, $green_opacity 100%);
+}
+
+// 3 Colors
+.white-blue-black-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 50%, $black_opacity 100%);
+}
+
+.white-blue-red-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 50%, $red_opacity 100%);
+}
+
+.white-blue-green-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 50%, $green_opacity 100%);
+}
+
+.white-black-red-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $black_opacity 50%, $red_opacity 100%);
+}
+
+.white-black-green-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $black_opacity 50%, $green_opacity 100%);
+}
+
+.white-red-green-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $red_opacity 50%, $green_opacity 100%);
+}
+
+.blue-black-red-card {
+  @include x-multiple-colored-gradient('left', $blue_opacity 0%, $black_opacity 50%, $red_opacity 100%);
+}
+
+.blue-black-green-card {
+  @include x-multiple-colored-gradient('left', $blue_opacity 0%, $black_opacity 50%, $green_opacity 100%);
+}
+
+.black-red-green-card {
+  @include x-multiple-colored-gradient('left', $black_opacity 0%, $red_opacity 50%, $green_opacity 100%);
+}
+
+// 4 colors
+.white-blue-black-red-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 33%, $black_opacity 66%, $red_opacity 100%);
+}
+
+.white-blue-black-green-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 33%, $black_opacity 66%, $green_opacity 100%);
+}
+
+.white-black-red-green-card {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $black_opacity 33%, $red_opacity 66%, $green_opacity 100%);
+}
+
+.blue-black-red-green-card {
+  @include x-multiple-colored-gradient('left', $blue_opacity 0%, $black_opacity 33%, $red_opacity 66%, $green_opacity 100%);
+}
+
+// 5 colors
+
+.white-blue-black-red-green {
+  @include x-multiple-colored-gradient('left', $white_opacity 0%, $blue_opacity 25%, $black_opacity 50%, $red_opacity 75%, $green_opacity 100%);
+}
+
+

@@ -1,0 +1,213 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: #626359; }
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: #fff; }
+
+.icon-0:before {
+  content: "\61";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-1:before {
+  content: "\68";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-2:before {
+  content: "\67";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-3:before {
+  content: "\69";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-4:before {
+  content: "\6a";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-5:before {
+  content: "\6b";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-6:before {
+  content: "\6c";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-7:before {
+  content: "\6d";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-8:before {
+  content: "\6e";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-9:before {
+  content: "\6f";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-10:before {
+  content: "\70";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-11:before {
+  content: "\71";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-12:before {
+  content: "\72";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-13:before {
+  content: "\73";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-14:before {
+  content: "\74";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-15:before {
+  content: "\75";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-16:before {
+  content: "\76";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: #afafaf; }
+
+body, html {
+  width: 100vh;
+  height: 100vh; }
+
+.deck-builder-body {
+  position: relative;
+  background-image: url("./../../images/tableBG.jpg");
+  background-size: 100% 100%;
+  color: #fff;
+  width: 100vw;
+  height: 100vh;
+  margin: 0;
+  padding: 0;
+  margin-left: -8px;
+  margin-top: -8px; }
+  .deck-builder-body .deck-builder {
+    position: absolute;
+    margin-top: 20px;
+    width: 100%;
+    height: 90%; }
+    .deck-builder-body .deck-builder .collection-box {
+      position: relative;
+      width: 69%;
+      display: inline-block; }
+
+.modal-header {
+  background: #262626; }
+
+.modal-body {
+  background: #262626; }
+
+@media screen and (min-width: 1920px) {
+  .deck-builder {
+    height: 900px; } }
+
+@media screen and (min-width: 1680px) {
+  .deck-builder {
+    height: 900px; } }
+
+@media screen and (min-width: 1600px) {
+  .deck-builder {
+    height: 800px; } }
+
+@media screen and (min-width: 1440px) {
+  .deck-builder {
+    height: 800px; } }
+
+@media screen and (min-width: 1366px) {
+  .deck-builder {
+    height: 700px; } }
+
+@media screen and (min-width: 1280px) {
+  .deck-builder {
+    height: 700px; } }
+
+@media screen and (min-width: 1024px) {
+  .deck-builder {
+    height: 700px; } }

@@ -1,0 +1,461 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: #626359; }
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: #fff; }
+
+.icon-0:before {
+  content: "\61";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-1:before {
+  content: "\68";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-2:before {
+  content: "\67";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-3:before {
+  content: "\69";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-4:before {
+  content: "\6a";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-5:before {
+  content: "\6b";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-6:before {
+  content: "\6c";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-7:before {
+  content: "\6d";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-8:before {
+  content: "\6e";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-9:before {
+  content: "\6f";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-10:before {
+  content: "\70";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-11:before {
+  content: "\71";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-12:before {
+  content: "\72";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-13:before {
+  content: "\73";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-14:before {
+  content: "\74";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-15:before {
+  content: "\75";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-16:before {
+  content: "\76";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.deck-tray {
+  position: absolute;
+  display: inline-block;
+  width: 25%;
+  height: 100%;
+  padding: 0;
+  margin-left: 10px;
+  z-index: 1000; }
+  .deck-tray .deck-boxes {
+    height: 100%; }
+    .deck-tray .deck-boxes ul {
+      margin: 0;
+      padding: 0; }
+      .deck-tray .deck-boxes ul li {
+        list-style: none; }
+    .deck-tray .deck-boxes .deck-options {
+      border-bottom: 3px groove #ccbb99;
+      font-family: Relay;
+      position: relative;
+      padding: 10px;
+      color: #eeeecc;
+      z-index: 1000; }
+      .deck-tray .deck-boxes .deck-options button {
+        margin: 5px;
+        margin-bottom: 0; }
+      .deck-tray .deck-boxes .deck-options .clearall-btn {
+        float: right;
+        background: rgba(255, 0, 0, 0.1); }
+        .deck-tray .deck-boxes .deck-options .clearall-btn:hover {
+          background: rgba(255, 0, 0, 0.2);
+          cursor: pointer; }
+    .deck-tray .deck-boxes .display-box {
+      height: 85%;
+      overflow-y: scroll; }
+      .deck-tray .deck-boxes .display-box span {
+        font-family: Beleren;
+        top: 10px;
+        left: 25px;
+        display: block;
+        position: relative;
+        z-index: 9999;
+        color: #bdbdbd;
+        margin-bottom: 20px; }
+      .deck-tray .deck-boxes .display-box .total {
+        font-family: Belwe;
+        top: 10px;
+        left: 25px;
+        display: block;
+        position: relative;
+        z-index: 9999;
+        color: #ccbb99;
+        margin-bottom: 10px; }
+      .deck-tray .deck-boxes .display-box .deck-card {
+        width: 90%;
+        height: 40px;
+        margin: 10px auto;
+        color: #262626;
+        position: relative;
+        z-index: 999; }
+        .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control {
+          color: #eeeecc;
+          background: #262626;
+          border: 1px solid #000;
+          position: relative;
+          padding: 0;
+          margin: 0;
+          height: 100%; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-data {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: 5px;
+            width: 85%; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-data .text {
+              font-family: "beleren";
+              margin: 0;
+              padding: 0;
+              font-size: 12px;
+              display: block; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-data .text .subtype {
+                display: inline-block;
+                font-size: 10px;
+                color: #c2c2c2; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-data .mana-cost {
+              margin: 0;
+              padding: 0;
+              display: block;
+              margin-top: 5px;
+              font-size: 10px; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-data .mana-cost .icon {
+                display: inline-block; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-data .mana-cost .suspend {
+                display: inline-block;
+                position: relative;
+                top: -4px;
+                left: 5px; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-count {
+            text-align: center;
+            position: relative;
+            top: -20px;
+            width: 5%;
+            right: 8px;
+            display: inline-block; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control .card-count .count {
+              font-family: "Belwe"; }
+        .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature {
+          color: #eeeecc;
+          background: #262626;
+          border: 1px solid #000;
+          position: relative;
+          padding: 0;
+          margin: 0;
+          height: 100%; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-data {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: 5px;
+            width: 80%; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-data .text {
+              font-family: "beleren";
+              margin: 0;
+              padding: 0;
+              font-size: 12px;
+              display: block; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-data .text .subtype {
+                display: inline-block;
+                font-size: 10px;
+                color: #c2c2c2; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-data .mana-cost {
+              margin: 0;
+              padding: 0;
+              display: block;
+              margin-top: 5px;
+              font-size: 10px; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-data .mana-cost .icon {
+                display: inline-block; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-data .mana-cost .suspend {
+                display: inline-block;
+                position: relative;
+                top: -4px;
+                left: 5px; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .powerTough {
+            width: 5%;
+            display: inline-block;
+            position: relative;
+            font-family: Relay;
+            font-size: 12px;
+            color: #c2c2c2;
+            top: -8px;
+            text-align: left; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-count {
+            position: relative;
+            top: -20px;
+            width: 5%;
+            right: 8px;
+            display: inline-block;
+            text-align: center; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-no-control-creature .card-count .count {
+              font-family: "Belwe"; }
+        .deck-tray .deck-boxes .display-box .deck-card .card-content-control {
+          color: #eeeecc;
+          background: #262626;
+          border: 1px solid #000;
+          position: relative;
+          padding: 0;
+          margin: 0;
+          height: 100%; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control {
+            display: inline-block;
+            position: relative;
+            float: left;
+            padding: 0;
+            margin: 0;
+            width: 20%;
+            height: 100%; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button {
+              width: 49%;
+              height: 100%;
+              background: none;
+              border-radius: 0;
+              border: none;
+              border-right: 3px dotted #CCBB99; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button:active {
+                outline: none; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button:focus {
+                outline: none; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button:active > .deck-card {
+                background: #fbffbc; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button.add {
+                color: #5FA65D; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button.remove {
+                color: #D94E4E; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button.add:hover {
+                background: rgba(0, 255, 0, 0.1);
+                cursor: pointer;
+                color: #5FA65D; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button.remove:hover {
+                background: rgba(255, 0, 0, 0.1);
+                cursor: pointer;
+                color: #D94E4E; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button.disabled-add-btn:hover {
+                background: none;
+                cursor: default;
+                color: #afafaf; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .add-remove-control button.disabled-add-btn {
+                color: #afafaf; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-data {
+            display: inline-block;
+            margin: 0;
+            padding: 0;
+            padding-left: 5px;
+            width: 65%; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-data .text {
+              font-family: "beleren";
+              margin: 0;
+              padding: 0;
+              font-size: 12px;
+              display: block; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-data .text .subtype {
+                display: inline-block;
+                font-size: 10px;
+                color: #c2c2c2; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-data .mana-cost {
+              padding: 0;
+              display: block;
+              margin-top: 5px;
+              font-size: 10px; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-data .mana-cost .icon {
+                display: inline-block; }
+              .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-data .mana-cost .suspend {
+                display: inline-block;
+                position: relative;
+                top: -4px;
+                left: 5px; }
+          .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-count {
+            position: relative;
+            width: 5%;
+            top: -20px;
+            right: 8px;
+            display: inline-block;
+            text-align: center; }
+            .deck-tray .deck-boxes .display-box .deck-card .card-content-control .card-count .count {
+              font-family: "Belwe"; }
+    .deck-tray .deck-boxes .dndDragover {
+      background: #363636 !important; }
+    .deck-tray .deck-boxes .drag-box {
+      box-shadow: -1px 0 15px rgba(38, 38, 38, 0.5);
+      background-color: #262626;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      transition: background 1s;
+      border-radius: 10px; }
+      .deck-tray .deck-boxes .drag-box::before {
+        content: "";
+        pointer-events: none;
+        background-image: url("./../../images/trayBorder.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 1000; }
+      .deck-tray .deck-boxes .drag-box .export-import {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        z-index: 999;
+        margin: 2% 5%; }
+        .deck-tray .deck-boxes .drag-box .export-import .btn {
+          display: inline-block;
+          width: 45%;
+          margin-bottom: 10px; }
+    .deck-tray .deck-boxes .drag-box-ondrag {
+      box-shadow: 0 0 15px #262626;
+      background-color: #2e2e2e;
+      position: absolute;
+      top: 0;
+      height: 100%;
+      width: 100%;
+      transition: background .2s; }
+      .deck-tray .deck-boxes .drag-box-ondrag::before {
+        content: "";
+        background-image: url("./../../images/trayBorderOndrag.png");
+        background-size: 100% 100%;
+        background-repeat: no-repeat;
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        z-index: 2000; }
+      .deck-tray .deck-boxes .drag-box-ondrag .export-import {
+        position: absolute;
+        width: 100%;
+        bottom: 0;
+        z-index: 999;
+        margin: 2% 5%; }
+        .deck-tray .deck-boxes .drag-box-ondrag .export-import .btn {
+          display: inline-block;
+          width: 45%;
+          margin-bottom: 10px; }

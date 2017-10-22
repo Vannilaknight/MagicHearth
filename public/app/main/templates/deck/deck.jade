@@ -1,0 +1,31 @@
+.col-xs-12 Creatures - {{creatures.length}}
+.col-xs-12.card(ng-repeat="card in creatures | unique:'name'")
+    .col-xs-12.card-basics
+        .col-sm-1.count {{getCount(card.name)}}
+        .col-sm-5.name {{card.name}}
+        .col-sm-3.mana
+            .icon(ng-if="getManaCost(card.manaCost).length > 0", ng-repeat="cost in getManaCost(card.manaCost) track by $index", ng-class="getIcon(cost)")
+        .col-sm-3.controls
+            .pull-right
+                button.btn.btn-danger.btn-control(ng-click="remove(card, 1)") -1
+                button.btn.btn-success.btn-control(ng-click="add(card, 1)") +1
+.col-xs-12 Spells - {{spells.length}}
+.col-xs-12.card(ng-repeat="card in spells | unique:'name'")
+    .col-xs-12.card-basics
+        .col-sm-1.count {{getCount(card.name)}}
+        .col-sm-5.name {{card.name}}
+        .col-sm-3.mana
+            .icon(ng-if="getManaCost(card.manaCost).length > 0", ng-repeat="cost in getManaCost(card.manaCost) track by $index", ng-class="getIcon(cost)")
+        .col-sm-3.controls
+            .pull-right
+                button.btn.btn-danger.btn-control(ng-click="remove(card, 1)") -1
+                button.btn.btn-success.btn-control(ng-click="add(card, 1)") +1
+.col-xs-12 Lands - {{lands.length}}
+.col-xs-12.card(ng-repeat="card in lands | unique:'name'")
+    .col-xs-12.card-basics
+        .col-sm-1.count {{getCount(card.name)}}
+        .col-sm-8.name {{card.name}}
+        .col-sm-3.controls
+            .pull-right
+                button.btn.btn-danger.btn-control(ng-click="remove(card, 1)") -1
+                button.btn.btn-success.btn-control(ng-click="add(card, 1)") +1

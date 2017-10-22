@@ -1,0 +1,42 @@
+.reference-body
+    .logo
+        img(src="./../../images/SwingFaceBrandColor.png")
+    .container
+        .paperList
+            .lines
+                .headerText
+                    .list
+                        dt YourSearch   (Search All):
+                            dd Will return all cards with YourSearch in their card text, name, or subtype.
+                        dt *YourSearch* (Search SubType):
+                            dd Will return all cards with YourSearch as their subtype.
+                            dd Can be multiple i.e. *YourSearch1**YourSearch2*
+                        dt "YourSearch" (Search Text):
+                            dd Will return all cards with YourSearch in their card text.
+                        dt (Power/Toughness):
+                            dd Will return all cards with a power/toughness of #1/#2.
+                            dd Other formats; (X/tgh), (pwr/X), (*,*)
+                            dd X = no restriction on that value
+                        dt YourSearch@(pwr/tgh):
+                            dd Will return all cards with YourSearch in a cards name, text, and/or subtype that have (pwr/tgh).
+                            dd Works with "YourSearch", *YourSearch* and YourSearch
+                    .list
+                        dt By Color:
+                            dd Will return all cards that share a color with the Color Selected.
+                            dd Multiple Colors Selected will add additional colors to the return.
+                            dd i.e. Red, White; would return all cards with red mana symbols along with cards with white mana symbols.
+                            dd "&" will return cards that share all colors with the Selected Colors.
+                            dd "only" will return cards that only have the colors selected, no more, no less.
+                            dd "&, only" will return cards that only contain the selected colors.
+                        dt By Type:
+                            dd Will return cards that are that type.
+                            dd i.e. "Land" only returns lands.
+                        dt By Format:
+                            dd Will return all cards within the format selected.
+                        dt By Set:
+                            dd Will return all cards within the selected set.
+                        dt By Rarity (C, U, R, M)
+                            dd Will return all cards of selected rarities.
+                        dt By CMC (Converted Mana Cost)
+                            dd Returns all cards of selected mana cost.
+

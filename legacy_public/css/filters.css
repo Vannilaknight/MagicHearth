@@ -1,0 +1,373 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: #626359; }
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: #fff; }
+
+.icon-0:before {
+  content: "\61";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-1:before {
+  content: "\68";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-2:before {
+  content: "\67";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-3:before {
+  content: "\69";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-4:before {
+  content: "\6a";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-5:before {
+  content: "\6b";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-6:before {
+  content: "\6c";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-7:before {
+  content: "\6d";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-8:before {
+  content: "\6e";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-9:before {
+  content: "\6f";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-10:before {
+  content: "\70";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-11:before {
+  content: "\71";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-12:before {
+  content: "\72";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-13:before {
+  content: "\73";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-14:before {
+  content: "\74";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-15:before {
+  content: "\75";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-16:before {
+  content: "\76";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.collection-box .top-filter {
+  position: relative;
+  width: 100%; }
+  .collection-box .top-filter .color-filter {
+    margin: 0;
+    width: 46%;
+    display: inline-block; }
+    .collection-box .top-filter .color-filter ul {
+      margin: 0;
+      padding: 0;
+      width: 100%; }
+      .collection-box .top-filter .color-filter ul li {
+        list-style: none;
+        display: inline-block;
+        width: 10%;
+        margin-left: 5px; }
+        .collection-box .top-filter .color-filter ul li .color-img {
+          width: 80%;
+          padding: 10%;
+          position: relative; }
+        .collection-box .top-filter .color-filter ul li .color-tab {
+          background-color: #262626;
+          background-size: cover;
+          background-repeat: no-repeat;
+          display: inline-block;
+          position: relative;
+          width: 100%;
+          border: 2px groove #CCBB99;
+          border-bottom: none;
+          border-top-left-radius: 10px;
+          border-top-right-radius: 10px;
+          transition: height .5s;
+          cursor: pointer; }
+        .collection-box .top-filter .color-filter ul li input[type=checkbox]:checked ~ .color-tab {
+          border: 2px groove #10e7ff;
+          border-bottom: none; }
+    .collection-box .top-filter .color-filter input[type=checkbox] {
+      position: absolute;
+      top: -9999px;
+      left: -9999px; }
+  .collection-box .top-filter .text-filter {
+    float: right;
+    background: #262626;
+    display: inline-block;
+    padding: 5px;
+    padding-top: 0;
+    margin: 0;
+    border: 2px groove #CCBB99;
+    border-radius: 5px;
+    position: relative;
+    width: 46%;
+    height: 100%; }
+    .collection-box .top-filter .text-filter .search-box {
+      margin: 0;
+      padding: 5px;
+      padding-bottom: 0;
+      display: inline-block;
+      width: 60%; }
+      .collection-box .top-filter .text-filter .search-box .search {
+        background: #262626;
+        color: #EEEECC;
+        font-family: "Beleren";
+        border: none;
+        height: 100%;
+        width: 100%;
+        font-size: 18px;
+        border-radius: 10px;
+        box-shadow: none; }
+        .collection-box .top-filter .text-filter .search-box .search:focus {
+          outline: none;
+          box-shadow: none; }
+    .collection-box .top-filter .text-filter .type-box {
+      width: 30%;
+      margin: 0;
+      margin-top: -15px;
+      padding: 0;
+      display: inline-block; }
+      .collection-box .top-filter .text-filter .type-box .type-filter {
+        width: 100%;
+        background: #262626;
+        color: #EEEECC;
+        font-family: "Beleren";
+        border: 2px groove #CCBB99;
+        text-align: center;
+        height: 100%;
+        line-height: 36px;
+        padding: 0;
+        box-shadow: none; }
+    .collection-box .top-filter .text-filter .admin-settings {
+      text-decoration: none;
+      background: rgba(255, 169, 17, 0.43);
+      font-family: Relay;
+      font-size: 10px;
+      padding: 2px; }
+
+.collection-box .bot-filter {
+  margin: 0;
+  padding: 0;
+  padding-left: 20px;
+  position: relative;
+  top: -1px; }
+  .collection-box .bot-filter .view-options-btn {
+    float: right;
+    margin: 5px; }
+  .collection-box .bot-filter .format-select-box {
+    width: 25%;
+    height: 100%;
+    position: relative;
+    top: 0;
+    display: inline-block;
+    background: #262626;
+    border: 2px groove #ccbb99;
+    border-top: none;
+    border-bottom-right-radius: 5px;
+    border-bottom-left-radius: 5px;
+    z-index: 1; }
+    .collection-box .bot-filter .format-select-box .format-select {
+      height: 100%;
+      margin: 5px;
+      margin-left: 15px;
+      line-height: 36px;
+      background: #262626;
+      border: 2px groove #ccbb99;
+      font-family: "Beleren";
+      color: #eeeecc;
+      font-size: 14px; }
+      .collection-box .bot-filter .format-select-box .format-select:focus {
+        outline: none; }
+  .collection-box .bot-filter .rarity-filter-box {
+    vertical-align: top;
+    width: 35%;
+    position: relative;
+    top: 10%;
+    display: inline-block; }
+    .collection-box .bot-filter .rarity-filter-box ul {
+      top: 0;
+      margin: 0;
+      padding: 0; }
+      .collection-box .bot-filter .rarity-filter-box ul li {
+        width: 20%;
+        margin: 0 2%;
+        list-style: none;
+        display: inline-block; }
+    .collection-box .bot-filter .rarity-filter-box input[type=checkbox] {
+      position: absolute;
+      top: -9999px;
+      left: -9999px; }
+    .collection-box .bot-filter .rarity-filter-box .rarity-tab {
+      position: relative;
+      width: 100%;
+      display: inline-block;
+      border: 2px groove #CCBB99;
+      font-family: Relay;
+      height: 30px;
+      font-size: 10px;
+      color: #eeeecc;
+      text-align: center;
+      border-top: none;
+      background: #262626;
+      top: -5px;
+      line-height: 30px;
+      border-bottom-left-radius: 10px;
+      border-bottom-right-radius: 10px;
+      transition: height .5s;
+      cursor: pointer; }
+    .collection-box .bot-filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-c {
+      color: #000;
+      border: 2px groove #00d8ff; }
+    .collection-box .bot-filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-u {
+      color: #bdbdbd;
+      border: 2px groove #00d8ff; }
+    .collection-box .bot-filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-r {
+      color: #ffc642;
+      border: 2px groove #00d8ff; }
+    .collection-box .bot-filter .rarity-filter-box input[type=checkbox]:checked ~ .rarity-m {
+      color: #ff7555;
+      border: 2px groove #00d8ff; }
+  .collection-box .bot-filter .cmc-filter-box {
+    width: 35%;
+    display: inline-block;
+    position: absolute;
+    top: 0; }
+    .collection-box .bot-filter .cmc-filter-box ul {
+      position: relative;
+      display: inline-block;
+      top: 0;
+      margin: 0 auto;
+      padding: 0 5px 0 15px;
+      background: #262626;
+      border: 2px groove #CCBB99;
+      border-top: none;
+      border-bottom-left-radius: 5px;
+      border-bottom-right-radius: 5px; }
+      .collection-box .bot-filter .cmc-filter-box ul li {
+        list-style: none;
+        display: inline-block;
+        margin: 0 1px;
+        padding: 0;
+        width: 10%; }
+    .collection-box .bot-filter .cmc-filter-box input[type=checkbox] {
+      position: absolute;
+      top: -9999px;
+      left: -9999px; }
+    .collection-box .bot-filter .cmc-filter-box .mana-tab {
+      position: relative;
+      text-align: center;
+      font-family: "beleren";
+      color: #262626;
+      display: inline-block;
+      width: 100%;
+      border-radius: 100%;
+      cursor: pointer; }
+      .collection-box .bot-filter .cmc-filter-box .mana-tab img {
+        width: 90%;
+        border: 2px inset transparent; }
+    .collection-box .bot-filter .cmc-filter-box input[type=checkbox]:checked ~ .mana-tab img {
+      border: 2px inset #00d8ff;
+      border-radius: 100%; }

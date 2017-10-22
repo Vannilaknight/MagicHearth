@@ -1,0 +1,173 @@
+@charset "UTF-8";
+@import "colors";
+
+@font-face {
+  font-family: 'Belwe';
+  src: url("../../fonts/OPTIBelwe-Medium.woff");
+}
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("../../fonts/beleren.ttf");
+}
+
+@font-face {
+  font-family: 'Relay';
+  src: url("../../fonts/relay.ttf");
+}
+
+@font-face {
+  font-family: "Mana";
+  src: url("../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal;
+}
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  font-size: 16px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+.icon {
+  display: inline-block;
+}
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: $black;
+}
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: $blue;
+}
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: $green;
+}
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: $red
+}
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: $white;
+}
+
+.icon-0:before {
+  content: "\61";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-1:before {
+  content: "\68";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-2:before {
+  content: "\67";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-3:before {
+  content: "\69";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-4:before {
+  content: "\6a";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-5:before {
+  content: "\6b";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-6:before {
+  content: "\6c";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-7:before {
+  content: "\6d";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-8:before {
+  content: "\6e";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-9:before {
+  content: "\6f";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-10:before {
+  content: "\70";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-11:before {
+  content: "\71";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-12:before {
+  content: "\72";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-13:before {
+  content: "\73";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-14:before {
+  content: "\74";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-15:before {
+  content: "\75";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-16:before {
+  content: "\76";
+  font-family: "Mana";
+  color: $colorless;
+}
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: $colorless;
+}

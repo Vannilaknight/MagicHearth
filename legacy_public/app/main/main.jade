@@ -1,0 +1,83 @@
+.deck-builder-body
+    .deck-builder
+        .collection-box
+            .top-filter
+                include templates/ColorFilter
+                include templates/TextFilter
+            .card-view
+                img.zoom-view(ng-src="http://magiccards.info/scans/en/{{hoverCard.set}}/{{hoverCard.number}}.jpg", ng-show="isHover")
+                include templates/CardView
+            .bot-filter
+                include templates/FormatSetFilter
+                include templates/RarityFilter
+                include templates/CMCFilter
+        .deck-tray(ng-repeat="(zone, list) in models.dropzones", ng-mouseleave="hideHover()")
+            .deck-boxes
+                .deck-options
+                    button.suggest-btn.btn.btn-primary(data-toggle="modal", data-target="#manaModal", ng-click="suggestLand()") Suggest Land
+                    button.stats-btn.btn.btn-primary(data-toggle="modal", data-target="#statsModal", ng-click="prepareStats()") Deck Statistics
+                    button.clearall-btn.btn.btn-primary(ng-click="clearDeck()") Clear all
+                ul#display-box.display-box
+                    div
+                        .total TOTAL - {{totalDisplayCards}}
+                        span CREATURES - {{totalCreatureCards}}
+                        li.deck-card.display-card-border(ng-repeat='displayCard in creatureDeck', ng-class="getBorder(displayCard.manaCost)")
+                            include templates/CreatureDisplayGroup
+                        span SPELLS - {{totalSpellCards}}
+                        li.deck-card.display-card-border(ng-repeat='displayCard in spellDeck', ng-class="getBorder(displayCard.manaCost)")
+                            include templates/SpellDisplayGroup
+                        span LAND - {{totalLandCards}}
+                        li.deck-card.display-card-border(ng-repeat='displayCard in landDeck', ng-class="getBorder(displayCard.manaCost)")
+                            include templates/LandDisplayGroup
+                ul#drag-box.drag-box(dnd-list='list')
+                    .export-import
+                        button.btn.btn-primary.export-btn(data-toggle="modal", data-target="#exportModal", ng-click="exportDeck()") Export
+                        button.btn.btn-primary.import-btn(data-toggle="modal", data-target="#importModal") Import
+include ../../../public/app/main/Modals/Export
+include ../../../public/app/main/Modals/Import
+include ../../../public/app/main/Modals/ManaSuggest
+include ../../../public/app/main/Modals/Stats
+include ../../../public/app/main/Modals/ViewOptions
+script(src='/scripts/Charts/charts.js')
+script.
+    var myCounter = 0,
+        myOtherCounter = 0;
+    var scroll = 0;
+
+    //Firefox
+    // $(document).bind(...) this works as well
+    $('body').bind('DOMMouseScroll', function (e) {
+        if (e.originalEvent.detail > 0) {
+            scrollDown();
+        } else {
+            scrollUp();
+        }
+
+        //prevent page fom scrolling
+        return false;
+    });
+
+    //IE, Opera, Safari
+    $('body').bind('mousewheel', function (e) {
+        if (e.originalEvent.wheelDelta < 0) {
+            scrollDown();
+        } else {
+            scrollUp();
+        }
+        //prevent page fom scrolling
+        return false;
+    });
+
+    function scrollDown() {
+        if (scroll < $('#display-box').find('div').height() - $('#display-box').height() + 20) {
+            scroll = $('#display-box').scrollTop() + 10;
+            $('#display-box').scrollTop(scroll);
+        }
+    };
+
+    function scrollUp() {
+        if (scroll > 0) {
+            scroll = $('#display-box').scrollTop() - 10;
+            $('#display-box').scrollTop(scroll);
+        }
+    };

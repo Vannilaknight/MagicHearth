@@ -1,0 +1,45 @@
+@import '../../../public/sass/css/vars';
+
+body {
+  overflow: scroll;
+  user-select: none;
+}
+
+div {
+  //border: 1px solid rgba(255, 105, 120, 0.17);
+}
+
+.container-fluid {
+  padding: 0;
+}
+
+.challenge-btn {
+  margin-top: 10px;
+  margin-right: 45px;
+}
+
+.home-btn {
+  margin-top: 25px;
+}
+
+.toggles {
+  margin: 25px;
+}
+
+.btn {
+  border: 2px groove #ccbb99;
+  font-family: "Beleren";
+  color: #eeeecc;
+  &:hover {
+    border: 2px groove #ccbb99;
+    color: #eeeecc;
+  }
+}
+
+.btn-primary {
+  background: #262626;
+  &:hover {
+    background: #2f2f2f;
+  }
+}
+

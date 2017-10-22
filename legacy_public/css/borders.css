@@ -1,0 +1,253 @@
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: #626359; }
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: #fff; }
+
+.icon-0:before {
+  content: "\61";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-1:before {
+  content: "\68";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-2:before {
+  content: "\67";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-3:before {
+  content: "\69";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-4:before {
+  content: "\6a";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-5:before {
+  content: "\6b";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-6:before {
+  content: "\6c";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-7:before {
+  content: "\6d";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-8:before {
+  content: "\6e";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-9:before {
+  content: "\6f";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-10:before {
+  content: "\70";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-11:before {
+  content: "\71";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-12:before {
+  content: "\72";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-13:before {
+  content: "\73";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-14:before {
+  content: "\74";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-15:before {
+  content: "\75";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-16:before {
+  content: "\76";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.display-card-border {
+  border: 1px solid #000;
+  padding: 2px;
+  padding-bottom: 4px;
+  background: #acacac; }
+
+.-U-W-B-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.25, #fff), color-stop(0.5, #626359), color-stop(0.75, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-U-W-B-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.33, #fff), color-stop(0.66, #626359), color-stop(1, #D94E4E)) !important; }
+
+.-U-W-B-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.33, #fff), color-stop(0.66, #626359), color-stop(1, #5FA65D)) !important; }
+
+.-U-W-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.33, #fff), color-stop(0.66, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-U-B-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.33, #626359), color-stop(0.66, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-W-B-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(0.33, #626359), color-stop(0.66, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-U-W-B-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.5, #fff), color-stop(1, #626359)) !important; }
+
+.-U-W-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.5, #fff), color-stop(1, #5FA65D)) !important; }
+
+.-U-R-B-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.5, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-U-B-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.5, #626359), color-stop(1, #D94E4E)) !important; }
+
+.-U-B-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.5, #626359), color-stop(1, #5FA65D)) !important; }
+
+.-U-W-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(0.5, #fff), color-stop(1, #D94E4E)) !important; }
+
+.-B-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #626359), color-stop(0.5, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-W-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(0.5, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-W-B-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(0.5, #626359), color-stop(1, #D94E4E)) !important; }
+
+.-W-B-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(0.5, #626359), color-stop(1, #5FA65D)) !important; }
+
+.-U-W-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(1, #fff)) !important; }
+
+.-U-B-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(1, #626359)) !important; }
+
+.-U-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(1, #D94E4E)) !important; }
+
+.-U-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF), color-stop(1, #5FA65D)) !important; }
+
+.-W-B-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(1, #626359)) !important; }
+
+.-W-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(1, #D94E4E)) !important; }
+
+.-W-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff), color-stop(1, #5FA65D)) !important; }
+
+.-B-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #626359), color-stop(1, #D94E4E)) !important; }
+
+.-B-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #626359), color-stop(1, #5FA65D)) !important; }
+
+.-R-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #D94E4E), color-stop(1, #5FA65D)) !important; }
+
+.-U-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #548DBF)) !important; }
+
+.-W-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #fff)) !important; }
+
+.-B-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #626359)) !important; }
+
+.-R-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #D94E4E)) !important; }
+
+.-G-border {
+  background-image: -webkit-gradient(linear, left bottom, right top, color-stop(0, #5FA65D)) !important; }

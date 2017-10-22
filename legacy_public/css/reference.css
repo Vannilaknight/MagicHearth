@@ -1,0 +1,220 @@
+@import url(https://fonts.googleapis.com/css?family=Indie+Flower);
+@font-face {
+  font-family: 'Belwe';
+  src: url("./../../fonts/OPTIBelwe-Medium.woff"); }
+
+@font-face {
+  font-family: 'Beleren';
+  src: url("./../../fonts/beleren.ttf"); }
+
+@font-face {
+  font-family: 'Relay';
+  src: url("./../../fonts/relay.ttf"); }
+
+@font-face {
+  font-family: "Mana";
+  src: url("./../../fonts/ManaSymbols.woff");
+  font-weight: normal;
+  font-style: normal; }
+
+[data-icon]:before {
+  content: attr(data-icon);
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+[class^="icon-"]:before, [class*=" icon-"]:before {
+  font-style: normal !important;
+  font-weight: normal !important;
+  font-variant: normal !important;
+  text-transform: none !important;
+  speak: none;
+  line-height: 1;
+  font-size: 14px;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale; }
+
+.icon-blacksvg:before {
+  font-family: "Mana";
+  content: "\62";
+  color: #626359; }
+
+.icon-bluesvg:before {
+  font-family: "Mana" !important;
+  content: "\63";
+  color: #548DBF; }
+
+.icon-greensvg:before {
+  font-family: "Mana" !important;
+  content: "\64";
+  color: #5FA65D; }
+
+.icon-redsvg:before {
+  font-family: "Mana" !important;
+  content: "\65";
+  color: #D94E4E; }
+
+.icon-whitesvg:before {
+  font-family: "Mana" !important;
+  content: "\66";
+  color: #fff; }
+
+.icon-0:before {
+  content: "\61";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-1:before {
+  content: "\68";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-2:before {
+  content: "\67";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-3:before {
+  content: "\69";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-4:before {
+  content: "\6a";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-5:before {
+  content: "\6b";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-6:before {
+  content: "\6c";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-7:before {
+  content: "\6d";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-8:before {
+  content: "\6e";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-9:before {
+  content: "\6f";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-10:before {
+  content: "\70";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-11:before {
+  content: "\71";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-12:before {
+  content: "\72";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-13:before {
+  content: "\73";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-14:before {
+  content: "\74";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-15:before {
+  content: "\75";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-16:before {
+  content: "\76";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.icon-x:before {
+  content: "\77";
+  font-family: "Mana";
+  color: #afafaf; }
+
+.reference-body {
+  height: 100vh;
+  width: 100vw;
+  margin-left: -8px;
+  margin-top: -8px;
+  background-image: url("./../../images/tableBG.jpg");
+  color: #fff;
+  overflow-y: scroll; }
+  .reference-body .logo {
+    width: 50%;
+    margin: 0 auto;
+    margin-bottom: 50px; }
+    .reference-body .logo img {
+      height: auto;
+      width: 100%; }
+  .reference-body .container {
+    margin-left: auto;
+    margin-right: auto;
+    width: 75%; }
+    .reference-body .container .paperList {
+      align: center;
+      position: relative;
+      height: 905px;
+      width: 100%;
+      background: white;
+      box-shadow: 0px 0px 10px 0px #888; }
+      .reference-body .container .paperList .lines {
+        height: calc(100% - 90px);
+        width: 100%;
+        background-image: repeating-linear-gradient(white 0px, white 24px, steelblue 25px); }
+        .reference-body .container .paperList .lines .headerText {
+          font-weight: bold;
+          position: absolute;
+          top: 25px;
+          left: 55px;
+          bottom: 10px;
+          right: 10px;
+          line-height: 25px;
+          font-family: 'Indie Flower';
+          overflow: hidden;
+          outline: none; }
+          .reference-body .container .paperList .lines .headerText .list {
+            color: black; }
+            .reference-body .container .paperList .lines .headerText .list dt {
+              color: #CC0000; }
+              .reference-body .container .paperList .lines .headerText .list dt dd {
+                font-weight: normal; }
+    .reference-body .container .paperList::before {
+      content: '';
+      position: absolute;
+      left: 45px;
+      height: 100%;
+      width: 2px;
+      background: rgba(255, 0, 0, 0.4); }
+    .reference-body .container a {
+      margin-left: 40%;
+      margin-top: 1%;
+      background: #262626;
+      border: 2px groove #ccbb99;
+      text-decoration: none;
+      padding: 10px 20px;
+      text-align: center;
+      border-radius: 5px;
+      font-family: Relay; }

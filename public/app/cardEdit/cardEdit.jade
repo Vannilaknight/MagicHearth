@@ -1,0 +1,10 @@
+.col-xs-12
+    button.btn.btn-primary(ng-click="prevCard()") Previous
+    button.btn.btn-primary(ng-click="nextCard()") Next
+.col-xs-12
+    .col-xs-6
+        img.cardImg(preload-image ng-src="http://magiccards.info/scans/en/{{currentCard.cardSet}}/{{currentCard.number}}.jpg" default-image="./../../images/cardback.jpg")
+    .col-xs-6
+        form(ng-submit="saveCard(genreTags)")
+            input.form-control(placeholder="Genre...", type="text", ng-model="genreTags")
+            button.btn.btn-success(type="submit") Save

@@ -1,0 +1,83 @@
+@import "vars";
+@import "colors";
+
+.builder-body {
+  height: 100%;
+  border: 1px solid rgba(0,0,0,.3);
+  .builder-sidenav {
+    .sidenav-item {
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      padding: 2px 5px;
+      font-family: "Belwe";
+      font-size: 18px;
+      height: 30px;
+      vertical-align: middle;
+      .sidenav-arrow {
+        margin-top: 2px;
+      }
+      &:hover {
+        background: rgba(0,0,0,.05);
+        cursor: pointer;
+        color: #806a52;
+      }
+      &:hover .sidenav-arrow {
+        color: #806a52;
+      }
+    }
+  }
+  .builder-cards {
+    border-left: 1px solid rgba(0,0,0,.3);
+    border-right: 1px solid rgba(0,0,0,.3);
+    overflow-y: scroll;
+    .card-filter {
+      .type-filter {
+        .type-label {
+          padding: 2px 5px;
+          display: inline-block;
+        }
+        .type-select {
+          padding: 2px 5px;
+          display: inline-block;
+        }
+        a.option {
+          cursor: pointer;
+        }
+      }
+    }
+
+    .card {
+      padding: 3px 5px;
+      font-family: "Relay";
+      font-size: 18px;
+      border-bottom: 1px solid rgba(0,0,0,.1);
+      .card-basics {
+        .name {
+
+        }
+        .inspect {
+          padding: 0 10px;
+          &:hover {
+            cursor: pointer;
+            color: $blue;
+          }
+        }
+        .mana {
+          .icon {
+
+          }
+        }
+      }
+    }
+  }
+  .builder-deck {
+    overflow-y: scroll;
+    .btn-control {
+      width: 35px;
+      height: 35px;
+    }
+  }
+}
+
+.full-height {
+  height: 100%;
+}
