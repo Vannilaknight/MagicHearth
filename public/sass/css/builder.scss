@@ -29,19 +29,10 @@
     border-left: 1px solid rgba(0,0,0,.3);
     border-right: 1px solid rgba(0,0,0,.3);
     overflow-y: scroll;
-    .card-filter {
-      .type-filter {
-        .type-label {
-          padding: 2px 5px;
-          display: inline-block;
-        }
-        .type-select {
-          padding: 2px 5px;
-          display: inline-block;
-        }
-        a.option {
-          cursor: pointer;
-        }
+    .card-search{
+      .filter {
+      }
+      .page-change {
       }
     }
 
@@ -52,7 +43,10 @@
       border-bottom: 1px solid rgba(0,0,0,.1);
       .card-basics {
         .name {
-
+          font-size: 1vw;
+        }
+        .type {
+          font-size: 1vw;
         }
         .inspect {
           padding: 0 10px;
@@ -80,4 +74,11 @@
 
 .full-height {
   height: 100%;
+}
+
+.hover-img {
+  display:block;
+  position:absolute;
+  overflow:hidden;
+  z-index: 999;
 }

@@ -1,21 +1,20 @@
 .col-xs-12.card-search
-    input.form-control.input-lg(type="text", ng-model="cardSearch", placeholder="search...", ng-change="filterText()")
-.col-xs-12.card-filter
-    .col-sm-4.type-filter
-        label.type-label Card Type:
-        .type-select(options='types', selected-model='selectedTypes', events="eventSettings", extra-settings="extraSettings" ng-dropdown-multiselect)
-    .col-sm-4
-    .col-sm-4.page-controls
+    .col-xs-8.filter
+        .input-group
+            .input-group-btn
+                .type-select(options='types', selected-model='typeFilter', events="eventSettings", extra-settings="extraSettings" ng-dropdown-multiselect)
+            input.form-control(type="text", ng-model="cardSearch", placeholder="search...", ng-change="filterText()")
+    .col-xs-4.page-change
         .pull-right
             label.type-label Page {{currentPage}}/{{totalPages | roundup}}
             button.btn.btn-primary.btn-control(ng-click="backPage()")
                 i.fa.fa-caret-left(aria-hidden='true')
             button.btn.btn-primary.btn-control(ng-click="nextPage()")
                 i.fa.fa-caret-right(aria-hidden='true')
-.col-xs-12.card(ng-repeat="card in filteredCards")
+.col-xs-12.card(ng-repeat="card in displayCards")
     .col-xs-12.card-basics
         .col-sm-3.name
-            i.fa.fa-eye.inspect(aria-hidden='true', ng-click="inspect(card)")
+            i.fa.fa-eye.inspect(aria-hidden='true' ng-mouseover="hoverViewIn(card.multiverseid)" ng-mousemove="moveImg($event)" ng-mouseleave="hoverViewOut()")
             | {{card.name}}
         .col-sm-4.type {{card.type}}
         .col-sm-3.mana
@@ -24,8 +23,11 @@
             .pull-right
                 button.btn.btn-success.btn-control(ng-click="add(card, 1)") +1
                 button.btn.btn-success.btn-control(ng-click="add(card, 4)") +4
-    .col-xs-12.card-details(ng-if="inspectedCard == card")
-        .col-xs-4
-            img.cardImg(preload-image ng-src="http://magiccards.info/scans/en/{{card.cardSet}}/{{card.number}}.jpg" default-image="./../../images/cardback.jpg")
-        .col-xs-8
-            span {{card.text}}
+    //.col-xs-12.card-details(ng-if="inspectedCard == card")
+    //    .col-xs-4
+    //        img.cardImg.img-responsive(preload-image ng-src="http://magiccards.info/scans/en/{{card.cardSet}}/{{card.number}}.jpg" default-image="./../../images/cardback.jpg")
+    //    .col-xs-8
+    //        span {{card.text}}
+    .hover-img(id="{{card.multiverseid}}", ng-show="currentHover == card.multiverseid")
+        img.cardImg.img-responsive(preload-image ng-src="http://magiccards.info/scans/en/{{card.cardSet}}/{{card.number}}.jpg" default-image="./../../images/cardback.jpg")
+

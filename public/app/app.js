@@ -40,7 +40,6 @@ angular.module('app', ['ngResource', 'ngRoute', 'ngAnimate', 'ngCookies', 'dndLi
                 controller: 'landingCtrl',
                 resolve: routeRoleChecks.admin
             })
-
     })
     .factory('$exceptionHandler', function ($log) {
         return function myExceptionHandler(exception, cause) {
