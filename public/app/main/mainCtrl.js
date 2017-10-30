@@ -99,8 +99,7 @@ angular.module('app').controller('mainCtrl', function ($scope, $rootScope, $http
         }
     };
 
-
-    $http.get('/api/modernCards').then(function (response) {
+    $http.get('/api/standardCards').then(function (response) {
         cards = response.data;
         filterCards();
     });
